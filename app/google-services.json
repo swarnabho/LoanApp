@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "187007616263",
+    "project_id": "loanapp-3a052",
+    "storage_bucket": "loanapp-3a052.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187007616263:android:df3dbae232e81ee74ab1a2",
+        "android_client_info": {
+          "package_name": "com.textifly.quickmudra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187007616263-s6hpbt00no26kaqjsl2fh5j1b54i3r9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.textifly.quickmudra",
+            "certificate_hash": "b8cc8fe7a550e42a0ad4d77e0492e4949b170ae2"
+          }
+        },
+        {
+          "client_id": "187007616263-n7bv4itnfeta7o2g5mntbrf2sv9dvcrq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9aq344lUCOatB_DC9sk1TO4CrJ3bG2YY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187007616263-n7bv4itnfeta7o2g5mntbrf2sv9dvcrq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

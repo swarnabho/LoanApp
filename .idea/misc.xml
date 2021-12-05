@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/bg_otp_item.xml" value="0.2" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/button_background.xml" value="0.2" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/button_bg.xml" value="0.20092592592592592" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/button_bg1.xml" value="0.2" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_camera_permission.xml" value="0.12013888888888889" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_mobile_no_verification.xml" value="0.1574074074074074" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_on_board_screen.xml" value="0.49" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_otp_validation.xml" value="0.25" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/row_onboard.xml" value="0.16111111111111112" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

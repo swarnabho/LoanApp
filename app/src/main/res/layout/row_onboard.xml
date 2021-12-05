@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1.5"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".4"
+        android:id="@+id/ivImage"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tvDetails"
+        android:textSize="18sp"
+        android:layout_margin="10dp"
+        android:textColor="@color/baseColor"
+        android:gravity="center_horizontal"
+        android:text="Approve loan instantly.Get Loan in no Time"
+        android:layout_weight="1.1"/>
+
+</LinearLayout>
