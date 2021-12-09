@@ -3,6 +3,7 @@ package com.textifly.quickmudra.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,7 +48,7 @@ public class OtpValidationActivity extends AppCompatActivity {
         phno = getIntent().getStringExtra("phno");
 
         mAuth = FirebaseAuth.getInstance();
-        binding.tvText.setText("Please type the verification code sent to +" + phno);
+        binding.tvText.setText("Please type the verification code sent to " + phno);
 
         initiateOtp();
 
@@ -183,6 +184,11 @@ public class OtpValidationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Phone number authentication completed", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(OtpValidationActivity.this,RegistrationActivity.class);
+                            intent.putExtra("phno",phno);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                            finish();
                         } else {
                             Toast.makeText(getApplicationContext(), "error in verifying otp", Toast.LENGTH_SHORT).show();
                         }
