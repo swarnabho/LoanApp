@@ -33,10 +33,11 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityRegistrationBinding binding;
-    String name,email,phno,password,referral,IMEINumber;
+    String name, email, phno, password, referral, IMEINumber;
     private static final int REQUEST_CODE = 101;
 
     TelephonyManager tm;
@@ -71,8 +72,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},123);
         }*/
 
-        IMEINumber = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
-        Log.d("IMEINumber",IMEINumber);
+        IMEINumber = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        Log.d("IMEINumber", IMEINumber);
 
     }
 
@@ -86,56 +87,74 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     private void BtnClick() {
         binding.btnSignup.setOnClickListener(this);
+        binding.btnGenerate.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnSignup:
                 //Toast.makeText(getApplicationContext(), "hi", Toast.LENGTH_SHORT).show();
                 checkData();
                 break;
+            case R.id.btnGenerate:
+                binding.tilPassword.getEditText().setText(passwordGenerator());
+                break;
         }
+    }
+
+    private String passwordGenerator() {
+        Random random = new Random();
+        String data = "";
+        int length = 10;
+        for (int i = 0; i < length; i++) {
+            char c = (char) (random.nextInt(26) + 97);
+            if (random.nextBoolean()) {
+                c = Character.toUpperCase(c);
+            }
+            data += c;
+        }
+        return data;
     }
 
     private void checkData() {
         String password = binding.tilPassword.getEditText().getText().toString();
         String cnfrmPassword = binding.tilConfirmPassword.getEditText().getText().toString();
-        Log.d("RES","p: "+password+", cP: "+cnfrmPassword);
+        Log.d("RES", "p: " + password + ", cP: " + cnfrmPassword);
         //Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_SHORT).show();
-        if(binding.tilName.getEditText().getText().toString().isEmpty()){
+        if (binding.tilName.getEditText().getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please enter Name", Toast.LENGTH_SHORT).show();
             binding.tilName.getEditText().requestFocus();
-        }else if(binding.tilEmail.getEditText().getText().toString().isEmpty()){
+        } else if (binding.tilEmail.getEditText().getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please enter Email", Toast.LENGTH_SHORT).show();
             binding.tilEmail.getEditText().requestFocus();
-        }else if(binding.tilPassword.getEditText().getText().toString().isEmpty()){
+        } else if (binding.tilPassword.getEditText().getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please enter Password", Toast.LENGTH_SHORT).show();
             binding.tilPassword.getEditText().requestFocus();
-        }else if(binding.tilConfirmPassword.getEditText().getText().toString().isEmpty()){
+        } else if (binding.tilConfirmPassword.getEditText().getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please enter confirm password", Toast.LENGTH_SHORT).show();
             binding.tilConfirmPassword.getEditText().requestFocus();
-        }else if(!password.equals(cnfrmPassword)){
+        } else if (!password.equals(cnfrmPassword)) {
             Toast.makeText(getApplicationContext(), "Password mismatch", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             registration();
         }
     }
 
     private void registration() {
-        CustomProgressDialog.showDialog(RegistrationActivity.this,true);
+        CustomProgressDialog.showDialog(RegistrationActivity.this, true);
         //RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest sr = new StringRequest(Request.Method.POST, Urls.REGISTER, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                CustomProgressDialog.showDialog(RegistrationActivity.this,false);
-                Log.d("RESPONSE",response);
+                CustomProgressDialog.showDialog(RegistrationActivity.this, false);
+                Log.d("RESPONSE", response);
                 try {
                     JSONObject object = new JSONObject(response);
-                    if(object.getString("status").equals("0")){
+                    if (object.getString("status").equals("0")) {
                         Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegistrationActivity.this,ApplyActivity.class));
-                        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                        startActivity(new Intent(RegistrationActivity.this, ApplyActivity.class));
+                        overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
 
                     }
                 } catch (JSONException e) {
@@ -145,11 +164,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("ERROR",error.getMessage());
+                Log.d("ERROR", error.getMessage());
                 Toast.makeText(getApplicationContext(), "Getting some troubles", Toast.LENGTH_SHORT).show();
-                CustomProgressDialog.showDialog(RegistrationActivity.this,false);
+                CustomProgressDialog.showDialog(RegistrationActivity.this, false);
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map = new HashMap<>();

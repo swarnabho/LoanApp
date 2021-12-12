@@ -20,27 +20,56 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".Activity.UploadDocumentActivity"
-            android:exported="true" >
-
+            android:name=".Activity.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.SplashScreenActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.WhatsAppVerificationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.MailVerificationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.AlternativeContactActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.UploadDocumentActivity"
+            android:exported="true">
 
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".Activity.EmploymentDetailsActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.PersonalDetailsActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.DetailsListActivity"
-            android:exported="true" />
+            android:exported="true">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
         <activity
             android:name=".Activity.ApplyActivity"
             android:exported="true" />
@@ -76,9 +105,8 @@
         <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
             -->
         </activity>
     </application>

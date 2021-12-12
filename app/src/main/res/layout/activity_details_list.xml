@@ -46,70 +46,76 @@
                 android:weightSum="1.5"
                 android:background="@drawable/button_bg"
                 >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight=".3"
-                    android:padding="15dp"
-                    android:layout_marginLeft="8dp"
-                    android:background="@color/colorGray"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Personal Details"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Fill your personal details"
-                        android:textSize="16sp"
-                        android:textColor="@color/gray"/>
-
-                </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.2"
-                    android:padding="15dp"
-                    android:gravity="end"
-                    android:background="@color/colorGray"
-                    >
+                    android:orientation="horizontal">
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:cardBackgroundColor="@color/baseColor"
-                        app:cardCornerRadius="50dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight=".3"
+                        android:padding="15dp"
+                        android:layout_marginLeft="8dp"
+                        android:background="@color/colorGray"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Personal Details"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Fill your personal details"
+                            android:textSize="16sp"
+                            android:textColor="@color/gray"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:padding="15dp"
+                        android:gravity="end"
+                        android:background="@color/colorGray"
                         >
 
                         <androidx.cardview.widget.CardView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            android:layout_margin="2.5dp"
-                            app:cardBackgroundColor="@color/colorGray"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:cardBackgroundColor="@color/baseColor"
                             app:cardCornerRadius="50dp"
                             >
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:id="@+id/percentPD"
-                                android:gravity="center"
-                                android:textColor="@color/baseColor"
-                                android:textSize="20sp"
-                                android:text="0%"
-                                />
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_margin="2.5dp"
+                                app:cardBackgroundColor="@color/colorGray"
+                                app:cardCornerRadius="50dp"
+                                >
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:id="@+id/percentPD"
+                                    android:gravity="center"
+                                    android:textColor="@color/baseColor"
+                                    android:textSize="20sp"
+                                    android:text="0%"
+                                    />
+
+
+                            </androidx.cardview.widget.CardView>
 
 
                         </androidx.cardview.widget.CardView>
 
-
-                    </androidx.cardview.widget.CardView>
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -512,7 +518,7 @@
 
 
     <TextView
-        android:id="@+id/tvStart"
+        android:id="@+id/tvContinue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

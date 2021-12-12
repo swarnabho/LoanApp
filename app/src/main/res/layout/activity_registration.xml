@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/baseColor"
+    android:background="@color/white"
     tools:context=".Activity.RegistrationActivity">
 
     <RelativeLayout
@@ -13,12 +13,302 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/top"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/baseColor">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingLeft="20dp"
+                        android:text="Singup Form"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/edit_text_background"
+                        android:textColorHint="@color/black4"
+                        app:errorEnabled="false"
+                        app:hintTextColor="@color/black4"
+                        app:startIconDrawable="@drawable/ic_person"
+                        app:startIconTint="@color/baseColor">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tieName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edit_text_background"
+                            android:hint="Name"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@null"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_background"
+                        android:textColorHint="@color/black4"
+                        app:errorEnabled="false"
+                        app:hintTextColor="@color/black4"
+                        app:startIconDrawable="@drawable/ic_email"
+                        app:startIconTint="@color/baseColor">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tieEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edit_text_background"
+                            android:hint="Email Address"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@null"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnGenerate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:backgroundTint="@color/baseColor"
+                        android:text="Generate Passsword"
+                        android:textSize="10sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_background"
+                        android:textColorHint="@color/black4"
+                        app:errorEnabled="false"
+                        app:hintTextColor="@color/black4"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/baseColor"
+                        app:startIconDrawable="@drawable/ic_lock"
+                        app:startIconTint="@color/baseColor">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tiePassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edit_text_background"
+                            android:hint="Password"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@null"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_background"
+                        android:textColorHint="@color/black4"
+                        app:errorEnabled="false"
+                        app:hintTextColor="@color/black4"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/baseColor"
+                        app:startIconDrawable="@drawable/ic_lock"
+                        app:startIconTint="@color/baseColor">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tieConfirmPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edit_text_background"
+                            android:hint="Confirm Password"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@null"
+                            android:textSize="15sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="15dp"
+                            android:src="@drawable/ic_baseline_account_box_24" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:text="Select your profile:"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilRefferal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_background"
+                        android:textColorHint="@color/black4"
+                        app:errorEnabled="false"
+                        app:hintTextColor="@color/black4"
+                        app:startIconDrawable="@drawable/ic_share"
+                        app:startIconTint="@color/baseColor">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tieRefferal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edit_text_background"
+                            android:hint="Referral/Promotion Code(optional)"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@null"
+                            android:textSize="15sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingRight="20dp">
+
+                    <Button
+                        android:id="@+id/btnSignup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/baseColor"
+                        android:padding="8dp"
+                        android:text="Register"
+                        android:textAllCaps="false"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_weight=".3"
+                            android:gravity="end"
+                            android:text="Already have account? Please "
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvSignIn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_weight=".7"
+                            android:gravity="start"
+                            android:textStyle="bold"
+                            android:paddingLeft="5dp"
+                            android:text="Sign in"
+                            android:textColor="@color/goldenColor"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <!--<androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/llSkip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/llButton"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/tv5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_back"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="7dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="7dp"
+                            android:text="SKIP"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--<LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView
@@ -235,7 +525,7 @@
                             android:textSize="16sp" />
                     </LinearLayout>
 
-                    <!--<androidx.appcompat.widget.LinearLayoutCompat
+                    &lt;!&ndash;<androidx.appcompat.widget.LinearLayoutCompat
                         android:id="@+id/llSkip"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -261,11 +551,11 @@
                             android:textAllCaps="true"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>-->
+                    </androidx.appcompat.widget.LinearLayoutCompat>&ndash;&gt;
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
 
         </androidx.core.widget.NestedScrollView>

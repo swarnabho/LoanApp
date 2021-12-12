@@ -50,6 +50,7 @@ public class MobileNoVerificationActivity extends AppCompatActivity implements V
 
     private void BtnClick() {
         binding.btnContinue.setOnClickListener(this);
+        binding.llLogin.setOnClickListener(this);
     }
 
     @Override
@@ -63,6 +64,10 @@ public class MobileNoVerificationActivity extends AppCompatActivity implements V
                     Toast.makeText(MobileNoVerificationActivity.this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
                     binding.etMobileNumber.requestFocus();
                 }
+                break;
+            case R.id.llLogin:
+                startActivity(new Intent(MobileNoVerificationActivity.this,LoginActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
         }
     }

@@ -10,4 +10,14 @@ public class Urls {
      * @Parameter : fname,email,mobile,confirm_password,promo_code,imei_no
      */
     public static final String REGISTER = BASEURL + "registration";
+
+
+    /**
+     * @Post : POST
+     * @Name : login
+     * @Parameter : mobile,password
+     */
+    public static final String LOGIN = BASEURL + "login";
+
 }
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_QCoin"
+        android:icon="@drawable/money"
+        android:title="QCoin" />
+
+
+    <item
+        android:id="@+id/navigation_cash"
+        android:icon="@drawable/exchange"
+        android:title="Quick Cash" />
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/stretching"
+        android:title="Activity" />
+
+    <item
+        android:id="@+id/navigation_refer"
+        android:icon="@drawable/exchange"
+        android:title="Refer" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/user"
+        android:title="Profile" />
+</menu>

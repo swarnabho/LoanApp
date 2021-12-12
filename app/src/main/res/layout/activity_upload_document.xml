@@ -31,13 +31,6 @@
                     app:cardBackgroundColor="@color/deepBaseColor"
                     app:cardCornerRadius="50dp">
 
-                    <!--<androidx.cardview.widget.CardView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        app:cardCornerRadius="50dp"
-                        app:cardBackgroundColor="@color/deepBaseColor">
-                    </androidx.cardview.widget.CardView>-->
-
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
@@ -126,147 +119,164 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llFirst"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_below="@id/textView"
+                android:layout_marginLeft="12dp"
                 android:layout_marginTop="50dp"
-                android:layout_marginRight="15dp"
-                android:orientation="vertical">
+                android:layout_marginRight="12dp"
+                android:elevation="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                app:contentPaddingBottom="2dp"
+                app:contentPaddingTop="10dp">
 
-                <androidx.cardview.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/textView"
-                    android:elevation="10dp"
-                    app:contentPaddingTop="10dp"
-                    app:contentPaddingBottom="10dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp">
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginLeft="10dp"
+                        android:text="Upload Documents"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="3dp"
+                        android:text="Upload documents for verification"
+                        android:textColor="@color/colorGray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Address proof and pan card picture will be clean and readable"
+                        android:textColor="@color/colorGray"
+                        android:textSize="15sp" />
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textView"
+                        android:layout_margin="10dp"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:padding="10dp"
                             android:orientation="vertical">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:gravity="start"
-                                android:text="Identity card of college or office"
-                                android:textColor="@color/black"
-                                android:textStyle="bold" />
+                                android:orientation="vertical"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="13dp"
+                                android:paddingBottom="13dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="20dp"
-                                android:padding="20dp"
-                                android:textColor="@color/white"
-                                android:background="@color/baseColor"
-                                android:text="Upload Front" />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="start"
+                                    android:text="Address Proof Font/Back"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="(voter/passport/driving license/Aadhar Card)"
+                                    android:textColor="@color/colorGray"
+                                    android:textSize="12sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:padding="20dp"
+                                    android:weightSum="2">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginRight="2dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/button_bg"
+                                        android:gravity="center"
+                                        android:paddingLeft="30dp"
+                                        android:paddingTop="30dp"
+                                        android:paddingRight="30dp"
+                                        android:paddingBottom="30dp"
+                                        android:text="Upload Front"
+                                        android:textColor="@color/white"
+                                        android:textSize="14sp" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="2dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/button_bg"
+                                        android:gravity="center"
+                                        android:paddingLeft="30dp"
+                                        android:paddingTop="30dp"
+                                        android:paddingRight="30dp"
+                                        android:paddingBottom="30dp"
+                                        android:text="Upload Back"
+                                        android:textColor="@color/white"
+                                        android:textSize="14sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/colorGray"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"/>
+                    </androidx.cardview.widget.CardView>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:padding="10dp"
-                            android:layout_marginRight="20dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:gravity="start"
-                                android:text="Selfie Picture"
-                                android:textColor="@color/black"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="start"
-                                android:text="Selfie Picture is clean and acceptable,from this picture user will be identify clearly" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="20dp"
-                                android:padding="20dp"
-                                android:textColor="@color/white"
-                                android:background="@color/baseColor"
-                                android:text="Upload Selfie" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llSecond"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="27dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginRight="27dp"
-                android:visibility="gone"
-                android:orientation="vertical"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textView"
-                    android:elevation="10dp"
-                    app:contentPaddingTop="10dp"
-                    app:contentPaddingBottom="10dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp">
-
-                    <LinearLayout
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_below="@id/textView"
+                        android:layout_margin="10dp"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
+
 
                         <LinearLayout
                             android:id="@+id/linear"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:padding="10dp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="13dp"
+                            android:paddingBottom="13dp"
+                            >
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
                                 android:gravity="start"
                                 android:text="Pan Card Rare Side"
                                 android:textColor="@color/black"
@@ -277,159 +287,128 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="20dp"
-                                android:padding="20dp"
+                                android:background="@drawable/button_bg"
+                                android:paddingLeft="50dp"
+                                android:paddingTop="30dp"
+                                android:paddingRight="50dp"
+                                android:paddingBottom="30dp"
+                                android:text="Upload Front"
                                 android:textColor="@color/white"
-                                android:background="@color/baseColor"
-                                android:text="Upload Front" />
+                                android:textSize="16sp" />
                         </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/colorGray"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textView"
+                        android:layout_margin="10dp"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:padding="10dp"
-                            android:layout_marginRight="20dp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="13dp"
+                            android:paddingBottom="13dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:gravity="center"
+                                android:gravity="start"
                                 android:text="Mark sheet of last exam"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:visibility="gone"
-                                android:text="Selfie Picture is clean and acceptable,from this picture user will be identify clearly" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="20dp"
-                                android:padding="20dp"
+                                android:background="@drawable/button_bg"
+                                android:paddingLeft="50dp"
+                                android:paddingTop="30dp"
+                                android:paddingRight="50dp"
+                                android:paddingBottom="30dp"
+                                android:text="Upload Front"
                                 android:textColor="@color/white"
-                                android:background="@color/baseColor"
-                                android:text="Upload Front" />
+                                android:textSize="16sp" />
                         </LinearLayout>
 
-                    </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
 
-                </androidx.cardview.widget.CardView>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llThird"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="27dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginRight="27dp"
-                android:orientation="vertical"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textView"
-                    android:elevation="10dp"
-                    app:contentPaddingTop="10dp"
-                    app:contentPaddingBottom="10dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp">
-
-                    <LinearLayout
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_below="@id/textView"
+                        android:layout_margin="10dp"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:padding="10dp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="13dp"
+                            android:paddingBottom="13dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:gravity="center"
+                                android:gravity="start"
                                 android:text="Identity card of college or office"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:weightSum="2"
-                                android:gravity="center"
+                                android:layout_gravity="center"
                                 android:layout_marginTop="20dp"
-                                android:padding="20dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:textColor="@color/white"
-                                    android:padding="20dp"
-                                    android:layout_marginRight="2dp"
-                                    android:background="@color/baseColor"
-                                    android:text="Upload Front" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:padding="20dp"
-                                    android:layout_marginLeft="2dp"
-                                    android:textColor="@color/white"
-                                    android:background="@color/baseColor"
-                                    android:text="Upload Back" />
-
-                            </LinearLayout>
-
-
+                                android:background="@drawable/button_bg"
+                                android:paddingLeft="50dp"
+                                android:paddingTop="30dp"
+                                android:paddingRight="50dp"
+                                android:paddingBottom="30dp"
+                                android:text="Upload Front"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/colorGray"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textView"
+                        android:layout_margin="10dp"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:padding="10dp"
-                            android:layout_marginRight="20dp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="13dp"
+                            android:paddingBottom="13dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:gravity="center"
+                                android:gravity="start"
                                 android:text="Selfie Picture"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
@@ -437,7 +416,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
+                                android:gravity="start"
                                 android:text="Selfie Picture is clean and acceptable,from this picture user will be identify clearly" />
 
                             <TextView
@@ -445,21 +424,44 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="20dp"
-                                android:padding="20dp"
+                                android:background="@drawable/button_bg"
+                                android:paddingLeft="50dp"
+                                android:paddingTop="30dp"
+                                android:paddingRight="50dp"
+                                android:paddingBottom="30dp"
+                                android:text="Upload Selfie"
                                 android:textColor="@color/white"
-                                android:background="@color/baseColor"
-                                android:text="Upload Selfie" />
+                                android:textSize="16sp" />
                         </LinearLayout>
 
-                    </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:id="@+id/tvContinue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_background"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="10dp"
+                android:text="Continue"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-                </androidx.cardview.widget.CardView>
-
-
-            </LinearLayout>
 
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
