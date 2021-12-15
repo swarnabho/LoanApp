@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/bg_otp_item.xml" value="0.2" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/border_back.xml" value="0.19444444444444445" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/btn_nav_background.xml" value="0.13914473684210527" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/button_background.xml" value="0.2" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/button_background1.xml" value="0.19444444444444445" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/button_bg.xml" value="0.20092592592592592" />
@@ -19,25 +20,28 @@
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_alternative_contact.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_apply.xml" value="0.1388888888888889" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_camera_permission.xml" value="0.12013888888888889" />
-        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_details_list.xml" value="0.1361111111111111" />
-        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_employment_details.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_details_list.xml" value="0.20102564102564102" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_employment_details.xml" value="0.1276872964169381" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_mail_verification.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_mobile_no_verification.xml" value="0.1574074074074074" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_on_board_screen.xml" value="0.1388888888888889" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_otp_validation.xml" value="0.25" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_pan_card.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_personal_details.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_registration.xml" value="0.15185185185185185" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_splash_screen.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_upload_document.xml" value="0.1814814814814815" />
-        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_whats_app_verification.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_voter_id.xml" value="0.12894736842105264" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_whats_app_verification.xml" value="0.20102564102564102" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/app_bar_main.xml" value="0.1824074074074074" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/content_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/drawer_layout.xml" value="0.1935185185185185" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/fragment_refer.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/layout_progress_dialog.xml" value="0.15185185185185185" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/reg_popup.xml" value="0.1276872964169381" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/row_onboard.xml" value="0.16111111111111112" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
       </map>

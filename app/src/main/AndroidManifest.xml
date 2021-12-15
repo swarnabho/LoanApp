@@ -20,20 +20,35 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
+            android:name=".Activity.VoterIdActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.PanCardActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activity.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".Activity.SplashScreenActivity"
             android:exported="true">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".Activity.WhatsAppVerificationActivity"
-            android:exported="true" />
+            android:exported="true">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
         <activity
             android:name=".Activity.MailVerificationActivity"
             android:exported="true" />
@@ -62,13 +77,11 @@
             android:name=".Activity.DetailsListActivity"
             android:exported="true">
 
-            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
         </activity>
         <activity
             android:name=".Activity.ApplyActivity"
