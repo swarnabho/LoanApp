@@ -13,12 +13,28 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
+        android:name=".ManageSharedPreferenceData.YoDB"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".Activity.VideoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.SelfieActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.UploadSignaturePhotoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.UploadCollegeIdActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.LastExamMarksheetActivity"
+            android:exported="true" />
         <activity
             android:name=".Activity.VoterIdActivity"
             android:exported="true" />
@@ -32,6 +48,16 @@
             android:name=".Activity.SplashScreenActivity"
             android:exported="true">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.WhatsAppVerificationActivity"
+            android:exported="true">
+
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,15 +65,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             -->
-        </activity>
-        <activity
-            android:name=".Activity.WhatsAppVerificationActivity"
-            android:exported="true">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
         </activity>
         <activity
             android:name=".Activity.MailVerificationActivity"
@@ -76,12 +93,11 @@
         <activity
             android:name=".Activity.DetailsListActivity"
             android:exported="true">
-
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".Activity.ApplyActivity"
@@ -102,13 +118,11 @@
             android:name=".Activity.OnBoardScreenActivity"
             android:exported="true">
 
-            <!--
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".MainActivity"

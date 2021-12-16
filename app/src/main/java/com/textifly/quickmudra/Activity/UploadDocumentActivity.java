@@ -17,15 +17,14 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
+import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.databinding.ActivityUploadDocumentBinding;
 import com.textifly.quickmudra.databinding.RegPopupBinding;
 
 public class UploadDocumentActivity extends AppCompatActivity implements View.OnClickListener  {
     ActivityUploadDocumentBinding binding;
-    TextView tvStart;
-    PopupWindow popupWindow;
-    ConstraintLayout llCons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,23 +38,6 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
     }
 
     private void showPopUp() {
-        /*LayoutInflater layoutInflater = (LayoutInflater) UploadDocumentActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View customView = layoutInflater.inflate(R.layout.reg_popup,null);
-
-        tvStart =  customView.findViewById(R.id.tvStart);
-
-        popupWindow = new PopupWindow(customView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-        //display the popup window
-        popupWindow.showAtLocation(binding.llCons, Gravity.CENTER, 0, 0);
-
-        tvStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(UploadDocumentActivity.this,));
-                popupWindow.dismiss();
-            }
-        });*/
         final Dialog dialog = new Dialog(UploadDocumentActivity.this);
         RegPopupBinding binding = RegPopupBinding.inflate(LayoutInflater.from(this));
         dialog.setContentView(binding.getRoot());
@@ -73,16 +55,26 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
     }
 
     private void BtnClick() {
-        //binding.tvContinue.setOnClickListener(this);
+        binding.tvContinue.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            /*case R.id.tvContinue:
-                startActivity(new Intent(UploadDocumentActivity.this,AlternativeContactActivity.class));
+            case R.id.tvContinue:
+                loadPercentage();
+                YoDB.getPref().write(Constants.UploadNextDoc,"","marksheet");
+                startActivity(new Intent(UploadDocumentActivity.this,LastExamMarksheetActivity.class));
                 overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
-                break;*/
+                break;
         }
+
+    }
+    private void loadPercentage() {
+        int percentage = (100 / 6) ;
+        YoDB.getPref().write(Constants.UploadPercentage, "", String.valueOf(percentage));
+        /*Log.d("Percentage", percentage + "%");
+        Constants.UploadPercentage = String.valueOf(percentage);*/
+        binding.percentPD.setText(percentage + "%");
     }
 }

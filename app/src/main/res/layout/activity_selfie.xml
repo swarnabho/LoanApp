@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/baseColor"
-    android:id="@+id/llCons"
-    tools:context=".Activity.UploadDocumentActivity">
+    tools:context=".Activity.SelfieActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -127,8 +126,8 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginRight="12dp"
-                android:elevation="10dp"
                 android:layout_marginBottom="10dp"
+                android:elevation="10dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="10dp"
                 app:contentPaddingBottom="2dp"
@@ -166,12 +165,9 @@
                         android:textColor="@color/colorGray"
                         android:textSize="15sp" />
 
-
-
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/textView"
                         android:layout_margin="10dp"
                         android:elevation="10dp"
                         app:cardCornerRadius="10dp"
@@ -180,99 +176,88 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="13dp"
+                            android:paddingBottom="13dp">
 
-                            <LinearLayout
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Your Photo"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="10dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="20dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="(Please click demo image and upload your photo)"
+                                android:layout_marginLeft="15dp"/>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/selfie"/>
+
+                            <!--<TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Upload Live Video"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="10dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="20dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="(Please click demo image and upload your video)"
+                                android:layout_marginLeft="15dp"/>
+                            <ImageView
+                                android:id="@+id/lvideo"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/livevideo"/>-->
+
+                            <!--<TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:paddingTop="13dp"
-                                android:paddingBottom="13dp">
+                                android:layout_marginTop="10dp"
+                                android:gravity="start"
+                                android:text="Selfie Picture Live"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:gravity="start"
-                                    android:text="Address Proof Font/Back"
-                                    android:textColor="@color/black"
-                                    android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="start"
+                                android:text="Selfie Picture is clean and acceptable,from this picture user will be identify clearly" />
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:text="(voter/passport/driving license/Aadhar Card)"
-                                    android:textColor="@color/colorGray"
-                                    android:textSize="12sp" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginTop="5dp"
-                                    android:orientation="vertical">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="(Please click demo image and upload your document)"/>
-                                    <ImageView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="200dp"
-                                        android:layout_gravity="center"
-                                        android:layout_marginTop="15dp"
-                                        android:src="@drawable/addressproof"
-                                        />
-
-                                </LinearLayout>
-
-                                <!--<LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:orientation="horizontal"
-                                    android:padding="20dp"
-                                    android:weightSum="2">
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:layout_marginRight="2dp"
-                                        android:layout_weight="1"
-                                        android:background="@drawable/button_bg"
-                                        android:gravity="center"
-                                        android:paddingLeft="30dp"
-                                        android:paddingTop="30dp"
-                                        android:paddingRight="30dp"
-                                        android:paddingBottom="30dp"
-                                        android:text="Upload Front"
-                                        android:textColor="@color/white"
-                                        android:textSize="14sp" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:layout_marginLeft="2dp"
-                                        android:layout_weight="1"
-                                        android:background="@drawable/button_bg"
-                                        android:gravity="center"
-                                        android:paddingLeft="30dp"
-                                        android:paddingTop="30dp"
-                                        android:paddingRight="30dp"
-                                        android:paddingBottom="30dp"
-                                        android:text="Upload Back"
-                                        android:textColor="@color/white"
-                                        android:textSize="14sp" />
-
-                                </LinearLayout>-->
-
-                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="20dp"
+                                android:background="@drawable/button_bg"
+                                android:paddingLeft="50dp"
+                                android:paddingTop="30dp"
+                                android:paddingRight="50dp"
+                                android:paddingBottom="30dp"
+                                android:text="Upload Selfie"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />-->
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -294,12 +279,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
-
-
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

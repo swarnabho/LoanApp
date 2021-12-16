@@ -100,10 +100,10 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/percentWP"
+                                android:id="@+id/percentKYC"
                                 android:gravity="center"
                                 android:textColor="@color/baseColor"
-                                android:textSize="20sp"
+                                android:textSize="16sp"
                                 android:text="0%"
                                 />
 
@@ -185,7 +185,7 @@
                                     android:id="@+id/percentPD"
                                     android:gravity="center"
                                     android:textColor="@color/baseColor"
-                                    android:textSize="20sp"
+                                    android:textSize="16sp"
                                     android:text="0%"
                                     />
 
@@ -267,7 +267,7 @@
                                 android:id="@+id/percentED"
                                 android:gravity="center"
                                 android:textColor="@color/baseColor"
-                                android:textSize="20sp"
+                                android:textSize="16sp"
                                 android:text="0%"
                                 />
 
@@ -345,7 +345,7 @@
                                 android:id="@+id/percentDOC"
                                 android:gravity="center"
                                 android:textColor="@color/baseColor"
-                                android:textSize="20sp"
+                                android:textSize="16sp"
                                 android:text="0%"
                                 />
 
@@ -423,7 +423,7 @@
                                 android:id="@+id/percentCV"
                                 android:gravity="center"
                                 android:textColor="@color/baseColor"
-                                android:textSize="20sp"
+                                android:textSize="16sp"
                                 android:text="0%"
                                 />
 
@@ -501,7 +501,7 @@
                                 android:id="@+id/percentMV"
                                 android:gravity="center"
                                 android:textColor="@color/baseColor"
-                                android:textSize="20sp"
+                                android:textSize="16sp"
                                 android:text="0%"
                                 />
 

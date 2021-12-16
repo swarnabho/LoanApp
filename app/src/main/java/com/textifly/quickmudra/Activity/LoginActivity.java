@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
+import com.textifly.quickmudra.Helper.ManageLoginData;
 import com.textifly.quickmudra.MainActivity;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Urls;
@@ -28,9 +29,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityLoginBinding binding;
-    String mobile,password;
+    String mobile, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +72,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tvLogin:
                 checkLoginData();
                 break;
             case R.id.llRegister:
                 startActivity(new Intent(LoginActivity.this, MobileNoVerificationActivity.class));
-                overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 break;
         }
     }
@@ -86,16 +87,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mobile = binding.tilPhone.getEditText().getText().toString();
         password = binding.tilPassword.getEditText().getText().toString();
 
-        if(binding.tilPhone.getEditText().getText().toString().isEmpty()){
+        if (binding.tilPhone.getEditText().getText().toString().isEmpty()) {
             Toast.makeText(LoginActivity.this, "Please enter mobile number", Toast.LENGTH_SHORT).show();
             binding.tilPhone.getEditText().requestFocus();
-        }else if(binding.tilPhone.getEditText().getText().toString().length() != 10){
+        } else if (binding.tilPhone.getEditText().getText().toString().length() != 10) {
             Toast.makeText(LoginActivity.this, "Please enter a valid mobile number", Toast.LENGTH_SHORT).show();
             binding.tilPhone.getEditText().requestFocus();
-        }else if(binding.tilPassword.getEditText().getText().toString().isEmpty()){
+        } else if (binding.tilPassword.getEditText().getText().toString().isEmpty()) {
             Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
             binding.tilPassword.getEditText().requestFocus();
-        }else{
+        } else {
             login();
         }
     }
@@ -109,9 +110,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 try {
                     JSONObject object = new JSONObject(response);
                     if (object.getString("status").equals("0")) {
+                        ManageLoginData.addLoginData(object.getString("id"), object.getString("fname"),
+                                object.getString("mobile"));
                         Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                        overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
 
                     }
                 } catch (JSONException e) {

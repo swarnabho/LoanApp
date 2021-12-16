@@ -10,7 +10,10 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.textifly.quickmudra.MainActivity;
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
+import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.databinding.ActivitySplashScreenBinding;
 
 public class SplashScreenActivity extends AppCompatActivity implements View.OnClickListener {
@@ -36,8 +39,13 @@ public class SplashScreenActivity extends AppCompatActivity implements View.OnCl
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                intent = new Intent(SplashScreenActivity.this, OnBoardScreenActivity.class);startActivity(intent);
+                if(YoDB.getPref().read(Constants.ID,"").isEmpty()){
+                    intent = new Intent(SplashScreenActivity.this, OnBoardScreenActivity.class);
+                }else{
+                    intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+                }
                 overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                startActivity(intent);
                 finish();
             }
         },4000);

@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.textifly.quickmudra.MainActivity;
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
+import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.databinding.ActivityDetailsListBinding;
 
 public class DetailsListActivity extends AppCompatActivity implements View.OnClickListener{
@@ -20,6 +23,14 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
         setContentView(binding.getRoot());
 
         BtnClick();
+        loadPercentage();
+    }
+
+    private void loadPercentage() {
+        if(!YoDB.getPref().read(Constants.UploadPercentage,"").isEmpty())
+            binding.percentDOC.setText(YoDB.getPref().read(Constants.UploadPercentage,"")+"%");
+        else
+            binding.percentDOC.setText("0%");
     }
 
     private void BtnClick() {
@@ -45,7 +56,21 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                 overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
             case R.id.llUploadDocuments:
-                startActivity(new Intent(DetailsListActivity.this,UploadDocumentActivity.class));
+                if(YoDB.getPref().read(Constants.UploadNextDoc,"").equalsIgnoreCase("marksheet")){
+                    startActivity(new Intent(DetailsListActivity.this,LastExamMarksheetActivity.class));
+                }else if(YoDB.getPref().read(Constants.UploadNextDoc,"").equalsIgnoreCase("collegeId")){
+                    startActivity(new Intent(DetailsListActivity.this,LastExamMarksheetActivity.class));
+                }else if(YoDB.getPref().read(Constants.UploadNextDoc,"").equalsIgnoreCase("signature")){
+                    startActivity(new Intent(DetailsListActivity.this,LastExamMarksheetActivity.class));
+                }else if(YoDB.getPref().read(Constants.UploadNextDoc,"").equalsIgnoreCase("selfie")){
+                    startActivity(new Intent(DetailsListActivity.this,LastExamMarksheetActivity.class));
+                }else if(YoDB.getPref().read(Constants.UploadNextDoc,"").equalsIgnoreCase("video")){
+                    startActivity(new Intent(DetailsListActivity.this,LastExamMarksheetActivity.class));
+                }else if(YoDB.getPref().read(Constants.UploadNextDoc,"").equalsIgnoreCase("complete")){
+                    startActivity(new Intent(DetailsListActivity.this, MainActivity.class));
+                }else{
+                    startActivity(new Intent(DetailsListActivity.this,UploadDocumentActivity.class));
+                }
                 overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
             case R.id.llAlternativeContact:

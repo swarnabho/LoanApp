@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
+import com.textifly.quickmudra.Helper.ManageLoginData;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityRegistrationBinding;
@@ -99,6 +100,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.btnGenerate:
                 binding.tilPassword.getEditText().setText(passwordGenerator());
+                binding.tilConfirmPassword.getEditText().setText(passwordGenerator());
                 break;
         }
     }
@@ -153,6 +155,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     JSONObject object = new JSONObject(response);
                     if (object.getString("status").equals("0")) {
                         Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                        ManageLoginData.addLoginData(object.getString("userid"),object.getString("fname"),object.getString("mobile"));
                         startActivity(new Intent(RegistrationActivity.this, ApplyActivity.class));
                         overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
 
