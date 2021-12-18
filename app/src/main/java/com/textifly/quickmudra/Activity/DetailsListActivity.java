@@ -2,9 +2,13 @@ package com.textifly.quickmudra.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.textifly.quickmudra.MainActivity;
@@ -12,6 +16,7 @@ import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.databinding.ActivityDetailsListBinding;
+import com.textifly.quickmudra.databinding.RegPopupBinding;
 
 public class DetailsListActivity extends AppCompatActivity implements View.OnClickListener{
     ActivityDetailsListBinding binding;
@@ -22,8 +27,31 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
         binding = ActivityDetailsListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.tvUsername.setText("Hi "+YoDB.getPref().read(Constants.NAME,""));
+
         BtnClick();
+        //if(YoDB.getPref().read(Constants.havePopUpShown,"").isEmpty()){
+            showPopUp();
+        //}
         loadPercentage();
+    }
+
+    private void showPopUp() {
+        YoDB.getPref().write(Constants.havePopUpShown,"","yes");
+        final Dialog dialog = new Dialog(DetailsListActivity.this);
+        RegPopupBinding binding = RegPopupBinding.inflate(LayoutInflater.from(this));
+        dialog.setContentView(binding.getRoot());
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+        dialog.setCancelable(false);
+
+        binding.tvStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 
     private void loadPercentage() {
@@ -34,6 +62,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void BtnClick() {
+        YoDB.getPref().write(Constants.UploadNextDoc,"","address");
         binding.llPersonalDetails.setOnClickListener(this);
         binding.llEducationalDetails.setOnClickListener(this);
         binding.llUploadDocuments.setOnClickListener(this);
@@ -56,7 +85,9 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                 overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
             case R.id.llUploadDocuments:
-                if(YoDB.getPref().read(Constants.UploadNextDoc,"").equalsIgnoreCase("marksheet")){
+                if(YoDB.getPref().read(Constants.UploadNextDoc,"").equalsIgnoreCase("address")){
+                    startActivity(new Intent(DetailsListActivity.this,UploadDocumentActivity.class));
+                }else if(YoDB.getPref().read(Constants.UploadNextDoc,"").equalsIgnoreCase("marksheet")){
                     startActivity(new Intent(DetailsListActivity.this,LastExamMarksheetActivity.class));
                 }else if(YoDB.getPref().read(Constants.UploadNextDoc,"").equalsIgnoreCase("collegeId")){
                     startActivity(new Intent(DetailsListActivity.this,LastExamMarksheetActivity.class));
@@ -86,7 +117,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                 overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
             case R.id.tvContinue:
-                startActivity(new Intent(DetailsListActivity.this,PersonalDetailsActivity.class));
+                startActivity(new Intent(DetailsListActivity.this,WhatsAppVerificationActivity.class));
                 overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
         }

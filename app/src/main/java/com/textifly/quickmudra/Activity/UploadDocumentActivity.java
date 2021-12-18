@@ -34,25 +34,10 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
 
 
         BtnClick();
-        showPopUp();
+
     }
 
-    private void showPopUp() {
-        final Dialog dialog = new Dialog(UploadDocumentActivity.this);
-        RegPopupBinding binding = RegPopupBinding.inflate(LayoutInflater.from(this));
-        dialog.setContentView(binding.getRoot());
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.show();
-        dialog.setCancelable(false);
 
-        binding.tvStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-    }
 
     private void BtnClick() {
         binding.tvContinue.setOnClickListener(this);

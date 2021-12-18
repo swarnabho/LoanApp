@@ -4,13 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.Toast;
 
 import com.textifly.quickmudra.MainActivity;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.databinding.ActivityVideoBinding;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class VideoActivity extends AppCompatActivity implements View.OnClickListener  {
     ActivityVideoBinding binding;
@@ -23,6 +28,28 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
 
         binding.percentPD.setText(YoDB.getPref().read(Constants.UploadPercentage,"")+"%");
         BtnClick();
+        showToast();
+    }
+
+    private void showToast() {
+        final Handler h=new Handler();
+        final  Runnable r=new Runnable() {
+
+            public void run() {
+                // TODO Auto-generated method stub
+                Toast.makeText(getBaseContext(),"please told on video:My name is.... and I am responsible to repay my loans on Dopfin",Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        Timer t=new Timer();
+        t.scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                h.post(r);
+            }
+        },2000, 5000);
     }
 
     private void BtnClick() {
@@ -35,7 +62,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
             case R.id.tvContinue:
                 loadPercentage();
                 YoDB.getPref().write(Constants.UploadNextDoc,"","complete");
-                startActivity(new Intent(VideoActivity.this, MainActivity.class));
+                startActivity(new Intent(VideoActivity.this, DetailsListActivity.class));
                 overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
         }

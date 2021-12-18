@@ -18,7 +18,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.textifly.quickmudra.Activity.LoginActivity;
 import com.textifly.quickmudra.Adapter.DrawerAdapter;
+import com.textifly.quickmudra.Helper.ManageLoginData;
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.DrawerModel;
 import com.textifly.quickmudra.databinding.ActivityMainBinding;
 
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         modelList.add(new DrawerModel(R.drawable.ic_friends, "Friends"));
         modelList.add(new DrawerModel(R.drawable.ic_refer, "Refer & Earn"));
         modelList.add(new DrawerModel(R.drawable.ic_help, "Help"));
+        modelList.add(new DrawerModel(R.drawable.logout, "Logout"));
 
         DrawerAdapter drawerMenuAdapter = new DrawerAdapter(modelList, this);
         binding.rvMenu.setAdapter(drawerMenuAdapter);
@@ -121,6 +125,12 @@ public class MainActivity extends AppCompatActivity {
                         //overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                         //finish();
                         openDrawer();
+                        break;
+                    case 6:
+                        ManageLoginData.clearLoginData();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        finish();
                         break;
                 }
             }

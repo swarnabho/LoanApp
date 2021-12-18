@@ -128,7 +128,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView"
                 android:layout_marginLeft="27dp"
@@ -154,8 +154,30 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="Education Details"
+                            android:ems="10"
+                            android:id="@+id/tilEducationDetailse"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@color/white"
+                            android:inputType="text|textMultiLine"
+                            android:textSize="15sp"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:hint="Name of the Institute"
                             android:ems="10"
+                            android:id="@+id/tilInstituteName"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@color/white"
@@ -175,6 +197,7 @@
                             android:layout_height="wrap_content"
                             android:hint="Institute Pin Code"
                             android:ems="10"
+                            android:id="@+id/tilInstitutePin"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@color/white"
@@ -194,7 +217,7 @@
                             android:layout_height="wrap_content"
                             android:hint="Course Name"
                             android:ems="10"
-
+                            android:id="@+id/tilCourseName"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@color/white"
@@ -219,7 +242,7 @@
                                 android:layout_height="wrap_content"
                                 android:hint="Course Start Year"
                                 android:ems="10"
-                                android:id="@+id/sdate"
+                                android:id="@+id/tilCourseStartYear"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginRight="15dp"
                                 android:background="@color/white"
@@ -253,7 +276,7 @@
                                 android:layout_height="wrap_content"
                                 android:hint="Course End Year"
                                 android:ems="10"
-                                android:id="@+id/edate"
+                                android:id="@+id/tilCourseEndYear"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginRight="15dp"
                                 android:background="@color/white"
@@ -286,7 +309,7 @@
                                 android:layout_height="wrap_content"
                                 android:hint="Exam Year"
                                 android:ems="10"
-                                android:id="@+id/exdate"
+                                android:id="@+id/tilExamYear"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginRight="15dp"
                                 android:background="@color/white"
@@ -317,13 +340,12 @@
                             android:layout_height="wrap_content"
                             android:hint="Percentage"
                             android:ems="10"
-
+                            android:id="@+id/tilPercentage"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@color/white"
                             android:inputType="text"
                             android:textSize="15sp"
-                            android:layout_marginBottom="20dp"
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -340,13 +362,12 @@
                             android:layout_height="wrap_content"
                             android:hint="Expected Pocket Money"
                             android:ems="10"
-
+                            android:id="@+id/tilPocketMoney"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@color/white"
                             android:inputType="text"
                             android:textSize="15sp"
-                            android:layout_marginBottom="20dp"
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -361,6 +382,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Monthly Income"
+                            android:id="@+id/tilMonthlyIncome"
                             android:ems="10"
 
                             android:layout_marginLeft="15dp"

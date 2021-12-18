@@ -19,6 +19,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -28,14 +29,29 @@
                 android:textColor="@color/baseColor"
                 android:textSize="16sp" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:weightSum="1.2"
                 android:layout_marginTop="-8dp"
-                android:text="Complete your profile information to start borrowing money"
-                android:textColor="@color/gray"
-                android:textSize="16sp" />
+                android:layout_marginLeft="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".4"
+                    android:text="Complete your profile information to start borrowing money"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:src="@drawable/logo"
+                    android:layout_weight=".8"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llWhatsappVerification"
@@ -44,7 +60,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:weightSum="1.5"
-                android:background="@drawable/button_bg"
                 >
 
                 <LinearLayout
@@ -56,7 +71,6 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="10dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@color/colorGray"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -70,7 +84,7 @@
                         android:layout_height="match_parent"
                         android:text="Submit Voter ID/Driving Licence/Passport/Aadhar"
                         android:textSize="14sp"
-                        android:textColor="@color/gray"/>
+                        android:textColor="@color/gray1"/>
 
                 </LinearLayout>
 
@@ -80,7 +94,6 @@
                     android:layout_weight="1.1"
                     android:gravity="end"
                     android:padding="15dp"
-                    android:background="@color/colorGray"
                     >
 
                     <androidx.cardview.widget.CardView
@@ -94,7 +107,6 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_margin="2.5dp"
-                            app:cardBackgroundColor="@color/colorGray"
                             app:cardCornerRadius="50dp"
                             >
                             <TextView
@@ -124,7 +136,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:weightSum="1.5"
-                android:background="@drawable/button_bg"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -138,7 +149,6 @@
                         android:layout_weight=".4"
                         android:padding="15dp"
                         android:layout_marginLeft="8dp"
-                        android:background="@color/colorGray"
                         >
                         <TextView
                             android:layout_width="wrap_content"
@@ -152,7 +162,7 @@
                             android:layout_height="match_parent"
                             android:text="Fill your personal details"
                             android:textSize="16sp"
-                            android:textColor="@color/gray"/>
+                            android:textColor="@color/gray1"/>
 
                     </LinearLayout>
 
@@ -162,7 +172,6 @@
                         android:layout_weight="1.1"
                         android:padding="15dp"
                         android:gravity="end"
-                        android:background="@color/colorGray"
                         >
 
                         <androidx.cardview.widget.CardView
@@ -176,7 +185,6 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_margin="2.5dp"
-                                app:cardBackgroundColor="@color/colorGray"
                                 app:cardCornerRadius="50dp"
                                 >
                                 <TextView
@@ -208,7 +216,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:weightSum="1.5"
-                android:background="@drawable/button_bg"
                 >
 
                 <LinearLayout
@@ -220,7 +227,6 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="10dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@color/colorGray"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -234,7 +240,7 @@
                         android:layout_height="match_parent"
                         android:text="Fill your employment and college details"
                         android:textSize="14sp"
-                        android:textColor="@color/gray"/>
+                        android:textColor="@color/gray1"/>
 
                 </LinearLayout>
 
@@ -244,7 +250,6 @@
                     android:layout_weight="1.1"
                     android:padding="15dp"
                     android:gravity="end"
-                    android:background="@color/colorGray"
                     >
 
                     <androidx.cardview.widget.CardView
@@ -258,7 +263,6 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_margin="2.5dp"
-                            app:cardBackgroundColor="@color/colorGray"
                             app:cardCornerRadius="50dp"
                             >
                             <TextView
@@ -288,7 +292,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:weightSum="1.5"
-                android:background="@drawable/button_bg"
                 >
 
                 <LinearLayout
@@ -298,7 +301,6 @@
                     android:layout_weight=".4"
                     android:padding="15dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@color/colorGray"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -312,7 +314,7 @@
                         android:layout_height="match_parent"
                         android:textSize="16sp"
                         android:text="Upload Documents"
-                        android:textColor="@color/gray"/>
+                        android:textColor="@color/gray1"/>
 
                 </LinearLayout>
 
@@ -322,7 +324,6 @@
                     android:layout_weight="1.1"
                     android:padding="15dp"
                     android:gravity="end"
-                    android:background="@color/colorGray"
                     >
 
                     <androidx.cardview.widget.CardView
@@ -336,7 +337,6 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_margin="2.5dp"
-                            app:cardBackgroundColor="@color/colorGray"
                             app:cardCornerRadius="50dp"
                             >
                             <TextView
@@ -366,7 +366,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:weightSum="1.5"
-                android:background="@drawable/button_bg"
                 >
 
                 <LinearLayout
@@ -376,7 +375,6 @@
                     android:layout_weight=".4"
                     android:padding="15dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@color/colorGray"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -390,7 +388,7 @@
                         android:layout_height="match_parent"
                         android:textSize="16sp"
                         android:text="Fill your alternative contact"
-                        android:textColor="@color/gray"/>
+                        android:textColor="@color/gray1"/>
 
                 </LinearLayout>
 
@@ -400,7 +398,6 @@
                     android:layout_weight="1.1"
                     android:gravity="end"
                     android:padding="15dp"
-                    android:background="@color/colorGray"
                     >
 
                     <androidx.cardview.widget.CardView
@@ -414,7 +411,6 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_margin="2.5dp"
-                            app:cardBackgroundColor="@color/colorGray"
                             app:cardCornerRadius="50dp"
                             >
                             <TextView
@@ -444,7 +440,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:weightSum="1.5"
-                android:background="@drawable/button_bg"
                 >
 
                 <LinearLayout
@@ -454,7 +449,6 @@
                     android:layout_weight=".4"
                     android:padding="15dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@color/colorGray"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -468,7 +462,7 @@
                         android:layout_height="match_parent"
                         android:text="Verify your mail"
                         android:textSize="16sp"
-                        android:textColor="@color/gray"/>
+                        android:textColor="@color/gray1"/>
 
                 </LinearLayout>
 
@@ -478,7 +472,6 @@
                     android:layout_weight="1.1"
                     android:padding="15dp"
                     android:gravity="end"
-                    android:background="@color/colorGray"
                     >
 
                     <androidx.cardview.widget.CardView
@@ -492,7 +485,6 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_margin="2.5dp"
-                            app:cardBackgroundColor="@color/colorGray"
                             app:cardCornerRadius="50dp"
                             >
                             <TextView
@@ -515,26 +507,67 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvContinue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/button_bg"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Continue"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/gray1"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1.5"
+                    android:padding="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:padding="5dp"
+                        android:text="Need Help? Request a callback"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Call me"
+                        android:layout_weight="1"
+                        android:padding="15dp"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:drawableTint="@color/white"
+                        android:background="@drawable/button_bg"
+                        android:drawableStart="@drawable/ic_baseline_phone_24"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-
-    <TextView
-        android:id="@+id/tvContinue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="10dp"
-        android:background="@drawable/button_bg"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="10dp"
-        android:text="Continue"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:textStyle="bold" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

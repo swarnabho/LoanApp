@@ -215,7 +215,7 @@
                                 android:layout_height="130dp"
                                 android:layout_marginTop="5dp"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/pan_card_new" />
+                                android:src="@drawable/voter_font" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -229,7 +229,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="200dp"
-                                android:src="@drawable/panback" />
+                                android:src="@drawable/voter_back" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -346,7 +346,7 @@
                                 android:layout_height="130dp"
                                 android:layout_marginTop="5dp"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/aadhar_front" />
+                                android:src="@drawable/aadhar_font" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -360,7 +360,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="200dp"
-                                android:src="@drawable/aadhar_back" />
+                                android:src="@drawable/aadhar_back_new" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -401,13 +401,14 @@
                                 android:layout_height="130dp"
                                 android:layout_marginTop="5dp"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/pan_card_new" />
+                                android:src="@drawable/passport" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="Back Photo"
+                                android:visibility="gone"
                                 android:textColor="@color/black"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
@@ -415,6 +416,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="200dp"
+                                android:visibility="gone"
                                 android:src="@drawable/panback" />
                         </LinearLayout>
 
@@ -456,7 +458,7 @@
                                 android:layout_height="300dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="15dp"
-                                android:src="@drawable/lic"
+                                android:src="@drawable/driving"
                                 />
                         </LinearLayout>
 

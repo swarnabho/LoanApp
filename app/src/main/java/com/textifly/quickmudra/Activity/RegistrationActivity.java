@@ -51,7 +51,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         BtnClick();
         getIemiNo();
-        initView();
+        //initView();
 
     }
 
@@ -99,8 +99,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 checkData();
                 break;
             case R.id.btnGenerate:
-                binding.tilPassword.getEditText().setText(passwordGenerator());
-                binding.tilConfirmPassword.getEditText().setText(passwordGenerator());
+                String pw = passwordGenerator();
+                binding.tilPassword.getEditText().setText(pw);
+                binding.tilConfirmPassword.getEditText().setText(pw);
                 break;
         }
     }
@@ -120,6 +121,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void checkData() {
+        /*name = binding.tilName.getEditText().getText().toString();
+        email = binding.tilEmail.getEditText().getText().toString();
+        phno = getIntent().getStringExtra("phno");  //7439638404*/
+        referral = binding.tilRefferal.getEditText().getText().toString();
         String password = binding.tilPassword.getEditText().getText().toString();
         String cnfrmPassword = binding.tilConfirmPassword.getEditText().getText().toString();
         Log.d("RES", "p: " + password + ", cP: " + cnfrmPassword);
@@ -153,6 +158,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 Log.d("RESPONSE", response);
                 try {
                     JSONObject object = new JSONObject(response);
+                    Log.d("RESPONSE",object.toString());
                     if (object.getString("status").equals("0")) {
                         Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
                         ManageLoginData.addLoginData(object.getString("userid"),object.getString("fname"),object.getString("mobile"));
@@ -175,11 +181,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map = new HashMap<>();
-                map.put("email", email);
-                map.put("mobile", phno);
-                map.put("fname", name);
-                map.put("confirm_password", password);
-                map.put("promo_code", referral);
+                map.put("email", binding.tilEmail.getEditText().getText().toString());
+                map.put("mobile", getIntent().getStringExtra("phno"));
+                map.put("fname", binding.tilEmail.getEditText().getText().toString());
+                map.put("confirm_password", binding.tilPassword.getEditText().getText().toString());
+                map.put("promo_code", binding.tilRefferal.getEditText().getText().toString());
                 map.put("imei_no", IMEINumber);
                 return map;
             }
