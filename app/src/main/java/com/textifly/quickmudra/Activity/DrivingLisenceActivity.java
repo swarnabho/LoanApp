@@ -4,12 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,30 +15,19 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.ViewGroup.LayoutParams;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
-import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
-import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.Utils.WebService;
-import com.textifly.quickmudra.databinding.ActivityUploadDocumentBinding;
-import com.textifly.quickmudra.databinding.RegPopupBinding;
+import com.textifly.quickmudra.databinding.ActivityDrivingLisenceBinding;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -55,50 +42,45 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UploadDocumentActivity extends AppCompatActivity implements View.OnClickListener  {
-    ActivityUploadDocumentBinding binding;
+public class DrivingLisenceActivity extends AppCompatActivity implements View.OnClickListener {
+    ActivityDrivingLisenceBinding binding;
 
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
-    File AddressProofFile;
+    File lisenceFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityUploadDocumentBinding.inflate(getLayoutInflater());
+        binding = ActivityDrivingLisenceBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         BtnClick();
-
     }
 
-
-
     private void BtnClick() {
-        binding.tvContinue.setOnClickListener(this);
-        binding.ivAddressProof.setOnClickListener(this);
+        binding.ivDrivingLisence.setOnClickListener(this);
+        binding.btnSubmit.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.ivAddressProof:
+            case R.id.ivDrivingLisence:
                 if (checkAndRequestPermissions(this)) {
-                    chooseImage(UploadDocumentActivity.this);
+                    chooseImage(DrivingLisenceActivity.this);
                 }
                 break;
-            
-            case R.id.tvContinue:
-                loadPercentage();
-                YoDB.getPref().write(Constants.UploadNextDoc,"","marksheet");
-                if(AddressProofFile != null){
-                    CustomProgressDialog.showDialog(UploadDocumentActivity.this, true);
+            case R.id.btnSubmit:
+                if (lisenceFile == null) {
+                    Toast.makeText(DrivingLisenceActivity.this, "Please enter driving lisence image", Toast.LENGTH_SHORT).show();
+                } else {
+                    CustomProgressDialog.showDialog(DrivingLisenceActivity.this, true);
                     uploadVoterId();
                 }
                 break;
         }
-
     }
+
     private void chooseImage(Context context) {
         final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"}; // create a menuOption Array
         // create a dialog for showing the optionsMenu
@@ -138,7 +120,7 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
                     .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
         if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(UploadDocumentActivity.this, listPermissionsNeeded
+            ActivityCompat.requestPermissions(DrivingLisenceActivity.this, listPermissionsNeeded
                             .toArray(new String[listPermissionsNeeded.size()]),
                     REQUEST_ID_MULTIPLE_PERMISSIONS);
             return false;
@@ -151,12 +133,12 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQUEST_ID_MULTIPLE_PERMISSIONS:
-                if (ContextCompat.checkSelfPermission(UploadDocumentActivity.this,
+                if (ContextCompat.checkSelfPermission(DrivingLisenceActivity.this,
                         Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(UploadDocumentActivity.this.getApplicationContext(),
+                    Toast.makeText(DrivingLisenceActivity.this.getApplicationContext(),
                             "FlagUp Requires Access to Camara.", Toast.LENGTH_SHORT)
                             .show();
-                } else if (ContextCompat.checkSelfPermission(UploadDocumentActivity.this,
+                } else if (ContextCompat.checkSelfPermission(DrivingLisenceActivity.this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(getApplicationContext(),
                             "FlagUp Requires Access to Your Storage.",
@@ -177,13 +159,13 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
                 case 0://Camera
                     //Toast.makeText(this, "0", Toast.LENGTH_SHORT).show();
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    binding.ivAddressProof.setImageBitmap(photo);
+                    binding.ivDrivingLisence.setImageBitmap(photo);
                     // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
                     Uri tempUri = getImageUri(this, photo);
                     // CALL THIS METHOD TO GET THE ACTUAL PATH
                     //File finalFile = new File(getRealPathFromURI(tempUri));
-                    AddressProofFile = new File(getRealPathFromURI(tempUri));
-                    Log.e("finalFile==", String.valueOf(AddressProofFile));
+                    lisenceFile = new File(getRealPathFromURI(tempUri));
+                    Log.e("finalFile==", String.valueOf(lisenceFile));
                     //listFile = new ArrayList<>();
                     //listFile.add(finalFile);
                     break;
@@ -195,9 +177,9 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
                         String path = getPathFromURI(selectedImageUri);
                         Log.e("path==", path);
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
-                        binding.ivAddressProof.setImageBitmap(bitmap);
+                        binding.ivDrivingLisence.setImageBitmap(bitmap);
                         //File finalFile2 = new File(path);
-                        AddressProofFile = new File(path);
+                        lisenceFile = new File(path);
                             /*listFile = new ArrayList<>();
                             listFile.add(finalFile2);*/
                     }
@@ -235,26 +217,26 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
 
 
     private void uploadVoterId() {
-        Log.d("AadharFront", AddressProofFile.getName());
+        Log.d("AadharFront", lisenceFile.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), "57" /*YoDB.getPref().read(Constants.ID,"")*/);
 
-        RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), AddressProofFile);
-        MultipartBody.Part addressProof = MultipartBody.Part.createFormData("addressProof", AddressProofFile.getName(), bodyVoterFront);
+        RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), lisenceFile);
+        MultipartBody.Part driving = MultipartBody.Part.createFormData("driving", lisenceFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateAddressProof(user_id, addressProof);
+        Call<ResponseDataModel> call = service.updateDriving(user_id, driving);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override
             public void onResponse(Call<ResponseDataModel> call, Response<ResponseDataModel> response) {
-                CustomProgressDialog.showDialog(UploadDocumentActivity.this, false);
+                CustomProgressDialog.showDialog(DrivingLisenceActivity.this, false);
                 ResponseDataModel model = response.body();
                 Log.d("RESPONSE", model.getStatus());
                 if (model.getStatus().equals("0")) {
-                    Toast.makeText(UploadDocumentActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(UploadDocumentActivity.this,LastExamMarksheetActivity.class));
-                    overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                    Toast.makeText(DrivingLisenceActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(DrivingLisenceActivity.this, WhatsAppVerificationActivity.class));
+                    overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 }
             }
 
@@ -264,14 +246,5 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
             }
         });
 
-    }
-    
-    
-    private void loadPercentage() {
-        int percentage = (100 / 6) ;
-        YoDB.getPref().write(Constants.UploadPercentage, "", String.valueOf(percentage));
-        /*Log.d("Percentage", percentage + "%");
-        Constants.UploadPercentage = String.valueOf(percentage);*/
-        binding.percentPD.setText(percentage + "%");
     }
 }

@@ -138,6 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="vertical">
@@ -183,6 +184,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/llVoterId"
+                        android:visibility="gone"
                         android:orientation="vertical">
 
                         <TextView
@@ -211,6 +213,7 @@
                             android:layout_marginRight="20dp">
 
                             <ImageView
+                                android:id="@+id/ivVoterFont"
                                 android:layout_width="200dp"
                                 android:layout_height="130dp"
                                 android:layout_marginTop="5dp"
@@ -227,6 +230,7 @@
                                 android:textStyle="bold" />
 
                             <ImageView
+                                android:id="@+id/ivVoterBack"
                                 android:layout_width="wrap_content"
                                 android:layout_height="200dp"
                                 android:src="@drawable/voter_back" />
@@ -238,6 +242,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/llPanCard"
+                        android:visibility="gone"
                         android:orientation="vertical">
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -287,6 +292,7 @@
                             android:layout_marginRight="20dp">
 
                             <ImageView
+                                android:id="@+id/ivPanFont"
                                 android:layout_width="200dp"
                                 android:layout_height="130dp"
                                 android:layout_marginTop="5dp"
@@ -303,6 +309,7 @@
                                 android:textStyle="bold" />
 
                             <ImageView
+                                android:id="@+id/ivPanBack"
                                 android:layout_width="wrap_content"
                                 android:layout_height="200dp"
                                 android:src="@drawable/panback" />
@@ -314,6 +321,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/llAadhar"
+                        android:visibility="gone"
                         android:orientation="vertical">
 
                         <TextView
@@ -342,6 +350,7 @@
                             android:layout_marginRight="20dp">
 
                             <ImageView
+                                android:id="@+id/ivAadharFont"
                                 android:layout_width="200dp"
                                 android:layout_height="130dp"
                                 android:layout_marginTop="5dp"
@@ -358,6 +367,7 @@
                                 android:textStyle="bold" />
 
                             <ImageView
+                                android:id="@+id/ivAadharBack"
                                 android:layout_width="wrap_content"
                                 android:layout_height="200dp"
                                 android:src="@drawable/aadhar_back_new" />
@@ -369,6 +379,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/llPassport"
+                        android:visibility="gone"
                         android:orientation="vertical">
 
                         <TextView
@@ -426,6 +437,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/llDrivingLicence"
+                        android:visibility="gone"
                         android:orientation="vertical">
 
                         <TextView
