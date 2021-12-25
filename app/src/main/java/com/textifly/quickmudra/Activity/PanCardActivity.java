@@ -94,6 +94,7 @@ public class PanCardActivity extends AppCompatActivity implements View.OnClickLi
         Log.d("VoterBack",PanBack.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),"57" /*YoDB.getPref().read(Constants.ID,"")*/);
+        RequestBody pan = RequestBody.create(MediaType.parse("text/plain"),binding.tilPanNo.getEditText().getText().toString());
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), PanFront);
         MultipartBody.Part pan_font = MultipartBody.Part.createFormData("pan_font", PanFront.getName(), bodyVoterFront);
@@ -102,7 +103,7 @@ public class PanCardActivity extends AppCompatActivity implements View.OnClickLi
         MultipartBody.Part pan_back = MultipartBody.Part.createFormData("pan_back", PanBack.getName(), bodyVoterBack);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updatePan(user_id,pan_font, pan_back);
+        Call<ResponseDataModel> call = service.updatePan(user_id,pan,pan_font, pan_back);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override

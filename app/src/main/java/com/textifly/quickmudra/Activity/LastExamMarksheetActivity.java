@@ -89,6 +89,8 @@ public class LastExamMarksheetActivity extends AppCompatActivity implements View
                 if(LastMarksheetFile != null){
                     CustomProgressDialog.showDialog(LastExamMarksheetActivity.this, true);
                     uploadVoterId();
+                }else{
+                    Toast.makeText(LastExamMarksheetActivity.this, "Please add Last Exam Marksheet", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

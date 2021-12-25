@@ -340,4 +340,11 @@ public class WhatsAppVerificationActivity extends AppCompatActivity implements V
         cursor.close();
         return res;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(WhatsAppVerificationActivity.this,DetailsListActivity.class));
+        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+    }
 }

@@ -34,16 +34,28 @@
             android:exported="true" />
         <activity
             android:name=".Activity.VideoActivity"
-            android:exported="true" />
+            android:exported="true">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+
+        </activity>
         <activity
             android:name=".Activity.SelfieActivity"
-            android:exported="true" />
+            android:exported="true">
+
+
+        </activity>
         <activity
             android:name=".Activity.UploadSignaturePhotoActivity"
-            android:exported="true" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".Activity.UploadCollegeIdActivity"
-            android:exported="true" />
+            android:exported="true"></activity>
         <activity
             android:name=".Activity.LastExamMarksheetActivity"
             android:exported="true" />
@@ -59,19 +71,15 @@
         <activity
             android:name=".Activity.SplashScreenActivity"
             android:exported="true">
-
-            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
         </activity>
         <activity
             android:name=".Activity.WhatsAppVerificationActivity"
             android:exported="true">
-
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -107,11 +115,11 @@
         <activity
             android:name=".Activity.DetailsListActivity"
             android:exported="true">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".Activity.ApplyActivity"

@@ -23,6 +23,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updatePan(
             @Part("user_id") RequestBody user_id,
+            @Part("pan_no") RequestBody pan,
             @Part MultipartBody.Part pan_font,
             @Part MultipartBody.Part pan_back
     );
@@ -31,6 +32,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateAadhar(
             @Part("user_id") RequestBody user_id,
+            @Part("aadhar_no") RequestBody aadhar,
             @Part MultipartBody.Part aadhar_font,
             @Part MultipartBody.Part aadhar_back
     );
@@ -63,4 +65,31 @@ public interface WebService {
             @Part MultipartBody.Part marksheet
     );
 
+    @Multipart
+    @POST("details_update")
+    Call<ResponseDataModel> updateCollegeId(
+            @Part("user_id") RequestBody user_id,
+            @Part MultipartBody.Part collegeId
+    );
+
+    @Multipart
+    @POST("details_update")
+    Call<ResponseDataModel> updateSignature(
+            @Part("user_id") RequestBody user_id,
+            @Part MultipartBody.Part signature
+    );
+
+    @Multipart
+    @POST("details_update")
+    Call<ResponseDataModel> updateSelfie(
+            @Part("user_id") RequestBody user_id,
+            @Part MultipartBody.Part selfie
+    );
+
+    @Multipart
+    @POST("details_update")
+    Call<ResponseDataModel> updateSelfieVideo(
+            @Part("user_id") RequestBody user_id,
+            @Part MultipartBody.Part selfieVideo
+    );
 }

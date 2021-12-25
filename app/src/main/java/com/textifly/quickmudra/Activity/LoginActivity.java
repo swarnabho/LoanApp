@@ -19,7 +19,9 @@ import com.android.volley.toolbox.Volley;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.Helper.ManageLoginData;
 import com.textifly.quickmudra.MainActivity;
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
+import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityLoginBinding;
 
@@ -113,8 +115,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         ManageLoginData.addLoginData(object.getString("id"), object.getString("fname"),
                                 object.getString("mobile"));
                         Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        redirect();
 
                     }
                 } catch (JSONException e) {
@@ -138,5 +139,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         };
         Volley.newRequestQueue(getApplicationContext()).add(sr);
+    }
+
+    private void redirect() {
+        //if(YoDB.getPref().read(Constants.UploadNextDoc))
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
     }
 }

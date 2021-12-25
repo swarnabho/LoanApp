@@ -198,12 +198,22 @@
                                 android:text="(Please click demo image and upload your video)"
                                 android:layout_marginLeft="15dp"/>
                             <ImageView
-                                android:id="@+id/lvideo"
+                                android:id="@+id/iv_video"
                                 android:layout_width="match_parent"
                                 android:layout_height="200dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="15dp"
                                 android:src="@drawable/livevideo"/>
+
+                            <VideoView
+                                android:id="@+id/vv_video"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/livevideo"/>
+
 
                             <!--<TextView
                                 android:layout_width="match_parent"

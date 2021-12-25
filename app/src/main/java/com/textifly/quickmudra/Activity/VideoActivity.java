@@ -1,24 +1,54 @@
 package com.textifly.quickmudra.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.textifly.quickmudra.ApiManager.ApiClient;
+import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.MainActivity;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
+import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.ActivityVideoBinding;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class VideoActivity extends AppCompatActivity implements View.OnClickListener  {
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class VideoActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityVideoBinding binding;
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
+    private static final int VIDEO_RECORD_CODE = 102;
+    private Uri videoPath;
+    File SelfieVideoFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,22 +56,22 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
         binding = ActivityVideoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.percentPD.setText(YoDB.getPref().read(Constants.UploadPercentage,"")+"%");
+        binding.percentPD.setText(YoDB.getPref().read(Constants.UploadPercentage, "") + "%");
         BtnClick();
-        showToast();
+        //showToast();
     }
 
     private void showToast() {
-        final Handler h=new Handler();
-        final  Runnable r=new Runnable() {
+        final Handler h = new Handler();
+        final Runnable r = new Runnable() {
 
             public void run() {
                 // TODO Auto-generated method stub
-                Toast.makeText(getBaseContext(),"please told on video:My name is.... and I am responsible to repay my loans on Dopfin",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "please told on video:My name is.... and I am responsible to repay my loans on Dopfin", Toast.LENGTH_LONG).show();
             }
         };
 
-        Timer t=new Timer();
+        Timer t = new Timer();
         t.scheduleAtFixedRate(new TimerTask() {
 
             @Override
@@ -49,29 +79,127 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
                 // TODO Auto-generated method stub
                 h.post(r);
             }
-        },2000, 5000);
+        }, 2000, 5000);
     }
 
     private void BtnClick() {
         binding.tvContinue.setOnClickListener(this);
+        binding.ivVideo.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
+            case R.id.iv_video:
+                if (checkAndRequestPermissions(VideoActivity.this)) {
+                    recordVideo();
+                }
+                break;
             case R.id.tvContinue:
                 loadPercentage();
-                YoDB.getPref().write(Constants.UploadNextDoc,"","complete");
-                startActivity(new Intent(VideoActivity.this, DetailsListActivity.class));
-                overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                YoDB.getPref().write(Constants.UploadNextDoc, "", "complete");
+                if(SelfieVideoFile != null){
+                    CustomProgressDialog.showDialog(VideoActivity.this,true);
+                    uploadVoterId();
+                }else{
+                    Toast.makeText(VideoActivity.this, "Please add selfie video", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
+
+    private boolean checkAndRequestPermissions(Context context) {
+        int WExtstorePermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int cameraPermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.CAMERA);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (WExtstorePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded
+                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(VideoActivity.this, listPermissionsNeeded
+                            .toArray(new String[listPermissionsNeeded.size()]),
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
+    private void recordVideo() {
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        startActivityForResult(intent, VIDEO_RECORD_CODE);
+    }
+
     private void loadPercentage() {
-        int percentage = (600 / 6) ;
+        int percentage = (600 / 6);
         YoDB.getPref().write(Constants.UploadPercentage, "", String.valueOf(percentage));
         /*Log.d("Percentage", percentage + "%");
         Constants.UploadPercentage = String.valueOf(percentage);*/
         binding.percentPD.setText(percentage + "%");
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == VIDEO_RECORD_CODE) {
+            if (resultCode == RESULT_OK) {
+                videoPath = data.getData();
+                Bitmap photo = ThumbnailUtils.createVideoThumbnail( getRealPathFromURI(videoPath) , MediaStore.Images.Thumbnails.MINI_KIND );
+                binding.ivVideo.setImageBitmap(photo);
+                Log.d("videoPath", videoPath.toString());
+                SelfieVideoFile = new File(getRealPathFromURI(videoPath));
+                Log.e("finalFile==", String.valueOf(SelfieVideoFile));
+
+            } else if (resultCode == RESULT_CANCELED) {
+
+            } else {
+
+            }
+        }
+    }
+
+    private String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
+    private void uploadVoterId() {
+        Log.d("AadharFront", SelfieVideoFile.getName());
+
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), "57" /*YoDB.getPref().read(Constants.ID,"")*/);
+
+        RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), SelfieVideoFile);
+        MultipartBody.Part selfieVideo = MultipartBody.Part.createFormData("selfieVideo", SelfieVideoFile.getName(), bodyVoterFront);
+
+        WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
+        Call<ResponseDataModel> call = service.updateSelfieVideo(user_id, selfieVideo);
+
+        call.enqueue(new Callback<ResponseDataModel>() {
+            @Override
+            public void onResponse(Call<ResponseDataModel> call, Response<ResponseDataModel> response) {
+                CustomProgressDialog.showDialog(VideoActivity.this, false);
+                ResponseDataModel model = response.body();
+                Log.d("RESPONSE", model.getStatus());
+                if (model.getStatus().equals("0")) {
+                    Toast.makeText(VideoActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(VideoActivity.this, DetailsListActivity.class));
+                    overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataModel> call, Throwable t) {
+
+            }
+        });
+
+    }
+    
 }

@@ -241,6 +241,7 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
         Log.d("VoterBack",VoterBack.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),"57" /*YoDB.getPref().read(Constants.ID,"")*/);
+        RequestBody aadhar = RequestBody.create(MediaType.parse("text/plain"),binding.tilAadharNo.getEditText().getText().toString());
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), AadharFront);
         MultipartBody.Part aadhar_font = MultipartBody.Part.createFormData("aadhar_font", AadharFront.getName(), bodyVoterFront);
@@ -249,7 +250,7 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
         MultipartBody.Part aadhar_back = MultipartBody.Part.createFormData("aadhar_back", VoterBack.getName(), bodyVoterBack);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateAadhar(user_id,aadhar_font, aadhar_back);
+        Call<ResponseDataModel> call = service.updateAadhar(user_id,aadhar,aadhar_font, aadhar_back);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override

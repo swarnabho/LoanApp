@@ -198,6 +198,7 @@
                                 android:text="(Please click demo image and upload your document)"
                                 android:layout_marginLeft="15dp"/>
                             <ImageView
+                                android:id="@+id/ivCollegeId"
                                 android:layout_width="match_parent"
                                 android:layout_height="200dp"
                                 android:layout_gravity="center"

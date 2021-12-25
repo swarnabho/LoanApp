@@ -142,6 +142,31 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilPanNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/edit_text_background"
+                            android:textColorHint="@color/black4"
+                            app:errorEnabled="false"
+                            android:layout_margin="15dp"
+                            app:hintTextColor="@color/black4">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="PAN Number"
+                                android:background="@drawable/edit_text_background"
+                                android:imeOptions="actionNext"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

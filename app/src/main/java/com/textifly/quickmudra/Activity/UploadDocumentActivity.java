@@ -94,6 +94,8 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
                 if(AddressProofFile != null){
                     CustomProgressDialog.showDialog(UploadDocumentActivity.this, true);
                     uploadVoterId();
+                }else{
+                    Toast.makeText(UploadDocumentActivity.this, "Please add address proof", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

@@ -482,6 +482,7 @@
                         android:layout_height="wrap_content"
                         android:text="SUBMIT"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:padding="10dp"
                         android:textColor="@color/white"
                         android:id="@+id/btnContinue"
