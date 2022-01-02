@@ -1,10 +1,13 @@
 package com.textifly.quickmudra.Helper;
 
+import android.util.Log;
+
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Utils.Constants;
 
 public class ManageLoginData {
     public static void addLoginData(String id, String name, String phone) {
+        Log.d("Manage_NAME",name);
         YoDB.getPref().write(Constants.ID, "", id);
         YoDB.getPref().write(Constants.NAME, "", name);
         YoDB.getPref().write(Constants.PHONE, "", phone);

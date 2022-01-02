@@ -26,5 +26,12 @@ public class Urls {
      */
     public static final String DETAILS_UPDATE = BASEURL + "details_update";
 
+    /**
+     * @Post : POST
+     * @Name : userprofilecompletedcheck
+     * @Parameter : userid, type = kyc/documents
+     */
+    public static final String USER_PROFILE_COMPLETE_CHECK = BASEURL + "userprofilecompletedcheck";
+
 }
 

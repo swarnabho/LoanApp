@@ -260,7 +260,7 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
                 Log.d("RESPONSE",model.getStatus());
                 if(model.getStatus().equals("0")){
                     Toast.makeText(AadharActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(AadharActivity.this,WhatsAppVerificationActivity.class));
+                    startActivity(new Intent(AadharActivity.this,PassportActivity.class));
                     overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 }
             }

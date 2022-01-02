@@ -161,10 +161,16 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     Log.d("RESPONSE",object.toString());
                     if (object.getString("status").equals("0")) {
                         Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                        ManageLoginData.addLoginData(object.getString("userid"),object.getString("fname"),object.getString("mobile"));
+                        Log.d("RES NAME",object.getString("fname"));
+                        String id = object.getString("userid");
+                        String name = object.getString("fname");
+                        String mobile = object.getString("mobile");
+                        ManageLoginData.addLoginData(id,name,mobile);
                         startActivity(new Intent(RegistrationActivity.this, ApplyActivity.class));
                         overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
 
+                    }else{
+                        Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -113,7 +113,7 @@ public class PanCardActivity extends AppCompatActivity implements View.OnClickLi
                 Log.d("RESPONSE",model.getStatus());
                 if(model.getStatus().equals("0")){
                     Toast.makeText(PanCardActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(PanCardActivity.this,WhatsAppVerificationActivity.class));
+                    startActivity(new Intent(PanCardActivity.this,AadharActivity.class));
                     overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 }
             }

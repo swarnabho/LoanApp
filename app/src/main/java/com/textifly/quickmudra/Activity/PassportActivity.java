@@ -216,7 +216,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
                 Log.d("RESPONSE", model.getStatus());
                 if (model.getStatus().equals("0")) {
                     Toast.makeText(PassportActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(PassportActivity.this, WhatsAppVerificationActivity.class));
+                    startActivity(new Intent(PassportActivity.this, DrivingLisenceActivity.class));
                     overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 }
             }

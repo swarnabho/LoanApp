@@ -112,11 +112,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 try {
                     JSONObject object = new JSONObject(response);
                     if (object.getString("status").equals("0")) {
-                        ManageLoginData.addLoginData(object.getString("id"), object.getString("fname"),
-                                object.getString("mobile"));
+                        String id = object.getString("id");
+                        String name = object.getString("fname");
+                        String mobile = object.getString("mobile");
+                        ManageLoginData.addLoginData(id, name, mobile);
                         Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
                         redirect();
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

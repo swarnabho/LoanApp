@@ -1,6 +1,7 @@
 package com.textifly.quickmudra.UI;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.textifly.quickmudra.Activity.DetailsListActivity;
@@ -23,9 +26,18 @@ import com.textifly.quickmudra.databinding.FragmentHomeBinding;
 import com.textifly.quickmudra.databinding.HomePopupBinding;
 import com.textifly.quickmudra.databinding.RegPopupBinding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment implements View.OnClickListener {
     FragmentHomeBinding binding;
     private boolean backPress = false;
+
+    List<String> amountList = new ArrayList<>();
+    ArrayAdapter<String> amountAdapter;
+
+    List<String> timeList = new ArrayList<>();
+    ArrayAdapter<String> timeAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,12 +45,80 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         BtnClick();
+        setAmountSpinner();
+        setTimeSpinner();
         //if (YoDB.getPref().read(Constants.haveActivated, "").isEmpty()) {
-            showPopUp();
+        showPopUp();
         //}
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
         return binding.getRoot();
+    }
+
+    private void setAmountSpinner() {
+        String[] amount = {"Select Amount", "500", "1000"};
+
+        amountAdapter
+                = new ArrayAdapter(
+                getActivity(), android.R.layout.simple_spinner_item, amount);
+
+        amountAdapter.setDropDownViewResource(R.layout.spinner_list);
+
+        // Set the ArrayAdapter (ad) data on the
+        // Spinner which binds data to spinner
+        binding.spinnerAmount.setAdapter(amountAdapter);
+        binding.spinnerAmount.setSelected(false);  // must
+        binding.spinnerAmount.setSelection(0, true);
+
+        binding.spinnerAmount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = adapterView.getSelectedItem().toString();
+                if (!item.equals("Select Amount")) {
+                    binding.etChooseAmount.setText(item);
+                    binding.llTime.setVisibility(View.VISIBLE);
+                    binding.spinnerAmount.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                binding.spinnerAmount.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+    private void setTimeSpinner() {
+        String[] time = {"Select Tanure", "30 + 90 Days"};
+
+        timeAdapter
+                = new ArrayAdapter(
+                getActivity(), android.R.layout.simple_spinner_item, time);
+
+        timeAdapter.setDropDownViewResource(R.layout.spinner_list);
+
+        // Set the ArrayAdapter (ad) data on the
+        // Spinner which binds data to spinner
+        binding.spinnerTanure.setAdapter(timeAdapter);
+        binding.spinnerTanure.setSelected(false);  // must
+        binding.spinnerTanure.setSelection(0, true);
+
+        binding.spinnerTanure.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = adapterView.getSelectedItem().toString();
+                if (!item.equals("Select Tanure")) {
+                    binding.etChooseTime.setText(item);
+                    binding.spinnerTanure.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                binding.spinnerTanure.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void showPopUp() {
@@ -97,6 +177,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void BtnClick() {
         binding.llMenu.setOnClickListener(this);
+        binding.etChooseAmount.setOnClickListener(this);
+        binding.etChooseTime.setOnClickListener(this);
+        binding.txtRequest.setOnClickListener(this);
     }
 
     @Override
@@ -105,6 +188,38 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.llMenu:
                 ((MainActivity) getActivity()).openDrawer();
                 break;
+            case R.id.etChooseAmount:
+                binding.spinnerAmount.performClick();
+                binding.spinnerAmount.setVisibility(View.VISIBLE);
+                break;
+            case R.id.etChooseTime:
+                binding.spinnerTanure.performClick();
+                binding.spinnerTanure.setVisibility(View.VISIBLE);
+                break;
+            case R.id.txtRequest:
+                checkRequest();
+                break;
         }
+    }
+
+    private void checkRequest() {
+        if(binding.etChooseAmount.getText().toString().isEmpty()){
+            Toast.makeText(getActivity(), "Please select borrow amount", Toast.LENGTH_SHORT).show();
+        }else if(binding.etChooseTime.getText().toString().isEmpty()){
+            Toast.makeText(getActivity(), "Please select tanure of loan", Toast.LENGTH_SHORT).show();
+        }else{
+            loanRequest();
+        }
+    }
+
+    private void loanRequest() {
+        String amount = binding.etChooseAmount.getText().toString();
+        String time = binding.etChooseTime.getText().toString();
+
+        Intent intent = new Intent(getActivity(),RazorPayActivity.class);
+        intent.putExtra("amount",amount);
+        intent.putExtra("time",time);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
     }
 }

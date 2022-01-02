@@ -117,7 +117,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                 overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 break;
             case R.id.llWhatsappVerification:
-                startActivity(new Intent(DetailsListActivity.this, WhatsAppVerificationActivity.class));
+                startActivity(new Intent(DetailsListActivity.this, VoterActivity.class));
                 overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 break;
             case R.id.tvContinue:

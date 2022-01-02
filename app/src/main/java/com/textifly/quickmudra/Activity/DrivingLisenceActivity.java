@@ -235,7 +235,7 @@ public class DrivingLisenceActivity extends AppCompatActivity implements View.On
                 Log.d("RESPONSE", model.getStatus());
                 if (model.getStatus().equals("0")) {
                     Toast.makeText(DrivingLisenceActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(DrivingLisenceActivity.this, WhatsAppVerificationActivity.class));
+                    startActivity(new Intent(DrivingLisenceActivity.this, DetailsListActivity.class));
                     overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 }
             }

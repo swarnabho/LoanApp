@@ -289,7 +289,7 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
                 Log.d("RESPONSE",model.getStatus());
                 if(model.getStatus().equals("0")){
                     Toast.makeText(VoterActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(VoterActivity.this,WhatsAppVerificationActivity.class));
+                    startActivity(new Intent(VoterActivity.this,PanCardActivity.class));
                     overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 }
             }

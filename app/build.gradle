@@ -30,6 +30,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    repositories {
+        mavenCentral()
+    }
 }
 
 dependencies {
@@ -67,6 +71,11 @@ dependencies {
     //image Picker
     implementation 'com.github.esafirm.android-image-picker:imagepicker:2.2.0'
 
+    implementation 'androidx.multidex:multidex:2.0.1'
+    //Razor Pay
+    //implementation 'com.razorpay:checkout:1.6.12'
+
+    implementation 'com.google.android.play:core:1.8.3'
 
     // retrofit library
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
