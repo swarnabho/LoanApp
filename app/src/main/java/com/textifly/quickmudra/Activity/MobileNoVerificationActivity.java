@@ -6,11 +6,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
+import com.textifly.quickmudra.MainActivity;
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
+import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityMobileNoVerificationBinding;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MobileNoVerificationActivity extends AppCompatActivity implements View.OnClickListener{
     ActivityMobileNoVerificationBinding binding;
@@ -59,7 +77,8 @@ public class MobileNoVerificationActivity extends AppCompatActivity implements V
             case R.id.btnContinue:
                 if(length == 10){
                     phno = "+"+binding.ccp.getSelectedCountryCode()+" "+binding.etMobileNumber.getText().toString();
-                    otpCheck();
+                    checkMobileNumber();
+                    //otpCheck();
                 }else{
                     Toast.makeText(MobileNoVerificationActivity.this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
                     binding.etMobileNumber.requestFocus();
@@ -70,6 +89,46 @@ public class MobileNoVerificationActivity extends AppCompatActivity implements V
                 overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
         }
+    }
+
+    private void checkMobileNumber() {
+        CustomProgressDialog.showDialog(MobileNoVerificationActivity.this,true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.MOBILE_CHECK, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(MobileNoVerificationActivity.this,false);
+                //CustomProgressDialog.showDialog(MobileNoVerificationActivity.this, false);
+                try {
+                    JSONObject object = new JSONObject(response);
+                    if (object.getString("status").equals("0")) {
+                        //Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                        otpCheck();
+
+                    }else if (object.getString("status").equals("1")) {
+                        CustomProgressDialog.showDialog(MobileNoVerificationActivity.this,false);
+                        Toast.makeText(MobileNoVerificationActivity.this, object.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(MobileNoVerificationActivity.this,false);
+                Log.d("ERROR", error.getMessage());
+                Toast.makeText(getApplicationContext(), "Getting some troubles", Toast.LENGTH_SHORT).show();
+                //CustomProgressDialog.showDialog(MobileNoVerificationActivity.this, false);
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("mobile", binding.etMobileNumber.getText().toString());
+                return map;
+            }
+        };
+        Volley.newRequestQueue(getApplicationContext()).add(sr);
     }
 
     private void otpCheck() {

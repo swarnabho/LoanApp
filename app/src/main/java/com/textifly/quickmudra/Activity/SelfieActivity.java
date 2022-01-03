@@ -233,10 +233,10 @@ public class SelfieActivity extends AppCompatActivity implements View.OnClickLis
     private void uploadVoterId() {
         Log.d("AadharFront", SelfieFile.getName());
 
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), "57" /*YoDB.getPref().read(Constants.ID,"")*/);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), SelfieFile);
-        MultipartBody.Part selfie = MultipartBody.Part.createFormData("selfie", SelfieFile.getName(), bodyVoterFront);
+        MultipartBody.Part selfie = MultipartBody.Part.createFormData("profile_photo", SelfieFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
         Call<ResponseDataModel> call = service.updateSelfie(user_id, selfie);

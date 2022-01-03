@@ -189,7 +189,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 HashMap<String, String> map = new HashMap<>();
                 map.put("email", binding.tilEmail.getEditText().getText().toString());
                 map.put("mobile", getIntent().getStringExtra("phno"));
-                map.put("fname", binding.tilEmail.getEditText().getText().toString());
+                map.put("fname", binding.tilName.getEditText().getText().toString());
                 map.put("confirm_password", binding.tilPassword.getEditText().getText().toString());
                 map.put("promo_code", binding.tilRefferal.getEditText().getText().toString());
                 map.put("imei_no", IMEINumber);

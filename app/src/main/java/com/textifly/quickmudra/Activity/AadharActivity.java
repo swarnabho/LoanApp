@@ -24,8 +24,10 @@ import android.widget.Toast;
 
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
+import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.ActivityAadharBinding;
 
@@ -240,8 +242,9 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
         Log.d("AadharFront",AadharFront.getName());
         Log.d("VoterBack",VoterBack.getName());
 
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),"57" /*YoDB.getPref().read(Constants.ID,"")*/);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
         RequestBody aadhar = RequestBody.create(MediaType.parse("text/plain"),binding.tilAadharNo.getEditText().getText().toString());
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"60");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), AadharFront);
         MultipartBody.Part aadhar_font = MultipartBody.Part.createFormData("aadhar_font", AadharFront.getName(), bodyVoterFront);
@@ -250,7 +253,7 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
         MultipartBody.Part aadhar_back = MultipartBody.Part.createFormData("aadhar_back", VoterBack.getName(), bodyVoterBack);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateAadhar(user_id,aadhar,aadhar_font, aadhar_back);
+        Call<ResponseDataModel> call = service.updateAadhar(user_id,aadhar,percentage,aadhar_font, aadhar_back);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override

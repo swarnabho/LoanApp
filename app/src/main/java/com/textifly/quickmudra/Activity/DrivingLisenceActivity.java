@@ -24,8 +24,10 @@ import android.widget.Toast;
 
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
+import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.ActivityDrivingLisenceBinding;
 
@@ -219,13 +221,14 @@ public class DrivingLisenceActivity extends AppCompatActivity implements View.On
     private void uploadVoterId() {
         Log.d("AadharFront", lisenceFile.getName());
 
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), "57" /*YoDB.getPref().read(Constants.ID,"")*/);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"100");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), lisenceFile);
-        MultipartBody.Part driving = MultipartBody.Part.createFormData("driving", lisenceFile.getName(), bodyVoterFront);
+        MultipartBody.Part driving = MultipartBody.Part.createFormData("driving_license", lisenceFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateDriving(user_id, driving);
+        Call<ResponseDataModel> call = service.updateDriving(user_id,percentage, driving);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override

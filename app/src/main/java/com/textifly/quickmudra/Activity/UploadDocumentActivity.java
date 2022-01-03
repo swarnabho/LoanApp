@@ -92,7 +92,6 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
                 loadPercentage();
                 YoDB.getPref().write(Constants.UploadNextDoc,"","marksheet");
                 if(AddressProofFile != null){
-                    CustomProgressDialog.showDialog(UploadDocumentActivity.this, true);
                     uploadVoterId();
                 }else{
                     Toast.makeText(UploadDocumentActivity.this, "Please add address proof", Toast.LENGTH_SHORT).show();
@@ -237,12 +236,13 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
 
 
     private void uploadVoterId() {
+        CustomProgressDialog.showDialog(UploadDocumentActivity.this, true);
         Log.d("AadharFront", AddressProofFile.getName());
 
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), "57" /*YoDB.getPref().read(Constants.ID,"")*/);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),  YoDB.getPref().read(Constants.ID,""));
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), AddressProofFile);
-        MultipartBody.Part addressProof = MultipartBody.Part.createFormData("addressProof", AddressProofFile.getName(), bodyVoterFront);
+        MultipartBody.Part addressProof = MultipartBody.Part.createFormData("address_proof", AddressProofFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
         Call<ResponseDataModel> call = service.updateAddressProof(user_id, addressProof);

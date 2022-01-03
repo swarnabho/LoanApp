@@ -233,7 +233,7 @@ public class UploadCollegeIdActivity extends AppCompatActivity implements View.O
     private void uploadVoterId() {
         Log.d("AadharFront", CollegeIdFile.getName());
 
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), "57" /*YoDB.getPref().read(Constants.ID,"")*/);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), CollegeIdFile);
         MultipartBody.Part collegeId = MultipartBody.Part.createFormData("collegeId", CollegeIdFile.getName(), bodyVoterFront);

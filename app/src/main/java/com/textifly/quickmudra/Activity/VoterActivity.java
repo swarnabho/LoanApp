@@ -270,7 +270,8 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
         Log.d("VoterFront",VoterFront.getName());
         Log.d("VoterBack",VoterBack.getName());
 
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),"57" /*YoDB.getPref().read(Constants.ID,"")*/);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),YoDB.getPref().read(Constants.ID,""));
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"20");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), VoterFront);
         MultipartBody.Part multi_VoterFront = MultipartBody.Part.createFormData("voter_front", VoterFront.getName(), bodyVoterFront);
@@ -279,7 +280,7 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
         MultipartBody.Part multi_VoterBack = MultipartBody.Part.createFormData("voter_back", VoterBack.getName(), bodyVoterBack);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateVoter(user_id,multi_VoterFront, multi_VoterBack);
+        Call<ResponseDataModel> call = service.updateVoter(user_id,percentage,multi_VoterFront, multi_VoterBack);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override

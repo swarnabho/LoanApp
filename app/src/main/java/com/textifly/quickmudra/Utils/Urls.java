@@ -33,5 +33,12 @@ public class Urls {
      */
     public static final String USER_PROFILE_COMPLETE_CHECK = BASEURL + "userprofilecompletedcheck";
 
+    /**
+     * @Post : POST
+     * @Name : mobilecheck
+     * @Parameter : mobile
+     */
+    public static final String MOBILE_CHECK = BASEURL + "mobilecheck";
+
 }
 

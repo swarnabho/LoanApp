@@ -1,5 +1,6 @@
 package com.textifly.quickmudra.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -12,12 +13,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.MainActivity;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityDetailsListBinding;
 import com.textifly.quickmudra.databinding.RegPopupBinding;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DetailsListActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityDetailsListBinding binding;
@@ -117,14 +133,15 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                 overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 break;
             case R.id.llWhatsappVerification:
-                startActivity(new Intent(DetailsListActivity.this, VoterActivity.class));
-                overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                /*startActivity(new Intent(DetailsListActivity.this, VoterActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);*/
+                checkKYCPosition();
                 break;
             case R.id.tvContinue:
-                Log.d("Status",YoDB.getPref().read(Constants.UploadNextDoc,""));
-                if(YoDB.getPref().read(Constants.UploadNextDoc,"").equals("complete")){
+                Log.d("Status", YoDB.getPref().read(Constants.UploadNextDoc, ""));
+                if (YoDB.getPref().read(Constants.UploadNextDoc, "").equals("complete")) {
                     startActivity(new Intent(DetailsListActivity.this, MainActivity.class));
-                }else{
+                } else {
                     startActivity(new Intent(DetailsListActivity.this, WhatsAppVerificationActivity.class));
                 }
                 overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
@@ -132,4 +149,59 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    private void checkKYCPosition() {
+        CustomProgressDialog.showDialog(DetailsListActivity.this, true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.USER_PROFILE_COMPLETE_CHECK, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(DetailsListActivity.this, false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getString("status").equals("0")) {
+                        JSONArray array = jsonObject.getJSONArray("data");
+                        JSONObject object = array.getJSONObject(0);
+                        String file_type = object.getString("file_type");
+                        if (file_type.equalsIgnoreCase("voter")) {
+                            startActivity(new Intent(DetailsListActivity.this, PanCardActivity.class));
+                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        } else if (file_type.equalsIgnoreCase("pan")) {
+                            startActivity(new Intent(DetailsListActivity.this, AadharActivity.class));
+                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        } else if (file_type.equalsIgnoreCase("aadhar")) {
+                            startActivity(new Intent(DetailsListActivity.this, PassportActivity.class));
+                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        } else if (file_type.equalsIgnoreCase("passport")) {
+                            startActivity(new Intent(DetailsListActivity.this, DrivingLisenceActivity.class));
+                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        } else if (file_type.equalsIgnoreCase("license")) {
+                            /*startActivity(new Intent(DetailsListActivity.this, WhatsAppVerificationActivity.class));
+                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);*/
+                            Toast.makeText(DetailsListActivity.this, "100% KYC submission completed", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (jsonObject.getString("status").equals("1")) {
+                        startActivity(new Intent(DetailsListActivity.this, WhatsAppVerificationActivity.class));
+                        overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(DetailsListActivity.this, false);
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> body = new HashMap<>();
+                body.put("user_id", YoDB.getPref().read(Constants.ID, ""));
+                body.put("type", "kyc");
+
+                return body;
+            }
+        };
+        Volley.newRequestQueue(DetailsListActivity.this).add(sr);
+    }
 }

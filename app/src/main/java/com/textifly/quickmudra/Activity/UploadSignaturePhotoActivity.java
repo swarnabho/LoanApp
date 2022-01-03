@@ -230,7 +230,7 @@ public class UploadSignaturePhotoActivity extends AppCompatActivity implements V
     private void uploadVoterId() {
         Log.d("AadharFront", SelfSignatureFile.getName());
 
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), "57" /*YoDB.getPref().read(Constants.ID,"")*/);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), SelfSignatureFile);
         MultipartBody.Part signature = MultipartBody.Part.createFormData("signature", SelfSignatureFile.getName(), bodyVoterFront);

@@ -15,6 +15,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateVoter(
             @Part("user_id") RequestBody user_id,
+            @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part voter_front,
             @Part MultipartBody.Part voter_back
     );
@@ -24,6 +25,7 @@ public interface WebService {
     Call<ResponseDataModel> updatePan(
             @Part("user_id") RequestBody user_id,
             @Part("pan_no") RequestBody pan,
+            @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part pan_font,
             @Part MultipartBody.Part pan_back
     );
@@ -33,6 +35,7 @@ public interface WebService {
     Call<ResponseDataModel> updateAadhar(
             @Part("user_id") RequestBody user_id,
             @Part("aadhar_no") RequestBody aadhar,
+            @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part aadhar_font,
             @Part MultipartBody.Part aadhar_back
     );
@@ -41,6 +44,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updatePassport(
             @Part("user_id") RequestBody user_id,
+            @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part passport
             );
 
@@ -48,6 +52,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateDriving(
             @Part("user_id") RequestBody user_id,
+            @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part driving
     );
 
@@ -90,6 +95,6 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateSelfieVideo(
             @Part("user_id") RequestBody user_id,
-            @Part MultipartBody.Part selfieVideo
+            @Part MultipartBody.Part profile_video
     );
 }

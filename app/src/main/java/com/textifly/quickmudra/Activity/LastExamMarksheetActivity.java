@@ -234,7 +234,7 @@ public class LastExamMarksheetActivity extends AppCompatActivity implements View
     private void uploadVoterId() {
         Log.d("AadharFront", LastMarksheetFile.getName());
 
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), "57" /*YoDB.getPref().read(Constants.ID,"")*/);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), LastMarksheetFile);
         MultipartBody.Part marksheet = MultipartBody.Part.createFormData("marksheet", LastMarksheetFile.getName(), bodyVoterFront);

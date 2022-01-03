@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.MainActivity;
@@ -58,7 +59,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
 
         binding.percentPD.setText(YoDB.getPref().read(Constants.UploadPercentage, "") + "%");
         BtnClick();
-        //showToast();
+        showToast();
     }
 
     private void showToast() {
@@ -67,7 +68,12 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
 
             public void run() {
                 // TODO Auto-generated method stub
-                Toast.makeText(getBaseContext(), "please told on video:My name is.... and I am responsible to repay my loans on Dopfin", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getBaseContext(), "please told on video:My name is.... and I am responsible to repay my loans on Dopfin", Toast.LENGTH_LONG).show();
+
+                Snackbar.make(findViewById(R.id.llVideo), "please told on video:My name is.... and I am responsible to repay my loans on Dopfin", Snackbar.LENGTH_LONG)
+                        .setDuration(10000)
+                        .setActionTextColor(getResources().getColor(R.color.white))
+                        .show();
             }
         };
 
@@ -173,10 +179,10 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
     private void uploadVoterId() {
         Log.d("AadharFront", SelfieVideoFile.getName());
 
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), "57" /*YoDB.getPref().read(Constants.ID,"")*/);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
 
-        RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), SelfieVideoFile);
-        MultipartBody.Part selfieVideo = MultipartBody.Part.createFormData("selfieVideo", SelfieVideoFile.getName(), bodyVoterFront);
+        RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("video/*"), SelfieVideoFile);
+        MultipartBody.Part selfieVideo = MultipartBody.Part.createFormData("profile_video", SelfieVideoFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
         Call<ResponseDataModel> call = service.updateSelfieVideo(user_id, selfieVideo);

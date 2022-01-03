@@ -24,8 +24,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.MainActivity;
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
+import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityMailVerificationBinding;
 import com.textifly.quickmudra.databinding.ActivityWhatsAppVerificationBinding;
 
@@ -33,7 +42,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -79,7 +90,7 @@ public class WhatsAppVerificationActivity extends AppCompatActivity implements V
         binding.llDrivingLicence.setVisibility(View.GONE);
         binding.llPassport.setVisibility(View.GONE);
 
-        spinner = new String[]{"Select Document","Voter ID", "PAN Card", "Passport", "Driving License", "Aadhaar"};
+        spinner = new String[]{"Select Document", "Voter ID", "PAN Card", "Passport", "Driving License", "Aadhaar"};
         ArrayAdapter<String> obj = new ArrayAdapter<String>(WhatsAppVerificationActivity.this, android.R.layout.simple_list_item_1, spinner);
         binding.spn.setAdapter(obj);
 
@@ -89,7 +100,7 @@ public class WhatsAppVerificationActivity extends AppCompatActivity implements V
                 data = binding.spn.getSelectedItem().toString();
                 if (data.equalsIgnoreCase("PAN Card")) {
                     startActivity(new Intent(WhatsAppVerificationActivity.this, PanCardActivity.class));
-                    overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                    overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                     //startActivity(new Intent(WhatsAppVerificationActivity.this, PanCardActivity.class));
                    /* binding.llVoterId.setVisibility(View.GONE);
                     binding.llPanCard.setVisibility(View.VISIBLE);
@@ -98,7 +109,7 @@ public class WhatsAppVerificationActivity extends AppCompatActivity implements V
                     binding.llPassport.setVisibility(View.GONE);*/
                 } else if (data.equalsIgnoreCase("Voter ID")) {
                     startActivity(new Intent(WhatsAppVerificationActivity.this, VoterActivity.class));
-                    overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                    overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                     //startActivity(new Intent(WhatsAppVerificationActivity.this, PanCardActivity.class));
                     /*binding.llVoterId.setVisibility(View.VISIBLE);
                     binding.llPanCard.setVisibility(View.GONE);
@@ -107,7 +118,7 @@ public class WhatsAppVerificationActivity extends AppCompatActivity implements V
                     binding.llPassport.setVisibility(View.GONE);*/
                 } else if (data.equalsIgnoreCase("Aadhaar")) {
                     startActivity(new Intent(WhatsAppVerificationActivity.this, AadharActivity.class));
-                    overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                    overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                     /*binding.llVoterId.setVisibility(View.GONE);
                     binding.llPanCard.setVisibility(View.GONE);
                     binding.llAadhar.setVisibility(View.VISIBLE);
@@ -115,7 +126,7 @@ public class WhatsAppVerificationActivity extends AppCompatActivity implements V
                     binding.llPassport.setVisibility(View.GONE);*/
                 } else if (data.equalsIgnoreCase("Passport")) {
                     startActivity(new Intent(WhatsAppVerificationActivity.this, PassportActivity.class));
-                    overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                    overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                     //startActivity(new Intent(WhatsAppVerificationActivity.this, PanCardActivity.class));
                     /*binding.llVoterId.setVisibility(View.GONE);
                     binding.llPanCard.setVisibility(View.GONE);
@@ -124,7 +135,7 @@ public class WhatsAppVerificationActivity extends AppCompatActivity implements V
                     binding.llPassport.setVisibility(View.VISIBLE);*/
                 } else if (data.equalsIgnoreCase("Driving License")) {
                     startActivity(new Intent(WhatsAppVerificationActivity.this, DrivingLisenceActivity.class));
-                    overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                    overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                     //startActivity(new Intent(WhatsAppVerificationActivity.this, PanCardActivity.class));
                     /*binding.llVoterId.setVisibility(View.GONE);
                     binding.llPanCard.setVisibility(View.GONE);
@@ -162,42 +173,42 @@ public class WhatsAppVerificationActivity extends AppCompatActivity implements V
             case R.id.ivVoterFont:
                 if (checkAndRequestPermissions(WhatsAppVerificationActivity.this)) {
                     if (checkAndRequestPermissions(getApplicationContext())) {
-                        chooseImage(WhatsAppVerificationActivity.this,101);
+                        chooseImage(WhatsAppVerificationActivity.this, 101);
                     }
                 }
                 break;
             case R.id.ivVoterBack:
                 if (checkAndRequestPermissions(WhatsAppVerificationActivity.this)) {
                     if (checkAndRequestPermissions(getApplicationContext())) {
-                        chooseImage(WhatsAppVerificationActivity.this,102);
+                        chooseImage(WhatsAppVerificationActivity.this, 102);
                     }
                 }
                 break;
             case R.id.ivPanFont:
                 if (checkAndRequestPermissions(WhatsAppVerificationActivity.this)) {
                     if (checkAndRequestPermissions(getApplicationContext())) {
-                        chooseImage(WhatsAppVerificationActivity.this,103);
+                        chooseImage(WhatsAppVerificationActivity.this, 103);
                     }
                 }
                 break;
             case R.id.ivPanBack:
                 if (checkAndRequestPermissions(WhatsAppVerificationActivity.this)) {
                     if (checkAndRequestPermissions(getApplicationContext())) {
-                        chooseImage(WhatsAppVerificationActivity.this,104);
+                        chooseImage(WhatsAppVerificationActivity.this, 104);
                     }
                 }
                 break;
             case R.id.ivAadharFont:
                 if (checkAndRequestPermissions(WhatsAppVerificationActivity.this)) {
                     if (checkAndRequestPermissions(getApplicationContext())) {
-                        chooseImage(WhatsAppVerificationActivity.this,105);
+                        chooseImage(WhatsAppVerificationActivity.this, 105);
                     }
                 }
                 break;
             case R.id.ivAadharBack:
                 if (checkAndRequestPermissions(WhatsAppVerificationActivity.this)) {
                     if (checkAndRequestPermissions(getApplicationContext())) {
-                        chooseImage(WhatsAppVerificationActivity.this,106);
+                        chooseImage(WhatsAppVerificationActivity.this, 106);
                     }
                 }
                 break;
@@ -208,7 +219,7 @@ public class WhatsAppVerificationActivity extends AppCompatActivity implements V
 
     }
 
-    private void chooseImage(Context context,int requestCode) {
+    private void chooseImage(Context context, int requestCode) {
         final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"}; // create a menuOption Array
         // create a dialog for showing the optionsMenu
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
@@ -256,7 +267,8 @@ public class WhatsAppVerificationActivity extends AppCompatActivity implements V
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQUEST_ID_MULTIPLE_PERMISSIONS:
@@ -344,7 +356,7 @@ public class WhatsAppVerificationActivity extends AppCompatActivity implements V
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(WhatsAppVerificationActivity.this,DetailsListActivity.class));
-        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+        startActivity(new Intent(WhatsAppVerificationActivity.this, DetailsListActivity.class));
+        overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
     }
 }
