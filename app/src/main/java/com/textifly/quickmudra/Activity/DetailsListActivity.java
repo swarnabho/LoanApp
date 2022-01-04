@@ -75,10 +75,67 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void loadPercentage() {
-        if (!YoDB.getPref().read(Constants.UploadPercentage, "").isEmpty())
+        /*if (!YoDB.getPref().read(Constants.UploadPercentage, "").isEmpty())
             binding.percentDOC.setText(YoDB.getPref().read(Constants.UploadPercentage, "") + "%");
         else
-            binding.percentDOC.setText("0%");
+            binding.percentDOC.setText("0%");*/
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.USER_DETAILS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject object = new JSONObject(response);
+                    String user_personal_percentage = object.getString("user_personal_percentage");
+                    String other_details_percentage = object.getString("other_details_percentage");
+                    String kyc_percentage = object.getString("kyc_percentage");
+                    String doc_percentage = object.getString("doc_percentage");
+
+                    if(kyc_percentage.isEmpty()){
+                        binding.percentKYC.setText("0%");
+                    } else{
+                        binding.percentKYC.setText(kyc_percentage+"%");
+                    }
+                    if(kyc_percentage.isEmpty()){
+                        binding.percentKYC.setText("0%");
+                    } else{
+                        binding.percentKYC.setText(kyc_percentage+"%");
+                    }
+
+                    if(user_personal_percentage.isEmpty()){
+                        binding.percentPD.setText("0%");
+                    } else{
+                        binding.percentPD.setText(user_personal_percentage+"%");
+                    }
+
+                    if(doc_percentage.isEmpty()){
+                        binding.percentDOC.setText("0%");
+                    } else{
+                        binding.percentDOC.setText(doc_percentage+"%");
+                    }
+
+                    if(other_details_percentage.isEmpty()){
+                        binding.percentED.setText("0%");
+                    } else{
+                        binding.percentED.setText(other_details_percentage+"%");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("userid", YoDB.getPref().read(Constants.ID, ""));
+                return map;
+            }
+        };
+        Volley.newRequestQueue(DetailsListActivity.this).add(sr);
     }
 
     private void BtnClick() {
@@ -105,7 +162,10 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                 overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 break;
             case R.id.llUploadDocuments:
-                if (YoDB.getPref().read(Constants.UploadNextDoc, "").equalsIgnoreCase("address")) {
+                checkDocumentsPosition();
+
+               // startActivity(new Intent(DetailsListActivity.this, UploadCollegeIdActivity.class));
+                /*if (YoDB.getPref().read(Constants.UploadNextDoc, "").equalsIgnoreCase("address")) {
                     startActivity(new Intent(DetailsListActivity.this, UploadDocumentActivity.class));
                 } else if (YoDB.getPref().read(Constants.UploadNextDoc, "").equalsIgnoreCase("marksheet")) {
                     startActivity(new Intent(DetailsListActivity.this, LastExamMarksheetActivity.class));
@@ -121,8 +181,8 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                     startActivity(new Intent(DetailsListActivity.this, MainActivity.class));
                 } else {
                     startActivity(new Intent(DetailsListActivity.this, UploadDocumentActivity.class));
-                }
-                overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                }*/
+                //overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 break;
             case R.id.llAlternativeContact:
                 startActivity(new Intent(DetailsListActivity.this, AlternativeContactActivity.class));
@@ -138,12 +198,13 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                 checkKYCPosition();
                 break;
             case R.id.tvContinue:
-                Log.d("Status", YoDB.getPref().read(Constants.UploadNextDoc, ""));
+                /*Log.d("Status", YoDB.getPref().read(Constants.UploadNextDoc, ""));
                 if (YoDB.getPref().read(Constants.UploadNextDoc, "").equals("complete")) {
                     startActivity(new Intent(DetailsListActivity.this, MainActivity.class));
                 } else {
                     startActivity(new Intent(DetailsListActivity.this, WhatsAppVerificationActivity.class));
-                }
+                }*/
+                startActivity(new Intent(DetailsListActivity.this, MainActivity.class));
                 overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 break;
         }
@@ -179,7 +240,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                             Toast.makeText(DetailsListActivity.this, "100% KYC submission completed", Toast.LENGTH_SHORT).show();
                         }
                     } else if (jsonObject.getString("status").equals("1")) {
-                        startActivity(new Intent(DetailsListActivity.this, WhatsAppVerificationActivity.class));
+                        startActivity(new Intent(DetailsListActivity.this, VoterActivity.class));
                         overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                     }
                 } catch (JSONException e) {
@@ -198,6 +259,63 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                 Map<String, String> body = new HashMap<>();
                 body.put("user_id", YoDB.getPref().read(Constants.ID, ""));
                 body.put("type", "kyc");
+
+                return body;
+            }
+        };
+        Volley.newRequestQueue(DetailsListActivity.this).add(sr);
+    }
+
+    private void checkDocumentsPosition() {
+        CustomProgressDialog.showDialog(DetailsListActivity.this, true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.USER_PROFILE_COMPLETE_CHECK, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(DetailsListActivity.this, false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getString("status").equals("0")) {
+                        JSONArray array = jsonObject.getJSONArray("data");
+                        JSONObject object = array.getJSONObject(0);
+                        String file_type = object.getString("file_type");
+                        if (file_type.equalsIgnoreCase("addressproof")) { // address proof
+                            startActivity(new Intent(DetailsListActivity.this, LastExamMarksheetActivity.class));
+                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        } else if (file_type.equalsIgnoreCase("marksheet")) {
+                            startActivity(new Intent(DetailsListActivity.this, UploadCollegeIdActivity.class));
+                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        } else if (file_type.equalsIgnoreCase("collegeid")) {
+                            startActivity(new Intent(DetailsListActivity.this, UploadSignaturePhotoActivity.class));
+                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        } else if (file_type.equalsIgnoreCase("signature")) {
+                            startActivity(new Intent(DetailsListActivity.this, SelfieActivity.class));
+                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        } else if (file_type.equalsIgnoreCase("profilephoto")) {
+                            startActivity(new Intent(DetailsListActivity.this, VideoActivity.class));
+                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        } else if (file_type.equalsIgnoreCase("profilevideo")) {
+                            Toast.makeText(DetailsListActivity.this, "100% Documents upload completed", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (jsonObject.getString("status").equals("1")) {
+                        startActivity(new Intent(DetailsListActivity.this, UploadDocumentActivity.class));
+                        overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(DetailsListActivity.this, false);
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> body = new HashMap<>();
+                body.put("user_id", YoDB.getPref().read(Constants.ID, ""));
+                body.put("type", "documents");
 
                 return body;
             }

@@ -154,7 +154,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Select and upload your KYC document"
+                        android:text="Upload your KYC document"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         android:textSize="15sp" />
@@ -205,6 +205,7 @@
                                 android:background="@drawable/edit_text_background"
                                 android:imeOptions="actionNext"
                                 android:inputType="text"
+                                android:id="@+id/etAadhaNo"
                                 android:maxLines="1"
                                 android:maxLength="12"
                                 android:textColor="@color/black"

@@ -48,7 +48,7 @@
                 android:id="@+id/tvStart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Continue"
+                android:text="OK"
                 android:gravity="center"
                 android:textSize="18sp"
                 android:layout_margin="20dp"

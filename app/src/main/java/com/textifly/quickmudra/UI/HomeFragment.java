@@ -6,7 +6,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.os.Handler;
 import android.util.Log;
@@ -17,17 +19,29 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.textifly.quickmudra.Activity.DetailsListActivity;
 import com.textifly.quickmudra.MainActivity;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.FragmentHomeBinding;
 import com.textifly.quickmudra.databinding.HomePopupBinding;
 import com.textifly.quickmudra.databinding.RegPopupBinding;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
     FragmentHomeBinding binding;
@@ -39,6 +53,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     List<String> timeList = new ArrayList<>();
     ArrayAdapter<String> timeAdapter;
 
+    boolean isActive = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,11 +64,45 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         setAmountSpinner();
         setTimeSpinner();
         //if (YoDB.getPref().read(Constants.haveActivated, "").isEmpty()) {
-        showPopUp();
+        checkActive();
+        //showPopUp();
         //}
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
         return binding.getRoot();
+    }
+
+    private void checkActive() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.USER_CHECK, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String status = jsonObject.getString("status");
+                    if(status.equals("1")){
+                        //binding.etChooseAmount.setEnabled(false);
+                        isActive = false;
+                        showPopUp();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("userid",YoDB.getPref().read(Constants.ID,""));
+                return map;
+            }
+        };
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
     }
 
     private void setAmountSpinner() {
@@ -111,6 +161,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 if (!item.equals("Select Tanure")) {
                     binding.etChooseTime.setText(item);
                     binding.spinnerTanure.setVisibility(View.GONE);
+                    binding.llDetails.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -189,37 +240,46 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 ((MainActivity) getActivity()).openDrawer();
                 break;
             case R.id.etChooseAmount:
-                binding.spinnerAmount.performClick();
-                binding.spinnerAmount.setVisibility(View.VISIBLE);
+                if(isActive){
+                    binding.spinnerAmount.performClick();
+                    binding.spinnerAmount.setVisibility(View.VISIBLE);
+                }else{
+                    Toast.makeText(getActivity(), "Please wait until your account is activate", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.etChooseTime:
                 binding.spinnerTanure.performClick();
                 binding.spinnerTanure.setVisibility(View.VISIBLE);
                 break;
             case R.id.txtRequest:
-                checkRequest();
+                checkRequest(view);
                 break;
         }
     }
 
-    private void checkRequest() {
+    private void checkRequest(View view) {
         if(binding.etChooseAmount.getText().toString().isEmpty()){
             Toast.makeText(getActivity(), "Please select borrow amount", Toast.LENGTH_SHORT).show();
         }else if(binding.etChooseTime.getText().toString().isEmpty()){
             Toast.makeText(getActivity(), "Please select tanure of loan", Toast.LENGTH_SHORT).show();
         }else{
-            loanRequest();
+            loanRequest(view);
         }
     }
 
-    private void loanRequest() {
+    private void loanRequest(View view) {
         String amount = binding.etChooseAmount.getText().toString();
         String time = binding.etChooseTime.getText().toString();
 
-        Intent intent = new Intent(getActivity(),RazorPayActivity.class);
+        Bundle srchbundle = new Bundle();
+        srchbundle.putString("amount", "amount");
+        srchbundle.putString("time", "time");
+        Navigation.findNavController(view).navigate(R.id.action_nav_home_to_payment, srchbundle);
+
+        /*Intent intent = new Intent(getActivity(),PaymentFragment.class);
         intent.putExtra("amount",amount);
         intent.putExtra("time",time);
         startActivity(intent);
-        getActivity().overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+        getActivity().overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);*/
     }
 }

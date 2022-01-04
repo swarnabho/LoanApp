@@ -98,7 +98,7 @@ public class EmploymentDetailsActivity extends AppCompatActivity implements View
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("0")) {
                         binding.percentPD.setText("100%");
-                        startActivity(new Intent(EmploymentDetailsActivity.this,UploadDocumentActivity.class));
+                        startActivity(new Intent(EmploymentDetailsActivity.this,DetailsListActivity.class));
                         overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                     }
                 } catch (JSONException e) {
@@ -117,6 +117,7 @@ public class EmploymentDetailsActivity extends AppCompatActivity implements View
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
                 map.put("user_id", YoDB.getPref().read(Constants.ID, ""));
+                map.put("education_details", binding.tilEducationDetailse.getText().toString());
                 map.put("college", binding.tilInstituteName.getText().toString());
                 map.put("institute_pincode", binding.tilInstituteName.getText().toString());
                 map.put("course_name", binding.tilCourseName.getText().toString());
@@ -124,7 +125,8 @@ public class EmploymentDetailsActivity extends AppCompatActivity implements View
                 map.put("course_end_year", binding.tilCourseEndYear.getText().toString());
                 map.put("exam_year", binding.tilExamYear.getText().toString());
                 map.put("percentage", binding.tilPercentage.getText().toString());
-                //map.put("pocketmoney", binding.tilPocketMoney.getText().toString()); missing in api
+                map.put("pocket_money", binding.tilPocketMoney.getText().toString());
+                map.put("annual_income", binding.tilMonthlyIncome.getText().toString());
 
                 return map;
             }

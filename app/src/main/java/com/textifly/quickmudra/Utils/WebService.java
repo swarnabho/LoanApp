@@ -60,6 +60,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateAddressProof(
             @Part("user_id") RequestBody user_id,
+            @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part addressProof
     );
 
@@ -67,6 +68,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateMarksheet(
             @Part("user_id") RequestBody user_id,
+            @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part marksheet
     );
 
@@ -74,6 +76,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateCollegeId(
             @Part("user_id") RequestBody user_id,
+            @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part collegeId
     );
 
@@ -81,6 +84,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateSignature(
             @Part("user_id") RequestBody user_id,
+            @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part signature
     );
 
@@ -88,6 +92,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateSelfie(
             @Part("user_id") RequestBody user_id,
+            @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part selfie
     );
 
@@ -95,6 +100,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateSelfieVideo(
             @Part("user_id") RequestBody user_id,
+            @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part profile_video
     );
 }

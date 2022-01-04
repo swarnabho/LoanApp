@@ -240,12 +240,13 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         Log.d("AadharFront", AddressProofFile.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),  YoDB.getPref().read(Constants.ID,""));
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"17");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), AddressProofFile);
         MultipartBody.Part addressProof = MultipartBody.Part.createFormData("address_proof", AddressProofFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateAddressProof(user_id, addressProof);
+        Call<ResponseDataModel> call = service.updateAddressProof(user_id,percentage, addressProof);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override

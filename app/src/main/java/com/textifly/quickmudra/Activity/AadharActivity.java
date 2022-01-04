@@ -247,7 +247,7 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
         RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"60");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), AadharFront);
-        MultipartBody.Part aadhar_font = MultipartBody.Part.createFormData("aadhar_font", AadharFront.getName(), bodyVoterFront);
+        MultipartBody.Part aadhar_font = MultipartBody.Part.createFormData("aadhar_front", AadharFront.getName(), bodyVoterFront);
 
         RequestBody bodyVoterBack = RequestBody.create(MediaType.parse("image/*"), VoterBack);
         MultipartBody.Part aadhar_back = MultipartBody.Part.createFormData("aadhar_back", VoterBack.getName(), bodyVoterBack);
@@ -294,7 +294,10 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
             case R.id.btnSubmit:
-                if (AadharFront == null) {
+                if(binding.etAadhaNo.getText().toString().isEmpty()){
+                    Toast.makeText(AadharActivity.this, "Please enter aadhar number", Toast.LENGTH_SHORT).show();
+                    binding.etAadhaNo.requestFocus();
+                }else if (AadharFront == null) {
                     Toast.makeText(AadharActivity.this, "Please enter aadhar front image", Toast.LENGTH_SHORT).show();
                 } else if (VoterBack == null) {
                     Toast.makeText(AadharActivity.this, "Please enter aadhar back image", Toast.LENGTH_SHORT).show();

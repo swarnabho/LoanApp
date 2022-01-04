@@ -234,12 +234,13 @@ public class UploadCollegeIdActivity extends AppCompatActivity implements View.O
         Log.d("AadharFront", CollegeIdFile.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"50");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), CollegeIdFile);
-        MultipartBody.Part collegeId = MultipartBody.Part.createFormData("collegeId", CollegeIdFile.getName(), bodyVoterFront);
+        MultipartBody.Part collegeId = MultipartBody.Part.createFormData("college_id", CollegeIdFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateCollegeId(user_id, collegeId);
+        Call<ResponseDataModel> call = service.updateCollegeId(user_id,percentage, collegeId);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override

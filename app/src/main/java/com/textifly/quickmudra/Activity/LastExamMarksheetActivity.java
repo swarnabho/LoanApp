@@ -235,12 +235,13 @@ public class LastExamMarksheetActivity extends AppCompatActivity implements View
         Log.d("AadharFront", LastMarksheetFile.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"33");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), LastMarksheetFile);
-        MultipartBody.Part marksheet = MultipartBody.Part.createFormData("marksheet", LastMarksheetFile.getName(), bodyVoterFront);
+        MultipartBody.Part marksheet = MultipartBody.Part.createFormData("marksheet_image", LastMarksheetFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateMarksheet(user_id, marksheet);
+        Call<ResponseDataModel> call = service.updateMarksheet(user_id,percentage, marksheet);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override

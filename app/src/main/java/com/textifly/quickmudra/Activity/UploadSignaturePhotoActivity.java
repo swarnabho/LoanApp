@@ -231,12 +231,13 @@ public class UploadSignaturePhotoActivity extends AppCompatActivity implements V
         Log.d("AadharFront", SelfSignatureFile.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"67");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), SelfSignatureFile);
         MultipartBody.Part signature = MultipartBody.Part.createFormData("signature", SelfSignatureFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateSignature(user_id, signature);
+        Call<ResponseDataModel> call = service.updateSignature(user_id,percentage, signature);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override

@@ -10,11 +10,28 @@
         android:id="@+id/navigation_home"
         android:name="com.textifly.quickmudra.UI.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home"></fragment>
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_nav_home_to_payment"
+            app:destination="@id/navigation_Payment"
+
+            app:popEnterAnim="@anim/fade_in_animation"
+            app:enterAnim="@anim/fade_in_animation"
+            app:popExitAnim="@anim/fade_out_animation"
+            app:exitAnim="@anim/fade_out_animation"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_refer"
         android:name="com.textifly.quickmudra.UI.ReferFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_refer"></fragment>
+
+    <fragment
+        android:id="@+id/navigation_Payment"
+        android:name="com.textifly.quickmudra.UI.PaymentFragment"
         android:label="Home"
         tools:layout="@layout/fragment_refer"></fragment>
 

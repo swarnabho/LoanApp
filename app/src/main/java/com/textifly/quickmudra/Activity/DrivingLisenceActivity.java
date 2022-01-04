@@ -62,6 +62,7 @@ public class DrivingLisenceActivity extends AppCompatActivity implements View.On
     private void BtnClick() {
         binding.ivDrivingLisence.setOnClickListener(this);
         binding.btnSubmit.setOnClickListener(this);
+        binding.tvSkip.setOnClickListener(this);
     }
 
     @Override
@@ -79,6 +80,10 @@ public class DrivingLisenceActivity extends AppCompatActivity implements View.On
                     CustomProgressDialog.showDialog(DrivingLisenceActivity.this, true);
                     uploadVoterId();
                 }
+                break;
+            case R.id.tvSkip:
+                startActivity(new Intent(DrivingLisenceActivity.this,DetailsListActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
         }
     }

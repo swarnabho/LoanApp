@@ -62,6 +62,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
     private void BtnClick() {
         binding.ivPassport.setOnClickListener(this);
         binding.btnSubmit.setOnClickListener(this);
+        binding.tvSkip.setOnClickListener(this);
     }
 
     private void chooseImage(Context context) {
@@ -247,6 +248,10 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
                     CustomProgressDialog.showDialog(PassportActivity.this, true);
                     uploadVoterId();
                 }
+                break;
+            case R.id.tvSkip:
+                startActivity(new Intent(PassportActivity.this,DrivingLisenceActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
         }
     }

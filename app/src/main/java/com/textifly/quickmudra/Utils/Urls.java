@@ -40,5 +40,19 @@ public class Urls {
      */
     public static final String MOBILE_CHECK = BASEURL + "mobilecheck";
 
+    /**
+     * @Post : POST
+     * @Name : userdetails
+     * @Parameter : userid
+     */
+    public static final String USER_DETAILS = BASEURL + "userdetails";
+
+    /**
+     * @Post : POST
+     * @Name : usercheck
+     * @Parameter : userid
+     */
+    public static final String USER_CHECK = BASEURL + "usercheck";
+
 }
 

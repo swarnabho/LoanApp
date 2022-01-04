@@ -180,12 +180,13 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
         Log.d("AadharFront", SelfieVideoFile.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"100");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("video/*"), SelfieVideoFile);
         MultipartBody.Part selfieVideo = MultipartBody.Part.createFormData("profile_video", SelfieVideoFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateSelfieVideo(user_id, selfieVideo);
+        Call<ResponseDataModel> call = service.updateSelfieVideo(user_id,percentage, selfieVideo);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override
