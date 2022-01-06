@@ -65,11 +65,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
+
     }
 
     private void BtnClick() {
         binding.tvLogin.setOnClickListener(this);
         binding.llRegister.setOnClickListener(this);
+        binding.llForgotPW.setOnClickListener(this);
     }
 
     @Override
@@ -77,6 +79,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()) {
             case R.id.tvLogin:
                 checkLoginData();
+                break;
+            case R.id.llForgotPW:
+                startActivity(new Intent(LoginActivity.this, ForgotPWActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 break;
             case R.id.llRegister:
                 startActivity(new Intent(LoginActivity.this, MobileNoVerificationActivity.class));
@@ -86,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void checkLoginData() {
-        mobile = binding.tilPhone.getEditText().getText().toString();
+        mobile = "+91 "+binding.tilPhone.getEditText().getText().toString();
         password = binding.tilPassword.getEditText().getText().toString();
 
         if (binding.tilPhone.getEditText().getText().toString().isEmpty()) {

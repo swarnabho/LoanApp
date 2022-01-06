@@ -82,17 +82,27 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
         StringRequest sr = new StringRequest(Request.Method.POST, Urls.USER_DETAILS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.d("RESPONSE",response);
                 try {
                     JSONObject object = new JSONObject(response);
                     String user_personal_percentage = object.getString("user_personal_percentage");
                     String other_details_percentage = object.getString("other_details_percentage");
                     String kyc_percentage = object.getString("kyc_percentage");
                     String doc_percentage = object.getString("doc_percentage");
+                    String alternate_contact_verify = object.getString("alternate_contact_verify");
+
+                    //Log.d("ID_RES",YoDB.getPref().read(Constants.ID,""));
+                    Log.d("ID_RES",alternate_contact_verify);
 
                     if(kyc_percentage.isEmpty()){
                         binding.percentKYC.setText("0%");
                     } else{
                         binding.percentKYC.setText(kyc_percentage+"%");
+                    }
+                    if(alternate_contact_verify.isEmpty()){
+                        binding.percentCV.setText("0%");
+                    } else{
+                        binding.percentCV.setText("100%");
                     }
                     if(kyc_percentage.isEmpty()){
                         binding.percentKYC.setText("0%");

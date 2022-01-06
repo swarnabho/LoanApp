@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.textifly.quickmudra.MainActivity;
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
+import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.databinding.ActivityAlternativeContactBinding;
 import com.textifly.quickmudra.databinding.ActivityMailVerificationBinding;
 
@@ -24,6 +26,7 @@ public class MailVerificationActivity extends AppCompatActivity implements View.
     }
 
     private void BtnClick() {
+        binding.etEmailAddress.setText(YoDB.getPref().read(Constants.EMAIL,""));
         binding.btnContinue.setOnClickListener(this);
     }
 

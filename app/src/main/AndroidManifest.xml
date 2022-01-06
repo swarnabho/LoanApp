@@ -18,13 +18,16 @@
         android:name=".ManageSharedPreferenceData.YoDB"
         android:allowBackup="true"
         android:exported="true"
-        android:requestLegacyExternalStorage="true"
-        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Activity.ForgotPWActivity"
+            android:exported="false" />
         <activity
             android:name=".UI.RazorPayActivity"
             android:exported="true" />
@@ -44,24 +47,29 @@
             android:name=".Activity.VideoActivity"
             android:exported="true">
 
-            <!--<intent-filter>
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
 
         </activity>
         <activity
             android:name=".Activity.SelfieActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.UploadSignaturePhotoActivity"
             android:exported="true">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
 
         </activity>
         <activity
@@ -82,7 +90,6 @@
         <activity
             android:name=".Activity.SplashScreenActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -129,11 +136,13 @@
             android:name=".Activity.DetailsListActivity"
             android:exported="true">
 
-            <!--<intent-filter>
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".Activity.ApplyActivity"
@@ -165,11 +174,14 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
     </application>
 

@@ -125,32 +125,76 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="18dp">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/iv1"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/neft" />
-
-                        <ImageView
-                            android:id="@+id/iv01"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/neft"
-                            android:visibility="gone"
-                            app:tint="@color/baseColor" />
-
-                        <TextView
-                            android:id="@+id/txt1"
+                        <LinearLayout
+                            android:id="@+id/llNEFT"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="18dp">
+
+                            <ImageView
+                                android:id="@+id/iv1"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/neft" />
+
+                            <ImageView
+                                android:id="@+id/iv01"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/neft"
+                                android:visibility="gone"
+                                app:tint="@color/baseColor" />
+
+                            <TextView
+                                android:id="@+id/txt1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:text="NEFT"
+                                android:textColor="@color/baseColor" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llBanlDetails"
+                            android:visibility="gone"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
                             android:layout_marginLeft="10dp"
-                            android:text="NEFT"
-                            android:textColor="@color/baseColor" />
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/AccountNo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:text="Account No: 1234567890"
+                                android:textColor="@color/baseColor" />
+
+                            <TextView
+                                android:id="@+id/BranchName"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:text="Branch Name : xyz"
+                                android:textColor="@color/baseColor" />
+
+                            <TextView
+                                android:id="@+id/ifscNo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:text="IFSC No: 123456"
+                                android:textColor="@color/baseColor" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -170,34 +214,58 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="18dp">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/iv2"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/phonepe" />
-
-                        <ImageView
-                            android:id="@+id/iv02"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/phonepe"
-                            android:visibility="gone"
-                            app:tint="@color/baseColor" />
-
-                        <TextView
-                            android:id="@+id/txt2"
+                        <LinearLayout
+                            android:id="@+id/llPhonePe"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:text="Phone Pe"
-                            android:textColor="@color/baseColor" />
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="18dp">
+
+                            <ImageView
+                                android:id="@+id/iv2"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/phonepe" />
+
+                            <ImageView
+                                android:id="@+id/iv02"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/phonepe"
+                                android:visibility="gone"
+                                app:tint="@color/baseColor" />
+
+                            <TextView
+                                android:id="@+id/txt2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:text="Phone Pe"
+                                android:textColor="@color/baseColor" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/phonePe"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="UPI: abcd@ybl"
+                                android:textColor="@color/baseColor"
+                                />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -217,34 +285,59 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="18dp">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/iv3"
-                            android:layout_width="24dp"
-                            android:scaleType="fitXY"
-                            android:layout_height="24dp"
-                            android:src="@drawable/gpay" />
-
-                        <ImageView
-                            android:id="@+id/iv03"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/gpay"
-                            android:visibility="gone"
-                            app:tint="@color/baseColor" />
-
-                        <TextView
-                            android:id="@+id/txt3"
+                        <LinearLayout
+                            android:id="@+id/llGooglePay"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:text="Google Pay"
-                            android:textColor="@color/baseColor" />
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="18dp">
+
+                            <ImageView
+                                android:id="@+id/iv3"
+                                android:layout_width="24dp"
+                                android:scaleType="fitXY"
+                                android:layout_height="24dp"
+                                android:src="@drawable/gpay" />
+
+                            <ImageView
+                                android:id="@+id/iv03"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/gpay"
+                                android:visibility="gone"
+                                app:tint="@color/baseColor" />
+
+                            <TextView
+                                android:id="@+id/txt3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:text="Google Pay"
+                                android:textColor="@color/baseColor" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/googlePe"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="20dp"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="UPI: abcd@oksbi"
+                                android:textColor="@color/baseColor"
+                                />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 

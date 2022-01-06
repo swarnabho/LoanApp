@@ -54,5 +54,12 @@ public class Urls {
      */
     public static final String USER_CHECK = BASEURL + "usercheck";
 
+    /**
+     * @Post : POST
+     * @Name : forgetpassword
+     * @Parameter : mobile,password
+     */
+    public static final String FORGET_PW = BASEURL + "forgetpassword";
+
 }
 

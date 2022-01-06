@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         setAmountSpinner();
         setTimeSpinner();
         //if (YoDB.getPref().read(Constants.haveActivated, "").isEmpty()) {
-        checkActive();
+        //checkActive();
         //showPopUp();
         //}
 
@@ -231,6 +231,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         binding.etChooseAmount.setOnClickListener(this);
         binding.etChooseTime.setOnClickListener(this);
         binding.txtRequest.setOnClickListener(this);
+        binding.cvCheck.setOnClickListener(this);
     }
 
     @Override
@@ -238,6 +239,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.llMenu:
                 ((MainActivity) getActivity()).openDrawer();
+                break;
+            case R.id.cvCheck:
+                startActivity(new Intent(getActivity(),DetailsListActivity.class));
+                getActivity().overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
             case R.id.etChooseAmount:
                 if(isActive){

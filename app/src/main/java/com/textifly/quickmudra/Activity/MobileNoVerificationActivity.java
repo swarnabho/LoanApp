@@ -124,7 +124,7 @@ public class MobileNoVerificationActivity extends AppCompatActivity implements V
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map = new HashMap<>();
-                map.put("mobile", binding.etMobileNumber.getText().toString());
+                map.put("mobile", phno/*binding.etMobileNumber.getText().toString()*/);
                 return map;
             }
         };

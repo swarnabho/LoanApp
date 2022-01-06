@@ -128,8 +128,24 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llForgotPW"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorGray"
+                        android:layout_marginTop="15dp"
+                        android:text="Forgot Password? Click Here."/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 

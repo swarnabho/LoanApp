@@ -1,6 +1,7 @@
 package com.textifly.quickmudra.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,6 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -21,9 +28,18 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.mukesh.OnOtpCompletionListener;
+import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
+import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityOtpValidationBinding;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class OtpValidationActivity extends AppCompatActivity {
@@ -183,17 +199,63 @@ public class OtpValidationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Phone number authentication completed", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(OtpValidationActivity.this,RegistrationActivity.class);
-                            intent.putExtra("phno",phno);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
-                            finish();
+
+                            if(getIntent().getExtras().containsKey("from")){
+                                Toast.makeText(OtpValidationActivity.this, "FROM", Toast.LENGTH_SHORT).show();
+                                saveAlternateNo(phno);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Phone number authentication completed", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(OtpValidationActivity.this,RegistrationActivity.class);
+                                intent.putExtra("phno",phno);
+                                intent.putExtra("user_id", YoDB.getPref().read(Constants.ID,""));
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                                finish();
+                            }
                         } else {
                             Toast.makeText(getApplicationContext(), "error in verifying otp", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    private void saveAlternateNo(String phno) {
+        Log.d("user_id",YoDB.getPref().read(Constants.ID,""));
+        CustomProgressDialog.showDialog(OtpValidationActivity.this,true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.DETAILS_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(OtpValidationActivity.this,false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.getString("status").equalsIgnoreCase("0")){
+                        Toast.makeText(OtpValidationActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(OtpValidationActivity.this,DetailsListActivity.class));
+                        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(OtpValidationActivity.this,false);
+                Toast.makeText(OtpValidationActivity.this, "Getting some troubles", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> body = new HashMap<>();
+                body.put("alternate_contact",phno);
+                body.put("user_id",YoDB.getPref().read(Constants.ID,""));
+
+                return body;
+            }
+        };
+
+        Volley.newRequestQueue(OtpValidationActivity.this).add(sr);
     }
     // [END sign_in_with_phone]
 
