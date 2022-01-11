@@ -69,5 +69,26 @@ public class Urls {
      */
     public static final String ADD_BANK_DETAILS = BASEURL + "addBankDetails";
 
+    /**
+     * @Post : POST
+     * @Name : personalDetails
+     * @Parameter : user_id
+     */
+    public static final String PERSONAL_DETAILS = BASEURL + "personalDetails";
+
+    /**
+     * @Post : POST
+     * @Name : educationalDetailsFetch
+     * @Parameter : user_id
+     */
+    public static final String EDUCATIONAL_DETAILS_FETCH = BASEURL + "educationalDetailsFetch";
+
+    /**
+     * @Post : POST
+     * @Name : uploadedDocumentsFetch
+     * @Parameter : user_id
+     */
+    public static final String UPLOADED_DOCUMENT_FETCH = BASEURL + "uploadedDocumentsFetch";
+
 }
 

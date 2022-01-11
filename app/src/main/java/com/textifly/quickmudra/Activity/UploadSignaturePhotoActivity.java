@@ -63,6 +63,7 @@ public class UploadSignaturePhotoActivity extends AppCompatActivity implements V
     private void BtnClick() {
         binding.tvContinue.setOnClickListener(this);
         binding.ivSignature.setOnClickListener(this);
+        binding.tvNext.setOnClickListener(this);
     }
 
     @Override
@@ -72,6 +73,10 @@ public class UploadSignaturePhotoActivity extends AppCompatActivity implements V
                 if (checkAndRequestPermissions(this)) {
                     chooseImage(UploadSignaturePhotoActivity.this);
                 }
+                break;
+            case R.id.tvNext:
+                startActivity(new Intent(UploadSignaturePhotoActivity.this, SelfieActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
             case R.id.tvContinue:
                 loadPercentage();

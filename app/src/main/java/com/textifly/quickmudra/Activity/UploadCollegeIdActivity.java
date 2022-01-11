@@ -64,6 +64,7 @@ public class UploadCollegeIdActivity extends AppCompatActivity implements View.O
     private void BtnClick() {
         binding.tvContinue.setOnClickListener(this);
         binding.ivCollegeId.setOnClickListener(this);
+        binding.tvNext.setOnClickListener(this);
     }
 
     @Override
@@ -73,6 +74,10 @@ public class UploadCollegeIdActivity extends AppCompatActivity implements View.O
                 if (checkAndRequestPermissions(this)) {
                     chooseImage(UploadCollegeIdActivity.this);
                 }
+                break;
+            case R.id.tvNext:
+                startActivity(new Intent(UploadCollegeIdActivity.this, UploadSignaturePhotoActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
             case R.id.tvContinue:
                 loadPercentage();

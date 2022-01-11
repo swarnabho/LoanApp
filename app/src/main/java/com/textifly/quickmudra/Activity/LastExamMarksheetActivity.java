@@ -65,6 +65,7 @@ public class LastExamMarksheetActivity extends AppCompatActivity implements View
     private void BtnClick() {
         binding.tvContinue.setOnClickListener(this);
         binding.marksheet.setOnClickListener(this);
+        binding.tvNext.setOnClickListener(this);
     }
 
     private void loadPercentage() {
@@ -82,6 +83,10 @@ public class LastExamMarksheetActivity extends AppCompatActivity implements View
                 if (checkAndRequestPermissions(this)) {
                     chooseImage(LastExamMarksheetActivity.this);
                 }
+                break;
+            case R.id.tvNext:
+                startActivity(new Intent(LastExamMarksheetActivity.this,UploadCollegeIdActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
             case R.id.tvContinue:
                 loadPercentage();

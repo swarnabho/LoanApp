@@ -91,6 +91,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
     private void BtnClick() {
         binding.tvContinue.setOnClickListener(this);
         binding.ivVideo.setOnClickListener(this);
+        binding.tvNext.setOnClickListener(this);
     }
 
     @Override
@@ -100,6 +101,10 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
                 if (checkAndRequestPermissions(VideoActivity.this)) {
                     recordVideo();
                 }
+                break;
+            case R.id.tvNext:
+                startActivity(new Intent(VideoActivity.this, DetailsListActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 break;
             case R.id.tvContinue:
                 loadPercentage();

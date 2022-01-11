@@ -21,6 +21,7 @@ import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityEmploymentDetailsBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,8 +36,53 @@ public class EmploymentDetailsActivity extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         binding = ActivityEmploymentDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        
+
+        initView();
         BtnClick();
+    }
+
+    private void initView() {
+        CustomProgressDialog.showDialog(EmploymentDetailsActivity.this,true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.EDUCATIONAL_DETAILS_FETCH, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(EmploymentDetailsActivity.this,false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.getString("status").equals("0")) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("details");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            binding.tilEducationDetailse.setText((!object.getString("education_details").equalsIgnoreCase("null")) ? object.getString("education_details") : "");
+                            binding.tilInstituteName.getEditText().setText((!object.getString("institute_name").equalsIgnoreCase("null")) ? object.getString("institute_name") : "");
+                            binding.tilInstitutePin.getEditText().setText((!object.getString("institute_pin").equalsIgnoreCase("null")) ? object.getString("institute_pin") : "");
+                            binding.tilCourseName.getEditText().setText((!object.getString("course_name").equalsIgnoreCase("null")) ? object.getString("course_name") : "");
+                            binding.tilCourseStartYear.getEditText().setText((!object.getString("course_start_year").equalsIgnoreCase("null")) ? object.getString("course_start_year") : "");
+                            binding.tilCourseEndYear.getEditText().setText((!object.getString("course_end_year").equalsIgnoreCase("null")) ? object.getString("course_end_year") : "");
+                            binding.tilExamYear.getEditText().setText((!object.getString("exam_year").equalsIgnoreCase("null")) ? object.getString("exam_year") : "");
+                            binding.tilPocketMoney.getEditText().setText((!object.getString("pocket_money").equalsIgnoreCase("null")) ? object.getString("pocket_money") : "");
+                            binding.tilMonthlyIncome.getEditText().setText((!object.getString("income").equalsIgnoreCase("null")) ? object.getString("income") : "");
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(EmploymentDetailsActivity.this,false);
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> body = new HashMap<>();
+                body.put("user_id",YoDB.getPref().read(Constants.ID,""));
+                return body;
+            }
+        };
+        Volley.newRequestQueue(EmploymentDetailsActivity.this).add(sr);
     }
 
     private void BtnClick() {
@@ -53,34 +99,34 @@ public class EmploymentDetailsActivity extends AppCompatActivity implements View
     }
 
     private void checkDetails() {
-        if(binding.tilEducationDetailse.getText().toString().isEmpty()){
+        /*if(binding.tilEducationDetailse.getText().toString().isEmpty()){
             Toast.makeText(EmploymentDetailsActivity.this, "Please enter Educational details", Toast.LENGTH_SHORT).show();
             binding.tilEducationDetailse.requestFocus();
-        }else if(binding.tilInstituteName.getText().toString().isEmpty()){
+        }else*/ if(binding.tilInstituteName.getEditText().getText().toString().isEmpty()){
             Toast.makeText(EmploymentDetailsActivity.this, "Please enter Institute name", Toast.LENGTH_SHORT).show();
             binding.tilInstituteName.requestFocus();
-        }else if(binding.tilInstitutePin.getText().toString().isEmpty()){
+        }else if(binding.tilInstitutePin.getEditText().getText().toString().isEmpty()){
             Toast.makeText(EmploymentDetailsActivity.this, "Please enter Institute pincode", Toast.LENGTH_SHORT).show();
             binding.tilInstitutePin.requestFocus();
-        }else if(binding.tilCourseName.getText().toString().isEmpty()){
+        }else if(binding.tilCourseName.getEditText().getText().toString().isEmpty()){
             Toast.makeText(EmploymentDetailsActivity.this, "Please enter Course name", Toast.LENGTH_SHORT).show();
             binding.tilCourseName.requestFocus();
-        }else if(binding.tilCourseStartYear.getText().toString().isEmpty()){
+        }else if(binding.tilCourseStartYear.getEditText().getText().toString().isEmpty()){
             Toast.makeText(EmploymentDetailsActivity.this, "Please enter Course start year", Toast.LENGTH_SHORT).show();
             binding.tilCourseStartYear.requestFocus();
-        }else if(binding.tilCourseEndYear.getText().toString().isEmpty()){
+        }else if(binding.tilCourseEndYear.getEditText().getText().toString().isEmpty()){
             Toast.makeText(EmploymentDetailsActivity.this, "Please enter Course end year", Toast.LENGTH_SHORT).show();
             binding.tilCourseEndYear.requestFocus();
-        }else if(binding.tilExamYear.getText().toString().isEmpty()){
+        }else if(binding.tilExamYear.getEditText().getText().toString().isEmpty()){
             Toast.makeText(EmploymentDetailsActivity.this, "Please enter exam year", Toast.LENGTH_SHORT).show();
             binding.tilExamYear.requestFocus();
-        }else if(binding.tilPercentage.getText().toString().isEmpty()){
+        }else if(binding.tilPercentage.getEditText().getText().toString().isEmpty()){
             Toast.makeText(EmploymentDetailsActivity.this, "Please enter percentage", Toast.LENGTH_SHORT).show();
             binding.tilPercentage.requestFocus();
-        }else if(binding.tilPocketMoney.getText().toString().isEmpty()){
+        }else if(binding.tilPocketMoney.getEditText().getText().toString().isEmpty()){
             Toast.makeText(EmploymentDetailsActivity.this, "Please enter pocket money", Toast.LENGTH_SHORT).show();
             binding.tilPocketMoney.requestFocus();
-        }else if(binding.tilMonthlyIncome.getText().toString().isEmpty()){
+        }else if(binding.tilMonthlyIncome.getEditText().getText().toString().isEmpty()){
             Toast.makeText(EmploymentDetailsActivity.this, "Please enter monthly income", Toast.LENGTH_SHORT).show();
             binding.tilMonthlyIncome.requestFocus();
         }else{
@@ -118,15 +164,15 @@ public class EmploymentDetailsActivity extends AppCompatActivity implements View
                 Map<String, String> map = new HashMap<>();
                 map.put("user_id", YoDB.getPref().read(Constants.ID, ""));
                 map.put("education_details", binding.tilEducationDetailse.getText().toString());
-                map.put("college", binding.tilInstituteName.getText().toString());
-                map.put("institute_pincode", binding.tilInstituteName.getText().toString());
-                map.put("course_name", binding.tilCourseName.getText().toString());
-                map.put("course_start_year", binding.tilCourseStartYear.getText().toString());
-                map.put("course_end_year", binding.tilCourseEndYear.getText().toString());
-                map.put("exam_year", binding.tilExamYear.getText().toString());
-                map.put("percentage", binding.tilPercentage.getText().toString());
-                map.put("pocket_money", binding.tilPocketMoney.getText().toString());
-                map.put("annual_income", binding.tilMonthlyIncome.getText().toString());
+                map.put("college", binding.tilInstituteName.getEditText().getText().toString());
+                map.put("institute_pincode", binding.tilInstituteName.getEditText().getText().toString());
+                map.put("course_name", binding.tilCourseName.getEditText().getText().toString());
+                map.put("course_start_year", binding.tilCourseStartYear.getEditText().getText().toString());
+                map.put("course_end_year", binding.tilCourseEndYear.getEditText().getText().toString());
+                map.put("exam_year", binding.tilExamYear.getEditText().getText().toString());
+                map.put("percentage", binding.tilPercentage.getEditText().getText().toString());
+                map.put("pocket_money", binding.tilPocketMoney.getEditText().getText().toString());
+                map.put("annual_income", binding.tilMonthlyIncome.getEditText().getText().toString());
 
                 return map;
             }

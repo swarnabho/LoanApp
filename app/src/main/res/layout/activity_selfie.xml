@@ -280,6 +280,17 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEXT"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

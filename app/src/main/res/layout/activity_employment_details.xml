@@ -147,6 +147,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         >
@@ -168,6 +169,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/tilInstituteName"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         >
@@ -177,7 +179,6 @@
                             android:layout_height="wrap_content"
                             android:hint="Name of the Institute"
                             android:ems="10"
-                            android:id="@+id/tilInstituteName"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@color/white"
@@ -189,6 +190,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="true"
+                        android:id="@+id/tilInstitutePin"
                         android:focusableInTouchMode="true"
                         >
 
@@ -197,7 +199,6 @@
                             android:layout_height="wrap_content"
                             android:hint="Institute Pin Code"
                             android:ems="10"
-                            android:id="@+id/tilInstitutePin"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@color/white"
@@ -209,6 +210,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="true"
+                        android:id="@+id/tilCourseName"
                         android:focusableInTouchMode="true"
                         >
 
@@ -217,7 +219,6 @@
                             android:layout_height="wrap_content"
                             android:hint="Course Name"
                             android:ems="10"
-                            android:id="@+id/tilCourseName"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@color/white"
@@ -234,6 +235,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:focusable="true"
+                            android:id="@+id/tilCourseStartYear"
                             android:focusableInTouchMode="true"
                             >
 
@@ -242,7 +244,6 @@
                                 android:layout_height="wrap_content"
                                 android:hint="Course Start Year"
                                 android:ems="10"
-                                android:id="@+id/tilCourseStartYear"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginRight="15dp"
                                 android:background="@color/white"
@@ -268,6 +269,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:focusable="true"
+                            android:id="@+id/tilCourseEndYear"
                             android:focusableInTouchMode="true"
                             >
 
@@ -276,7 +278,6 @@
                                 android:layout_height="wrap_content"
                                 android:hint="Course End Year"
                                 android:ems="10"
-                                android:id="@+id/tilCourseEndYear"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginRight="15dp"
                                 android:background="@color/white"
@@ -301,6 +302,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:focusable="true"
+                            android:id="@+id/tilExamYear"
                             android:focusableInTouchMode="true"
                             >
 
@@ -309,7 +311,6 @@
                                 android:layout_height="wrap_content"
                                 android:hint="Exam Year"
                                 android:ems="10"
-                                android:id="@+id/tilExamYear"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginRight="15dp"
                                 android:background="@color/white"
@@ -332,6 +333,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="true"
+                        android:id="@+id/tilPercentage"
                         android:focusableInTouchMode="true"
                         >
 
@@ -340,7 +342,6 @@
                             android:layout_height="wrap_content"
                             android:hint="Percentage"
                             android:ems="10"
-                            android:id="@+id/tilPercentage"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@color/white"
@@ -354,6 +355,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="true"
+                        android:id="@+id/tilPocketMoney"
                         android:focusableInTouchMode="true"
                         >
 
@@ -362,7 +364,6 @@
                             android:layout_height="wrap_content"
                             android:hint="Expected Pocket Money"
                             android:ems="10"
-                            android:id="@+id/tilPocketMoney"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@color/white"
@@ -375,6 +376,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="true"
+                        android:id="@+id/tilMonthlyIncome"
                         android:focusableInTouchMode="true"
                         >
 
@@ -382,7 +384,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Monthly Income"
-                            android:id="@+id/tilMonthlyIncome"
                             android:ems="10"
 
                             android:layout_marginLeft="15dp"

@@ -63,6 +63,7 @@ public class SelfieActivity extends AppCompatActivity implements View.OnClickLis
     private void BtnClick() {
         binding.tvContinue.setOnClickListener(this);
         binding.ivSelfie.setOnClickListener(this);
+        binding.tvNext.setOnClickListener(this);
     }
 
     @Override
@@ -72,6 +73,10 @@ public class SelfieActivity extends AppCompatActivity implements View.OnClickLis
                 if (checkAndRequestPermissions(this)) {
                     chooseImage(SelfieActivity.this);
                 }
+                break;
+            case R.id.tvNext:
+                startActivity(new Intent(SelfieActivity.this, VideoActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
             case R.id.tvContinue:
                 loadPercentage();

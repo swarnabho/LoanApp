@@ -26,6 +26,7 @@ import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityPersonalDetailsBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,7 +48,57 @@ public class PersonalDetailsActivity extends AppCompatActivity implements View.O
         binding = ActivityPersonalDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        initView();
         BtnClick();
+    }
+
+    private void initView() {
+        CustomProgressDialog.showDialog(PersonalDetailsActivity.this, true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.PERSONAL_DETAILS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(PersonalDetailsActivity.this, false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getString("status").equals("0")) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("details");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            binding.etFirstName.setText((!object.getString("fname").equalsIgnoreCase("null")) ? object.getString("fname") : "");
+                            binding.etLastName.setText((!object.getString("lname").equalsIgnoreCase("null")) ? object.getString("lname") : "");
+                            binding.etFatherName.setText((!object.getString("father_name").equalsIgnoreCase("null")) ? object.getString("father_name") : "");
+                            binding.etMotherName.setText((!object.getString("mother_name").equalsIgnoreCase("null")) ? object.getString("mother_name") : "");
+                            binding.etAddress.setText((!object.getString("address").equalsIgnoreCase("null")) ? object.getString("address") : "");
+                            binding.etPermanentAddress.setText((!object.getString("permanent_address").equalsIgnoreCase("null")) ? object.getString("permanent_address") : "");
+                            binding.etDOB.setText((!object.getString("dob").equalsIgnoreCase("null")) ? object.getString("dob") : "");
+                            if (object.getString("gender").equalsIgnoreCase("male")) {
+                                binding.etMale.setChecked(true);
+                                binding.etFemale.setChecked(false);
+                            } else if (object.getString("gender").equalsIgnoreCase("female")) {
+                                binding.etFemale.setChecked(true);
+                                binding.etMale.setChecked(false);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(PersonalDetailsActivity.this, false);
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> body = new HashMap<>();
+                body.put("user_id", YoDB.getPref().read(Constants.ID, ""));
+                return body;
+            }
+        };
+        Volley.newRequestQueue(PersonalDetailsActivity.this).add(sr);
     }
 
     private void BtnClick() {
@@ -70,7 +121,7 @@ public class PersonalDetailsActivity extends AppCompatActivity implements View.O
                 //deliveryDate.setText(SimpleDateFormat.getDateInstance().format(format.format(calendar.getTime())));
                 //String dateText = DateFormat.format("yyyy/MM/dd", calendar).toString();
                 //date.getDatePicker().setMinDate();
-        //dateDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); //for start date bound
+                //dateDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); //for start date bound
                 //dateDialog.getDatePicker();
                 dateDialog.show();
                 break;
@@ -93,10 +144,9 @@ public class PersonalDetailsActivity extends AppCompatActivity implements View.O
     private void checkDetails() {
         int selectedId = binding.radioGroup.getCheckedRadioButtonId();
         genderradioButton = (RadioButton) findViewById(selectedId);
-        if(selectedId==-1){
-            Toast.makeText(PersonalDetailsActivity.this,"Nothing selected", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        if (selectedId == -1) {
+            Toast.makeText(PersonalDetailsActivity.this, "Nothing selected", Toast.LENGTH_SHORT).show();
+        } else {
             gender = genderradioButton.getText().toString();
             //Toast.makeText(PersonalDetailsActivity.this,genderradioButton.getText(), Toast.LENGTH_SHORT).show();
         }
@@ -133,16 +183,16 @@ public class PersonalDetailsActivity extends AppCompatActivity implements View.O
     }
 
     private void insertPersonalDetails() {
-        CustomProgressDialog.showDialog(PersonalDetailsActivity.this,true);
+        CustomProgressDialog.showDialog(PersonalDetailsActivity.this, true);
         StringRequest sr = new StringRequest(Request.Method.POST, Urls.DETAILS_UPDATE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                CustomProgressDialog.showDialog(PersonalDetailsActivity.this,false);
+                CustomProgressDialog.showDialog(PersonalDetailsActivity.this, false);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("0")) {
                         binding.percentPD.setText("100%");
-                        startActivity(new Intent(PersonalDetailsActivity.this, EmploymentDetailsActivity.class));
+                        startActivity(new Intent(PersonalDetailsActivity.this, DetailsListActivity.class));
                         overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                     }
                 } catch (JSONException e) {
@@ -152,7 +202,7 @@ public class PersonalDetailsActivity extends AppCompatActivity implements View.O
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                CustomProgressDialog.showDialog(PersonalDetailsActivity.this,false);
+                CustomProgressDialog.showDialog(PersonalDetailsActivity.this, false);
                 Toast.makeText(PersonalDetailsActivity.this, "Getting some troubles", Toast.LENGTH_SHORT).show();
             }
         }) {
