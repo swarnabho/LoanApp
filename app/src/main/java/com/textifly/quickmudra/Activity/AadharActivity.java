@@ -22,12 +22,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.ActivityAadharBinding;
 
@@ -57,7 +59,17 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
         binding = ActivityAadharBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        initView();
         BtnClick();
+    }
+
+    private void initView() {
+        if(getIntent().hasExtra("frontImg")){
+            binding.percentPD.setText("100%");
+            binding.etAadhaNo.setText(getIntent().getStringExtra("id_no"));
+            Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+getIntent().getStringExtra("frontImg")).into(binding.ivAadharFont);
+            Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+getIntent().getStringExtra("backImg")).into(binding.ivAadharBack);
+        }
     }
 
     private void BtnClick() {
@@ -244,7 +256,7 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
         RequestBody aadhar = RequestBody.create(MediaType.parse("text/plain"),binding.tilAadharNo.getEditText().getText().toString());
-        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"60");
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"100");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), AadharFront);
         MultipartBody.Part aadhar_font = MultipartBody.Part.createFormData("aadhar_front", AadharFront.getName(), bodyVoterFront);
@@ -263,7 +275,7 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
                 Log.d("RESPONSE",model.getStatus());
                 if(model.getStatus().equals("0")){
                     Toast.makeText(AadharActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(AadharActivity.this,PassportActivity.class));
+                    startActivity(new Intent(AadharActivity.this,DetailsListActivity.class));
                     overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 }
             }
@@ -307,5 +319,10 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
         }
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AadharActivity.this,DetailsListActivity.class));
+        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
     }
 }

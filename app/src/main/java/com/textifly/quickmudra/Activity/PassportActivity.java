@@ -22,12 +22,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.ActivityPassportBinding;
 
@@ -56,7 +58,15 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         binding = ActivityPassportBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        initView();
         BtnClick();
+    }
+
+    private void initView() {
+        if(getIntent().hasExtra("frontImg")){
+            binding.percentPD.setText("100%");
+            Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+getIntent().getStringExtra("frontImg")).into(binding.ivPassport);
+        }
     }
 
     private void BtnClick() {
@@ -204,7 +214,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         Log.d("AadharFront", passportFile.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
-        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"80");
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"100");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), passportFile);
         MultipartBody.Part passport = MultipartBody.Part.createFormData("passport", passportFile.getName(), bodyVoterFront);
@@ -250,9 +260,15 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.tvSkip:
-                startActivity(new Intent(PassportActivity.this,DrivingLisenceActivity.class));
+                startActivity(new Intent(PassportActivity.this,DetailsListActivity.class));
                 overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(PassportActivity.this,DetailsListActivity.class));
+        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
     }
 }

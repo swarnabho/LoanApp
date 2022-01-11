@@ -1,5 +1,6 @@
 package com.textifly.quickmudra.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -20,20 +21,33 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.ActivityPanCardBinding;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -53,8 +67,55 @@ public class PanCardActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         binding = ActivityPanCardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        
+
+        initView();
         BtnClick();
+    }
+
+    private void initView() {
+        CustomProgressDialog.showDialog(PanCardActivity.this, true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.USER_PROFILE_COMPLETE_CHECK, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(PanCardActivity.this, false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getString("status").equals("0")) {
+                        JSONArray array = jsonObject.getJSONArray("data");
+                        JSONObject object = array.getJSONObject(0);
+                        String file_type = object.getString("file_type");
+                        String frontImg = object.getString("image1");
+                        String backImg = object.getString("image2");
+                        String id_no = object.getString("id_no");
+
+                        binding.percentPD.setText("100%");
+                        binding.tilPanNo.getEditText().setText(id_no);
+                        Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+frontImg).into(binding.ivPanFront);
+                        Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+backImg).into(binding.ivPanBack);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(PanCardActivity.this, false);
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> body = new HashMap<>();
+                body.put("user_id", YoDB.getPref().read(Constants.ID, ""));
+                body.put("type", "pan");
+
+                return body;
+            }
+        };
+
+        Volley.newRequestQueue(PanCardActivity.this).add(sr);
+
     }
 
     private void BtnClick() {
@@ -97,7 +158,7 @@ public class PanCardActivity extends AppCompatActivity implements View.OnClickLi
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
         RequestBody pan = RequestBody.create(MediaType.parse("text/plain"),binding.tilPanNo.getEditText().getText().toString());
-        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"40");
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"100");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), PanFront);
         MultipartBody.Part pan_font = MultipartBody.Part.createFormData("pan_front", PanFront.getName(), bodyVoterFront);
@@ -116,7 +177,7 @@ public class PanCardActivity extends AppCompatActivity implements View.OnClickLi
                 Log.d("RESPONSE",model.getStatus());
                 if(model.getStatus().equals("0")){
                     Toast.makeText(PanCardActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(PanCardActivity.this,AadharActivity.class));
+                    startActivity(new Intent(PanCardActivity.this,DetailsListActivity.class));
                     overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 }
             }

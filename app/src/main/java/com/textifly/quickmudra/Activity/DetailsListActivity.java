@@ -90,6 +90,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                     String kyc_percentage = object.getString("kyc_percentage");
                     String doc_percentage = object.getString("doc_percentage");
                     String alternate_contact_verify = object.getString("alternate_contact_verify");
+                    String pan_percentage = object.getString("pan_percentage");
 
                     //Log.d("ID_RES",YoDB.getPref().read(Constants.ID,""));
                     Log.d("ID_RES",alternate_contact_verify);
@@ -99,15 +100,23 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                     } else{
                         binding.percentKYC.setText(kyc_percentage+"%");
                     }
+
                     if(alternate_contact_verify.isEmpty()){
                         binding.percentCV.setText("0%");
                     } else{
                         binding.percentCV.setText("100%");
                     }
+
                     if(kyc_percentage.isEmpty()){
                         binding.percentKYC.setText("0%");
                     } else{
                         binding.percentKYC.setText(kyc_percentage+"%");
+                    }
+
+                    if(pan_percentage.isEmpty()){
+                        binding.percentPan.setText("0%");
+                    } else{
+                        binding.percentPan.setText(pan_percentage+"%");
                     }
 
                     if(user_personal_percentage.isEmpty()){
@@ -157,6 +166,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
         binding.llMailVerification.setOnClickListener(this);
         binding.llWhatsappVerification.setOnClickListener(this);
         binding.tvContinue.setOnClickListener(this);
+        binding.llPanCard.setOnClickListener(this);
     }
 
     @Override
@@ -207,6 +217,10 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                 overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);*/
                 checkKYCPosition();
                 break;
+            case R.id.llPanCard:
+                startActivity(new Intent(DetailsListActivity.this, PanCardActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                break;
             case R.id.tvContinue:
                 /*Log.d("Status", YoDB.getPref().read(Constants.UploadNextDoc, ""));
                 if (YoDB.getPref().read(Constants.UploadNextDoc, "").equals("complete")) {
@@ -232,25 +246,41 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                         JSONArray array = jsonObject.getJSONArray("data");
                         JSONObject object = array.getJSONObject(0);
                         String file_type = object.getString("file_type");
+                        String frontImg = object.getString("image1");
+                        String backImg = object.getString("image2");
+                        String id_no = object.getString("id_no");
                         if (file_type.equalsIgnoreCase("voter")) {
-                            startActivity(new Intent(DetailsListActivity.this, PanCardActivity.class));
+                            Intent intent = new Intent(DetailsListActivity.this, VoterActivity.class);
+                            intent.putExtra("frontImg",frontImg);
+                            intent.putExtra("backImg",backImg);
+                            startActivity(intent);
                             overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
-                        } else if (file_type.equalsIgnoreCase("pan")) {
+                        } /*else if (file_type.equalsIgnoreCase("pan")) {
                             startActivity(new Intent(DetailsListActivity.this, AadharActivity.class));
                             overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
-                        } else if (file_type.equalsIgnoreCase("aadhar")) {
-                            startActivity(new Intent(DetailsListActivity.this, PassportActivity.class));
+                        }*/ else if (file_type.equalsIgnoreCase("aadhar")) {
+                            Intent intent = new Intent(DetailsListActivity.this, AadharActivity.class);
+                            intent.putExtra("frontImg",frontImg);
+                            intent.putExtra("backImg",backImg);
+                            intent.putExtra("id_no",id_no);
+                            startActivity(intent);
                             overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                         } else if (file_type.equalsIgnoreCase("passport")) {
-                            startActivity(new Intent(DetailsListActivity.this, DrivingLisenceActivity.class));
+                            Intent intent = new Intent(DetailsListActivity.this, PassportActivity.class);
+                            intent.putExtra("frontImg",frontImg);
+                            startActivity(intent);
+                            //startActivity(new Intent(DetailsListActivity.this, PassportActivity.class));
                             overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                         } else if (file_type.equalsIgnoreCase("license")) {
-                            /*startActivity(new Intent(DetailsListActivity.this, WhatsAppVerificationActivity.class));
-                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);*/
-                            Toast.makeText(DetailsListActivity.this, "100% KYC submission completed", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(DetailsListActivity.this, DrivingLisenceActivity.class);
+                            intent.putExtra("frontImg",frontImg);
+                            startActivity(intent);
+                            //startActivity(new Intent(DetailsListActivity.this, DrivingLisenceActivity.class));
+                            overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                            //Toast.makeText(DetailsListActivity.this, "100% KYC submission completed", Toast.LENGTH_SHORT).show();
                         }
                     } else if (jsonObject.getString("status").equals("1")) {
-                        startActivity(new Intent(DetailsListActivity.this, VoterActivity.class));
+                        startActivity(new Intent(DetailsListActivity.this, WhatsAppVerificationActivity.class));
                         overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                     }
                 } catch (JSONException e) {

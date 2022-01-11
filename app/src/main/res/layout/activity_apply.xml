@@ -68,7 +68,8 @@
             android:layout_marginTop="15dp"
             android:textColor="@color/black4"
             android:gravity="center"
-            android:text="BODY LIMIT 500/- TO 10000/-"
+            android:textAllCaps="true"
+            android:text="You are Avail to Borrow Rs 500/- to Rs 10,000/-"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -82,13 +83,13 @@
                 android:id="@+id/btnApply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:text="APPLY NOW" />
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,498 +3,457 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/baseColor"
     android:layout_height="match_parent"
+    android:background="@color/baseColor"
     tools:context=".Activity.WhatsAppVerificationActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:fillViewport="true"
+            android:gravity="center">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="40dp"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:cardBackgroundColor="@color/deepBaseColor"
-                    app:cardCornerRadius="50dp">
-
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_margin="7.8dp"
-                        android:src="@drawable/ic_person"
-                        app:tint="@color/white" />
-
-                </androidx.cardview.widget.CardView>
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1.5">
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="40dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:cardBackgroundColor="@color/deepBaseColor"
+                        app:cardCornerRadius="50dp">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="7.8dp"
+                            android:src="@drawable/ic_person"
+                            app:tint="@color/white" />
+
+                    </androidx.cardview.widget.CardView>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".3"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:weightSum="1.5">
 
-                        <TextView
-                            android:id="@+id/text"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:text="KYC Verification"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:layout_weight=".3"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="5dp"
+                                android:text="KYC Verification"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/text"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="10dp"
+                                android:text="Verify Your KYC"
+                                android:textColor="@color/colorGray"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/text"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="10dp"
-                            android:text="Verify Your KYC"
-                            android:textColor="@color/colorGray"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
+                            android:layout_weight="1.2"
 
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.2"
-
-                        android:gravity="start">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="50dp">
+                            android:gravity="start">
 
                             <androidx.cardview.widget.CardView
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:layout_margin="2.5dp"
-                                app:cardBackgroundColor="@color/baseColor"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:cardBackgroundColor="@color/white"
                                 app:cardCornerRadius="50dp">
 
-                                <TextView
-                                    android:id="@+id/percentPD"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:text="0%"
-                                    android:textColor="@color/white"
-                                    android:textSize="20sp" />
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="45dp"
+                                    android:layout_height="45dp"
+                                    android:layout_margin="2.5dp"
+                                    app:cardBackgroundColor="@color/baseColor"
+                                    app:cardCornerRadius="50dp">
+
+                                    <TextView
+                                        android:id="@+id/percentPD"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:text="0%"
+                                        android:textColor="@color/white"
+                                        android:textSize="20sp" />
+
+
+                                </androidx.cardview.widget.CardView>
 
 
                             </androidx.cardview.widget.CardView>
 
-
-                        </androidx.cardview.widget.CardView>
+                        </LinearLayout>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
 
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/textView"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginBottom="10dp"
-                android:elevation="10dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
-                app:contentPaddingBottom="2dp"
-                app:contentPaddingTop="10dp">
-
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:orientation="vertical">
-
-
-                    <!--<TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Weclome !"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
--->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Select and upload your KYC document"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="15sp" />
+                    android:layout_below="@id/textView"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    app:contentPaddingBottom="2dp"
+                    app:contentPaddingTop="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:orientation="vertical">
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="15sp"
-                            android:text="KYC Document Type"/>
-
-                        <Spinner
-                            android:id="@+id/spn"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/llVoterId"
-                        android:visibility="gone"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="20dp"
-                            android:text="Front Photo"
-                            android:textColor="@color/black"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginBottom="5dp"
-                            android:text="(Please click demo image and upload your document)" />
 
                         <LinearLayout
+                            android:id="@+id/llSelect"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
                             android:gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp">
+                            android:orientation="vertical">
 
-                            <ImageView
-                                android:id="@+id/ivVoterFont"
-                                android:layout_width="200dp"
-                                android:layout_height="130dp"
-                                android:layout_marginTop="5dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/voter_font" />
 
+                            <!--<TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Weclome !"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+        -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="Back Photo"
+                                android:text="Select and upload your KYC document"
                                 android:textColor="@color/black"
-                                android:textSize="20dp"
+                                android:textSize="15sp"
                                 android:textStyle="bold" />
 
-                            <ImageView
-                                android:id="@+id/ivVoterBack"
-                                android:layout_width="wrap_content"
-                                android:layout_height="200dp"
-                                android:src="@drawable/voter_back" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/llPanCard"
-                        android:visibility="gone"
-                        android:orientation="vertical">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/edit_text_background"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true">
-
-                            <com.google.android.material.textfield.TextInputEditText
+                            <!--Select Document-->
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginRight="15dp"
-                                android:background="@drawable/edit_text_background"
-                                android:ems="10"
-                                android:hint="Enter your PAN"
-                                android:inputType="text"
-                                android:textColor="@color/black"
-                                android:textSize="15sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
+                                android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="20dp"
-                            android:text="Front Photo"
-                            android:textColor="@color/black"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
+                                <TextView
+                                    android:id="@+id/tvChangeType"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="Change document type? Click Here"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:visibility="gone" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginBottom="5dp"
-                            android:text="(Please click demo image and upload your document)" />
+                                <LinearLayout
+                                    android:id="@+id/llDropDown"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="KYC Document Type"
+                                        android:textSize="15sp" />
 
-                            <ImageView
-                                android:id="@+id/ivPanFont"
-                                android:layout_width="200dp"
-                                android:layout_height="130dp"
-                                android:layout_marginTop="5dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/pan_card_new" />
+                                    <Spinner
+                                        android:id="@+id/spn"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <!--Voter Card-->
+                            <LinearLayout
+                                android:id="@+id/llVoterId"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginTop="20dp"
+                                    android:text="Front Photo"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="(Please click demo image and upload your document)" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/ivVoterFont"
+                                        android:layout_width="200dp"
+                                        android:layout_height="130dp"
+                                        android:layout_marginTop="5dp"
+                                        android:scaleType="fitXY"
+                                        android:src="@drawable/voter_font" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:text="Back Photo"
+                                        android:textColor="@color/black"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+
+                                    <ImageView
+                                        android:id="@+id/ivVoterBack"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="200dp"
+                                        android:src="@drawable/voter_back" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <!--Aadhar Card-->
+                            <LinearLayout
+                                android:id="@+id/llAadhar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginTop="20dp"
+                                    android:text="Front Photo"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="(Please click demo image and upload your document)" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/ivAadharFont"
+                                        android:layout_width="200dp"
+                                        android:layout_height="130dp"
+                                        android:layout_marginTop="5dp"
+                                        android:scaleType="fitXY"
+                                        android:src="@drawable/aadhar_font" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:text="Back Photo"
+                                        android:textColor="@color/black"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+
+                                    <ImageView
+                                        android:id="@+id/ivAadharBack"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="200dp"
+                                        android:src="@drawable/aadhar_back_new" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <!--Passport-->
+                            <LinearLayout
+                                android:id="@+id/llPassport"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginTop="20dp"
+                                    android:text="Front Photo"
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="(Please click demo image and upload your document)" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="200dp"
+                                        android:layout_height="130dp"
+                                        android:layout_marginTop="5dp"
+                                        android:scaleType="fitXY"
+                                        android:src="@drawable/passport" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:text="Back Photo"
+                                        android:textColor="@color/black"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold"
+                                        android:visibility="gone" />
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="200dp"
+                                        android:src="@drawable/panback"
+                                        android:visibility="gone" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <!--Driving License-->
+                            <LinearLayout
+                                android:id="@+id/llDrivingLicence"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginTop="10dp"
+                                    android:text="Upload Driving Licence (Optional) "
+                                    android:textColor="@color/black"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="(Please click demo image and upload your document)" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="300dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="15dp"
+                                        android:src="@drawable/driving" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
 
                             <TextView
+                                android:id="@+id/btnContinue"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="Back Photo"
-                                android:textColor="@color/black"
-                                android:textSize="20dp"
-                                android:textStyle="bold" />
+                                android:layout_marginTop="30dp"
+                                android:background="@drawable/button_bg"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="SUBMIT"
+                                android:textColor="@color/white"
+                                android:visibility="gone" />
 
-                            <ImageView
-                                android:id="@+id/ivPanBack"
-                                android:layout_width="wrap_content"
-                                android:layout_height="200dp"
-                                android:src="@drawable/panback" />
+
                         </LinearLayout>
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/llAadhar"
-                        android:visibility="gone"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="20dp"
-                            android:text="Front Photo"
-                            android:textColor="@color/black"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginBottom="5dp"
-                            android:text="(Please click demo image and upload your document)" />
-
-                        <LinearLayout
+                        <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp">
+                            android:layout_height="500dp"
+                            android:src="@drawable/logo" />
 
-                            <ImageView
-                                android:id="@+id/ivAadharFont"
-                                android:layout_width="200dp"
-                                android:layout_height="130dp"
-                                android:layout_marginTop="5dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/aadhar_font" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="Back Photo"
-                                android:textColor="@color/black"
-                                android:textSize="20dp"
-                                android:textStyle="bold" />
-
-                            <ImageView
-                                android:id="@+id/ivAadharBack"
-                                android:layout_width="wrap_content"
-                                android:layout_height="200dp"
-                                android:src="@drawable/aadhar_back_new" />
-                        </LinearLayout>
 
                     </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/llPassport"
-                        android:visibility="gone"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="20dp"
-                            android:text="Front Photo"
-                            android:textColor="@color/black"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginBottom="5dp"
-                            android:text="(Please click demo image and upload your document)" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp">
-
-                            <ImageView
-                                android:layout_width="200dp"
-                                android:layout_height="130dp"
-                                android:layout_marginTop="5dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/passport" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="Back Photo"
-                                android:visibility="gone"
-                                android:textColor="@color/black"
-                                android:textSize="20dp"
-                                android:textStyle="bold" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="200dp"
-                                android:visibility="gone"
-                                android:src="@drawable/panback" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/llDrivingLicence"
-                        android:visibility="gone"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Upload Driving Licence (Optional) "
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="10dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"
-                            android:textSize="20dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginBottom="5dp"
-                            android:text="(Please click demo image and upload your document)" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="300dp"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="15dp"
-                                android:src="@drawable/driving"
-                                />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="SUBMIT"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:padding="10dp"
-                        android:textColor="@color/white"
-                        android:id="@+id/btnContinue"
-                        android:layout_marginTop="30dp"
-                        android:background="@drawable/button_bg"
-                        />
-
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

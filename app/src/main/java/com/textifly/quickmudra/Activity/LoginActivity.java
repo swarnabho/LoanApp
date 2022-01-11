@@ -121,9 +121,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         String id = object.getString("id");
                         String name = object.getString("fname");
                         String mobile = object.getString("mobile");
-                        ManageLoginData.addLoginData(id, name, mobile);
+                        String email = object.getString("email");
+                        ManageLoginData.addLoginData(id,name,email,mobile);
                         Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
                         redirect();
+                    }else{
+                        Toast.makeText(LoginActivity.this, object.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

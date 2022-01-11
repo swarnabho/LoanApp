@@ -22,10 +22,10 @@
                 android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="80dp"
                 android:layout_marginRight="20dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -120,11 +120,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorGray"
                         android:layout_marginTop="15dp"
-                        android:text="Don't have an account? Click Here."/>
+                        android:gravity="center"
+                        android:text="Don't have an account? Click Here."
+                        android:textColor="@color/colorGray"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -137,11 +137,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorGray"
                         android:layout_marginTop="15dp"
-                        android:text="Forgot Password? Click Here."/>
+                        android:gravity="center"
+                        android:text="Forgot Password? Click Here."
+                        android:textColor="@color/colorGray"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 

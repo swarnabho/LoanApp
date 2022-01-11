@@ -22,12 +22,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.ActivityDrivingLisenceBinding;
 
@@ -56,7 +58,15 @@ public class DrivingLisenceActivity extends AppCompatActivity implements View.On
         binding = ActivityDrivingLisenceBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        initView();
         BtnClick();
+    }
+
+    private void initView() {
+        if(getIntent().hasExtra("frontImg")){
+            binding.percentPD.setText("100%");
+            Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+getIntent().getStringExtra("frontImg")).into(binding.ivDrivingLisence);
+        }
     }
 
     private void BtnClick() {
@@ -254,5 +264,11 @@ public class DrivingLisenceActivity extends AppCompatActivity implements View.On
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(DrivingLisenceActivity.this,DetailsListActivity.class));
+        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
     }
 }

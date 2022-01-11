@@ -3,6 +3,7 @@ package com.textifly.quickmudra.Utils;
 public class Urls {
     public static String MAIN_BASEURL = "https://adminquickmudra.org.in/";
     public static String BASEURL = MAIN_BASEURL + "api/";
+    public static String IMAGE_URL = "https://adminquickmudra.org.in/storage/app/public/uploads/";
 
     /**
      * @Post : POST
@@ -60,6 +61,13 @@ public class Urls {
      * @Parameter : mobile,password
      */
     public static final String FORGET_PW = BASEURL + "forgetpassword";
+
+    /**
+     * @Post : POST
+     * @Name : addBankDetails
+     * @Parameter : user_id,payment_type,account_no,branch_name,ifsc_code,upi_id
+     */
+    public static final String ADD_BANK_DETAILS = BASEURL + "addBankDetails";
 
 }
 

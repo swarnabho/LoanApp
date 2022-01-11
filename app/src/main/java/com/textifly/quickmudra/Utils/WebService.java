@@ -24,7 +24,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updatePan(
             @Part("user_id") RequestBody user_id,
-            @Part("pan_no") RequestBody pan,
+            @Part("id_no") RequestBody pan,
             @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part pan_font,
             @Part MultipartBody.Part pan_back
@@ -34,7 +34,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateAadhar(
             @Part("user_id") RequestBody user_id,
-            @Part("aadhar_no") RequestBody aadhar,
+            @Part("id_no") RequestBody aadhar,
             @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part aadhar_font,
             @Part MultipartBody.Part aadhar_back

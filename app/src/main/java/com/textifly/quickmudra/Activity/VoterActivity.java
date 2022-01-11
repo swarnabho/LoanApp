@@ -22,12 +22,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.ActivityVoterBinding;
 
@@ -43,6 +45,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Url;
 
 public class VoterActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityVoterBinding binding;
@@ -56,7 +59,16 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
         binding = ActivityVoterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        initView();
         BtnClick();
+    }
+
+    private void initView() {
+        if(getIntent().hasExtra("frontImg")){
+            binding.percentPD.setText("100%");
+            Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+getIntent().getStringExtra("frontImg")).into(binding.ivVoterFont);
+            Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+getIntent().getStringExtra("backImg")).into(binding.ivVoterBack);
+        }
     }
 
     private void BtnClick() {
@@ -271,7 +283,7 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
         Log.d("VoterBack",VoterBack.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),YoDB.getPref().read(Constants.ID,""));
-        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"20");
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"100");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), VoterFront);
         MultipartBody.Part multi_VoterFront = MultipartBody.Part.createFormData("voter_front", VoterFront.getName(), bodyVoterFront);
@@ -290,7 +302,8 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
                 Log.d("RESPONSE",model.getStatus());
                 if(model.getStatus().equals("0")){
                     Toast.makeText(VoterActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(VoterActivity.this,PanCardActivity.class));
+                    //startActivity(new Intent(VoterActivity.this,PanCardActivity.class));
+                    startActivity(new Intent(VoterActivity.this,DetailsListActivity.class));
                     overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                 }
             }
@@ -300,6 +313,11 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(VoterActivity.this,DetailsListActivity.class));
+        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
     }
 }

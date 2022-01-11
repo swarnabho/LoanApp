@@ -165,7 +165,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         String id = object.getString("userid");
                         String name = object.getString("fname");
                         String mobile = object.getString("mobile");
-                        ManageLoginData.addLoginData(id,name,mobile);
+                        String email = object.getString("email");
+                        ManageLoginData.addLoginData(id,name,email,mobile);
                         startActivity(new Intent(RegistrationActivity.this, ApplyActivity.class));
                         overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
 
