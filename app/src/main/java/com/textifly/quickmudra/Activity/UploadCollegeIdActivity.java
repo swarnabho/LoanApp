@@ -22,21 +22,34 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.ActivityUploadCollegeIdBinding;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.security.Signature;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -58,7 +71,46 @@ public class UploadCollegeIdActivity extends AppCompatActivity implements View.O
         setContentView(binding.getRoot());
 
         binding.percentPD.setText(YoDB.getPref().read(Constants.UploadPercentage, "") + "%");
+        initView();
         BtnClick();
+    }
+
+    private void initView() {
+        CustomProgressDialog.showDialog(UploadCollegeIdActivity.this,true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.UPLOADED_DOCUMENT_FETCH, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(UploadCollegeIdActivity.this,false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.getString("status").equals("0")){
+                        JSONArray jsonArray = jsonObject.getJSONArray("files");
+                        for(int i =0;i<jsonArray.length();i++){
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            if(object.getString("file_type").equalsIgnoreCase("collegeid")){
+                                Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+object.getString("image1")).into(binding.ivCollegeId);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(UploadCollegeIdActivity.this,false);
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> body = new HashMap<>();
+                body.put("user_id",YoDB.getPref().read(Constants.ID,""));
+                return body;
+            }
+        };
+        Volley.newRequestQueue(UploadCollegeIdActivity.this).add(sr);
     }
 
     private void BtnClick() {

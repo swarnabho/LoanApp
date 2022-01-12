@@ -182,8 +182,10 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                 overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 break;
             case R.id.llUploadDocuments:
-                checkDocumentsPosition();
+                //checkDocumentsPosition();
 
+                startActivity(new Intent(DetailsListActivity.this, UploadDocumentActivity.class));
+                overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                // startActivity(new Intent(DetailsListActivity.this, UploadCollegeIdActivity.class));
                 /*if (YoDB.getPref().read(Constants.UploadNextDoc, "").equalsIgnoreCase("address")) {
                     startActivity(new Intent(DetailsListActivity.this, UploadDocumentActivity.class));

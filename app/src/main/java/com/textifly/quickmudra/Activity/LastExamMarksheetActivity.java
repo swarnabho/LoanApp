@@ -22,20 +22,33 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.ActivityLastExamMarksheetBinding;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -59,7 +72,46 @@ public class LastExamMarksheetActivity extends AppCompatActivity implements View
         binding.percentPD.setText(YoDB.getPref().read(Constants.UploadPercentage,"")+"%");
 
         //loadPercentage();
+        initView();
         BtnClick();
+    }
+
+    private void initView() {
+        CustomProgressDialog.showDialog(LastExamMarksheetActivity.this,true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.UPLOADED_DOCUMENT_FETCH, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(LastExamMarksheetActivity.this,false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.getString("status").equals("0")){
+                        JSONArray jsonArray = jsonObject.getJSONArray("files");
+                        for(int i =0;i<jsonArray.length();i++){
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            if(object.getString("file_type").equalsIgnoreCase("marksheet")){
+                                Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+object.getString("image1")).into(binding.marksheet);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(LastExamMarksheetActivity.this,false);
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> body = new HashMap<>();
+                body.put("user_id",YoDB.getPref().read(Constants.ID,""));
+                return body;
+            }
+        };
+        Volley.newRequestQueue(LastExamMarksheetActivity.this).add(sr);
     }
 
     private void BtnClick() {

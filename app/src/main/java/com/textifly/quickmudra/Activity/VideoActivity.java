@@ -20,6 +20,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
@@ -28,12 +35,19 @@ import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.ActivityVideoBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -58,8 +72,62 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
         setContentView(binding.getRoot());
 
         binding.percentPD.setText(YoDB.getPref().read(Constants.UploadPercentage, "") + "%");
+        initView();
         BtnClick();
         showToast();
+    }
+
+    private void initView() {
+        CustomProgressDialog.showDialog(VideoActivity.this, true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.UPLOADED_DOCUMENT_FETCH, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(VideoActivity.this, false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getString("status").equals("0")) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("files");
+                        Log.d("jsonArray", jsonArray.toString());
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            if (object.getString("file_type").equalsIgnoreCase("profilevideo")) {
+                                //Toast.makeText(VideoActivity.this, "hi", Toast.LENGTH_SHORT).show();
+                                //Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+object.getString("image1")).into(binding.ivVideo);
+                                /*Uri video = Uri.parse(object.getString("image1"));
+                                Bitmap photo = ThumbnailUtils.createVideoThumbnail(getRealPathFromURI(video), MediaStore.Images.Thumbnails.MINI_KIND);
+                                binding.ivVideo.setImageBitmap(photo);*/
+                                RequestOptions requestOptions = new RequestOptions();
+                                //requestOptions.placeholder(R.drawable.placeholder_card_view);
+                                //requestOptions.error(R.drawable.placeholder_card_view);
+
+
+                                Glide.with(getApplicationContext())
+                                        .load(Urls.IMAGE_URL+object.getString("image1"))
+                                        .apply(requestOptions)
+                                        .thumbnail(Glide.with(getApplicationContext()).load(Urls.IMAGE_URL+object.getString("image1")))
+                                        .into(binding.ivVideo);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(VideoActivity.this, false);
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> body = new HashMap<>();
+                body.put("user_id", YoDB.getPref().read(Constants.ID, ""));
+                return body;
+            }
+        };
+        Volley.newRequestQueue(VideoActivity.this).add(sr);
     }
 
     private void showToast() {
@@ -109,10 +177,10 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
             case R.id.tvContinue:
                 loadPercentage();
                 YoDB.getPref().write(Constants.UploadNextDoc, "", "complete");
-                if(SelfieVideoFile != null){
-                    CustomProgressDialog.showDialog(VideoActivity.this,true);
+                if (SelfieVideoFile != null) {
+                    CustomProgressDialog.showDialog(VideoActivity.this, true);
                     uploadVoterId();
-                }else{
+                } else {
                     Toast.makeText(VideoActivity.this, "Please add selfie video", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -160,7 +228,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
         if (requestCode == VIDEO_RECORD_CODE) {
             if (resultCode == RESULT_OK) {
                 videoPath = data.getData();
-                Bitmap photo = ThumbnailUtils.createVideoThumbnail( getRealPathFromURI(videoPath) , MediaStore.Images.Thumbnails.MINI_KIND );
+                Bitmap photo = ThumbnailUtils.createVideoThumbnail(getRealPathFromURI(videoPath), MediaStore.Images.Thumbnails.MINI_KIND);
                 binding.ivVideo.setImageBitmap(photo);
                 Log.d("videoPath", videoPath.toString());
                 SelfieVideoFile = new File(getRealPathFromURI(videoPath));
@@ -184,14 +252,14 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
     private void uploadVoterId() {
         Log.d("AadharFront", SelfieVideoFile.getName());
 
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
-        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"100");
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID, ""));
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"), "100");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("video/*"), SelfieVideoFile);
         MultipartBody.Part selfieVideo = MultipartBody.Part.createFormData("profile_video", SelfieVideoFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateSelfieVideo(user_id,percentage, selfieVideo);
+        Call<ResponseDataModel> call = service.updateSelfieVideo(user_id, percentage, selfieVideo);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override
@@ -213,5 +281,5 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
         });
 
     }
-    
+
 }
