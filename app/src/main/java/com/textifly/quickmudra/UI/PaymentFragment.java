@@ -1,10 +1,12 @@
 package com.textifly.quickmudra.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +19,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
+import com.textifly.quickmudra.MainActivity;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.FragmentPaymentBinding;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,9 +41,60 @@ public class PaymentFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentPaymentBinding.inflate(inflater, container, false);
+
+        initView();
         BtnClick();
 
         return binding.getRoot();
+    }
+
+    private void initView() {
+        CustomProgressDialog.showDialog(getActivity(), true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.GET_BANK_DETAILS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(getActivity(), false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Log.d("jsonObject_RES",response);
+                    if (jsonObject.getString("status").equals("0")) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("details");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            if (object.getString("payment_type").equals("neft")) {
+                                binding.tilBankName.getEditText().setText((!object.getString("bank_name").equals("null")) ? object.getString("bank_name") : "");
+                                binding.tilBankAccountNo.getEditText().setText((!object.getString("account_no").equals("null")) ? object.getString("account_no") : "");
+                                binding.tilHolderName.getEditText().setText((!object.getString("account_holder_name").equals("null")) ? object.getString("account_holder_name") : "");
+                                binding.tilBankBranch.getEditText().setText((!object.getString("branch_name").equals("null")) ? object.getString("branch_name") : "");
+                                binding.tilIFSCNo.getEditText().setText((!object.getString("ifsc_code").equals("null")) ? object.getString("ifsc_code") : "");
+                            } else if (object.getString("payment_type").equals("phonePe")) {
+                                binding.tilPhonePeUpi.getEditText().setText((!object.getString("upi_id").equals("null")) ? object.getString("upi_id") : "");
+                            } else if (object.getString("payment_type").equals("gPay")) {
+                                binding.tilGpayUpi.getEditText().setText((!object.getString("upi_id").equals("null")) ? object.getString("upi_id") : "");
+                            } else if (object.getString("payment_type").equals("paytm")) {
+                                binding.tilPaytm.getEditText().setText((!object.getString("upi_id").equals("null")) ? object.getString("upi_id") : "");
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(getActivity(), false);
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> body = new HashMap<>();
+                body.put("user_id", YoDB.getPref().read(Constants.ID, ""));
+                return body;
+            }
+        };
+        Volley.newRequestQueue(getActivity()).add(sr);
     }
 
     private void BtnClick() {
@@ -100,7 +158,7 @@ public class PaymentFragment extends Fragment implements View.OnClickListener {
                 binding.tilPhonePeUpi.requestFocus();
             } else {
                 upi = binding.tilPhonePeUpi.getEditText().getText().toString();
-                saveUpi(upi);
+                saveUpi("phonePe", upi);
             }
         } else if (upiType.equalsIgnoreCase("gPay")) {
             if (binding.tilGpayUpi.getEditText().getText().toString().isEmpty()) {
@@ -108,7 +166,7 @@ public class PaymentFragment extends Fragment implements View.OnClickListener {
                 binding.tilGpayUpi.requestFocus();
             } else {
                 upi = binding.tilGpayUpi.getEditText().getText().toString();
-                saveUpi(upi);
+                saveUpi("gPay", upi);
             }
         } else if (upiType.equalsIgnoreCase("paytm")) {
             if (binding.tilPaytm.getEditText().getText().toString().isEmpty()) {
@@ -116,32 +174,34 @@ public class PaymentFragment extends Fragment implements View.OnClickListener {
                 binding.tilPaytm.requestFocus();
             } else {
                 upi = binding.tilPaytm.getEditText().getText().toString();
-                saveUpi(upi);
+                saveUpi("paytm", upi);
             }
         }
     }
 
-    private void saveUpi(String upi) {
-        CustomProgressDialog.showDialog(getActivity(),true);
+    private void saveUpi(String payment_type, String upi) {
+        CustomProgressDialog.showDialog(getActivity(), true);
         StringRequest sr = new StringRequest(Request.Method.POST, Urls.ADD_BANK_DETAILS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                CustomProgressDialog.showDialog(getActivity(),false);
+                CustomProgressDialog.showDialog(getActivity(), false);
                 Toast.makeText(getActivity(), "Upi Saved successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                CustomProgressDialog.showDialog(getActivity(),false);
+                CustomProgressDialog.showDialog(getActivity(), false);
             }
-        }){
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> body = new HashMap<>();
-                body.put("user_id",YoDB.getPref().read(Constants.ID,""));
-                body.put("payment_type","upi");
-                body.put("upi_id",upi);
+                Map<String, String> body = new HashMap<>();
+                body.put("user_id", YoDB.getPref().read(Constants.ID, ""));
+                body.put("payment_type", payment_type);
+                body.put("upi_id", upi);
                 return body;
             }
         };
@@ -182,6 +242,8 @@ public class PaymentFragment extends Fragment implements View.OnClickListener {
             public void onResponse(String response) {
                 CustomProgressDialog.showDialog(getActivity(), false);
                 Toast.makeText(getActivity(), "Bank Details Saved Successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -196,8 +258,8 @@ public class PaymentFragment extends Fragment implements View.OnClickListener {
                 body.put("user_id", YoDB.getPref().read(Constants.ID, ""));
                 body.put("payment_type", "neft");
                 body.put("account_no", accountNo);
-                //body.put("bankName", bankName);
-                //body.put("holderName", holderName);
+                body.put("bank_name", bankName);
+                body.put("account_holder_name", holderName);
                 body.put("branch_name", branch);
                 body.put("ifsc_code", ifsc);
                 return body;

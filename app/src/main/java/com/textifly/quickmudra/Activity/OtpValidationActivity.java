@@ -201,8 +201,16 @@ public class OtpValidationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             if(getIntent().getExtras().containsKey("from")){
-                                Toast.makeText(OtpValidationActivity.this, "FROM", Toast.LENGTH_SHORT).show();
-                                saveAlternateNo(phno);
+                                //Toast.makeText(OtpValidationActivity.this, "FROM", Toast.LENGTH_SHORT).show();
+                                if(getIntent().getStringExtra("from").equalsIgnoreCase("forgotPW")){
+                                    Intent intent = new Intent(OtpValidationActivity.this,ForgotPWActivity.class);
+                                    intent.putExtra("phno",phno);
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                                    finish();
+                                }else if(getIntent().getStringExtra("from").equalsIgnoreCase("alternate")){
+                                    saveAlternateNo(phno);
+                                }
                             }else{
                                 Toast.makeText(getApplicationContext(), "Phone number authentication completed", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(OtpValidationActivity.this,RegistrationActivity.class);

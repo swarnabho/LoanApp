@@ -48,9 +48,11 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
 
         BtnClick();
         //if(YoDB.getPref().read(Constants.havePopUpShown,"").isEmpty()){
-        if (YoDB.getPref().read(Constants.isFirstTime, "").equals("true")) {
+        /*if (YoDB.getPref().read(Constants.isFirstTime, "").equals("true")) {
             showPopUp();
-        }
+        }*/
+
+        showPopUp();
         //}
         loadPercentage();
     }

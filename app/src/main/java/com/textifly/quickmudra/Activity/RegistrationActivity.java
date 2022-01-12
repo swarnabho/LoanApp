@@ -1,5 +1,6 @@
 package com.textifly.quickmudra.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -23,6 +24,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.Helper.ManageLoginData;
 import com.textifly.quickmudra.R;
@@ -166,6 +171,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         String name = object.getString("fname");
                         String mobile = object.getString("mobile");
                         String email = object.getString("email");
+
+                        //saveInFirestore();
+
                         ManageLoginData.addLoginData(id,name,email,mobile);
                         startActivity(new Intent(RegistrationActivity.this, ApplyActivity.class));
                         overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
@@ -199,5 +207,29 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         };
 
         Volley.newRequestQueue(getApplicationContext()).add(sr);
+    }
+
+    private void saveInFirestore() {
+        Toast.makeText(RegistrationActivity.this, "firestore", Toast.LENGTH_SHORT).show();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> user = new HashMap<>();
+        user.put("name", binding.tilName.getEditText().getText().toString());
+        user.put("email", binding.tilEmail.getEditText().getText().toString());
+        user.put("mobile", getIntent().getStringExtra("phno"));
+
+        db.collection("users").document("USER")
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("Success_RES", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Failure_RES", "Error writing document", e);
+                    }
+                });
     }
 }

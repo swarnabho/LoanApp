@@ -90,5 +90,12 @@ public class Urls {
      */
     public static final String UPLOADED_DOCUMENT_FETCH = BASEURL + "uploadedDocumentsFetch";
 
+    /**
+     * @Post : POST
+     * @Name : getBankDetails
+     * @Parameter : user_id
+     */
+    public static final String GET_BANK_DETAILS = BASEURL + "getBankDetails";
+
 }
 

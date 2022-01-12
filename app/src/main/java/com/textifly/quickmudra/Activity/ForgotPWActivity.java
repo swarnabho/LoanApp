@@ -27,7 +27,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ForgotPWActivity extends AppCompatActivity implements View.OnClickListener{
+public class ForgotPWActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityForgotPwactivityBinding binding;
 
     @Override
@@ -36,6 +36,7 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
         binding = ActivityForgotPwactivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        initView();
         BtnClick();
 
         binding.tilPhoneNo.getEditText().addTextChangedListener(new TextWatcher() {
@@ -62,15 +63,31 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
+    private void initView() {
+        if (getIntent().hasExtra("phno")) {
+            binding.llMobile.setVisibility(View.GONE);
+            binding.llPassword.setVisibility(View.VISIBLE);
+            binding.tvSave.setText("Update Password");
+        } else {
+            binding.llMobile.setVisibility(View.VISIBLE);
+            binding.llPassword.setVisibility(View.GONE);
+            binding.tvSave.setText("Verify Mobile Number");
+        }
+    }
+
     private void BtnClick() {
         binding.tvSave.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tvSave:
-                checkMobileNo(binding.tilPhoneNo.getEditText().getText().toString());
+                if (binding.tvSave.getText().toString().equalsIgnoreCase("Verify Mobile Number")) {
+                    checkMobileNo(binding.tilPhoneNo.getEditText().getText().toString());
+                } else if (binding.tvSave.getText().toString().equalsIgnoreCase("Update Password")) {
+                    forgotPW(getIntent().getStringExtra("phno"));
+                }
                 break;
         }
     }
@@ -81,8 +98,14 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(String response) {
                 try {
                     JSONObject object = new JSONObject(response);
-                    if(object.getString("status").equals("1")){
-                        forgotPW(ph);
+                    if (object.getString("status").equals("1")) {
+                        //forgotPW(ph);
+                        Toast.makeText(ForgotPWActivity.this, "Ph no.: " + ph, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ForgotPWActivity.this, OtpValidationActivity.class);
+                        intent.putExtra("phno", "+91" + ph);
+                        intent.putExtra("from", "forgotPW");
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -93,12 +116,12 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
             public void onErrorResponse(VolleyError error) {
 
             }
-        }){
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> body = new HashMap<>();
-                body.put("mobile","+91 "+ph);
+                Map<String, String> body = new HashMap<>();
+                body.put("mobile", "+91 " + ph);
                 return body;
             }
         };
@@ -106,17 +129,17 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void forgotPW(String ph) {
-        CustomProgressDialog.showDialog(ForgotPWActivity.this,true);
+        CustomProgressDialog.showDialog(ForgotPWActivity.this, true);
         StringRequest sr = new StringRequest(Request.Method.POST, Urls.FORGET_PW, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                CustomProgressDialog.showDialog(ForgotPWActivity.this,false);
+                CustomProgressDialog.showDialog(ForgotPWActivity.this, false);
                 try {
                     JSONObject object = new JSONObject(response);
-                    if(object.getString("status").equals("0")){
+                    if (object.getString("status").equals("0")) {
                         Toast.makeText(ForgotPWActivity.this, object.getString("message"), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ForgotPWActivity.this,LoginActivity.class));
-                        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                        startActivity(new Intent(ForgotPWActivity.this, LoginActivity.class));
+                        overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -125,15 +148,15 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                CustomProgressDialog.showDialog(ForgotPWActivity.this,false);
+                CustomProgressDialog.showDialog(ForgotPWActivity.this, false);
             }
-        }){
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> body = new HashMap<>();
-                body.put("mobile","+91 "+ph);
-                body.put("password",binding.tilNewPassword.getEditText().getText().toString());
+                Map<String, String> body = new HashMap<>();
+                body.put("mobile", "+91 " + ph);
+                body.put("password", binding.tilNewPassword.getEditText().getText().toString());
                 return body;
             }
         };

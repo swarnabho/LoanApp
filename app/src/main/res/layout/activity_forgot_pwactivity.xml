@@ -28,46 +28,60 @@
             android:layout_marginRight="20dp"
             android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilPhoneNo"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edit_text_background"
-                android:textColorHint="@color/black4"
-                app:counterEnabled="false"
-                app:counterTextColor="@color/white"
-                app:errorEnabled="false"
-                app:hintTextColor="@color/black4"
-                app:startIconDrawable="@drawable/ic_baseline_phone_24"
-                app:startIconTint="@color/baseColor">
+                android:id="@+id/llMobile"
+                android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPhoneNo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/edit_text_background"
-                    android:digits="0123456789"
-                    android:hint="Phone Number"
-                    android:imeOptions="actionNext"
-                    android:inputType="phone"
-                    android:maxLength="10"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
+                    android:textColorHint="@color/black4"
+                    app:counterEnabled="false"
+                    app:counterTextColor="@color/white"
+                    app:errorEnabled="false"
+                    app:hintTextColor="@color/black4"
+                    app:startIconDrawable="@drawable/ic_baseline_phone_24"
+                    app:startIconTint="@color/baseColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/edit_text_background"
+                        android:digits="0123456789"
+                        android:hint="Phone Number"
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@null"
+                        android:textSize="15sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtCounter1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="0/10"
+                    android:textColor="@color/white"
                     android:textSize="15sp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtCounter1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:gravity="end"
-                android:text="0/10"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/llPassword"
+            android:visibility="gone"
+            android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilNewPassword"
@@ -123,6 +137,8 @@
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+        </LinearLayout>
+
             <TextView
                 android:id="@+id/tvSave"
                 android:layout_width="wrap_content"
@@ -133,7 +149,7 @@
                 android:paddingTop="8dp"
                 android:paddingRight="40dp"
                 android:paddingBottom="8dp"
-                android:text="Save"
+                android:text="Verify Mobile Number"
                 android:textColor="@android:color/white" />
 
         </LinearLayout>

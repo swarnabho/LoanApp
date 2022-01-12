@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         modelList.add(new DrawerModel(R.drawable.money, "Get Cash"));
         modelList.add(new DrawerModel(R.drawable.stretching, "Activity"));
         modelList.add(new DrawerModel(R.drawable.coins, "QCoins"));
+        modelList.add(new DrawerModel(R.drawable.payment_method, "Payment Method"));
         modelList.add(new DrawerModel(R.drawable.ic_friends, "Friends"));
         modelList.add(new DrawerModel(R.drawable.ic_refer, "Refer & Earn"));
         modelList.add(new DrawerModel(R.drawable.ic_help, "Help"));
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case 3:
                         Log.e("Pos", "= 3");
-                        //navController.navigate(R.id.navigation_helpDesk, bundle, navBuilder.build());//This will open
+                        navController.navigate(R.id.navigation_Payment, bundle, navBuilder.build());//This will open
                         openDrawer();
                         break;
 
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                         //finish();
                         openDrawer();
                         break;
-                    case 6:
+                    case 7:
                         ManageLoginData.clearLoginData();
                         startActivity(new Intent(MainActivity.this, LoginActivity.class));
                         overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
