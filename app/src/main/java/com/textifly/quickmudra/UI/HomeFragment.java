@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.textifly.quickmudra.Activity.DetailsListActivity;
+import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.MainActivity;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
@@ -46,6 +47,8 @@ import java.util.Map;
 public class HomeFragment extends Fragment implements View.OnClickListener {
     FragmentHomeBinding binding;
     private boolean backPress = false;
+    private String amount = "", tenure = "";
+    private final int GST = 18;
 
     List<String> amountList = new ArrayList<>();
     ArrayAdapter<String> amountAdapter;
@@ -79,7 +82,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("status");
-                    if(status.equals("1")){
+                    if (status.equals("1")) {
                         //binding.etChooseAmount.setEnabled(false);
                         isActive = false;
                         showPopUp();
@@ -93,12 +96,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onErrorResponse(VolleyError error) {
 
             }
-        }){
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map = new HashMap<>();
-                map.put("userid",YoDB.getPref().read(Constants.ID,""));
+                Map<String, String> map = new HashMap<>();
+                map.put("userid", YoDB.getPref().read(Constants.ID, ""));
                 return map;
             }
         };
@@ -106,11 +109,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setAmountSpinner() {
-        String[] amount = {"Select Amount", "500", "1000"};
+        String[] loanAmount = {"Select Amount", "500", "1000", "2000"};
 
         amountAdapter
                 = new ArrayAdapter(
-                getActivity(), android.R.layout.simple_spinner_item, amount);
+                getActivity(), android.R.layout.simple_spinner_item, loanAmount);
 
         amountAdapter.setDropDownViewResource(R.layout.spinner_list);
 
@@ -126,6 +129,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 String item = adapterView.getSelectedItem().toString();
                 if (!item.equals("Select Amount")) {
                     binding.etChooseAmount.setText(item);
+                    amount = item;
                     binding.llTime.setVisibility(View.VISIBLE);
                     binding.spinnerAmount.setVisibility(View.GONE);
                 }
@@ -140,7 +144,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setTimeSpinner() {
-        String[] time = {"Select Tanure", "30 + 90 Days"};
+        String[] time = {"Select Tanure", "30 Days", "60 Days", "90 Days"};
 
         timeAdapter
                 = new ArrayAdapter(
@@ -160,8 +164,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 String item = adapterView.getSelectedItem().toString();
                 if (!item.equals("Select Tanure")) {
                     binding.etChooseTime.setText(item);
+                    if(item.equals("30 Days")){
+                        tenure = "30";
+                    }else if(item.equals("60 Days")){
+                        tenure = "60";
+                    }else if(item.equals("90 Days")){
+                        tenure = "90";
+                    }
+                    getProcessDetails();
                     binding.spinnerTanure.setVisibility(View.GONE);
-                    binding.llDetails.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -170,6 +181,56 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 binding.spinnerTanure.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void getProcessDetails() {
+        CustomProgressDialog.showDialog(getActivity(), true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.GET_PROCESS_DETAILS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(getActivity(), false);
+                binding.llDetails.setVisibility(View.VISIBLE);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getString("status").equals("0")) {
+                        //Toast.makeText(getActivity(), "hi", Toast.LENGTH_SHORT).show();
+                        int amount = Integer.parseInt(jsonObject.getString("amount"));
+                        int interest = Integer.parseInt(jsonObject.getString("interest"));
+                        Double process_charge = Double.parseDouble(jsonObject.getString("process_charge"));
+
+                        Double interestWithGST = ((process_charge * GST) / 100);
+                        double disburse_amnt = amount - (process_charge + interestWithGST);
+                        Log.d("interestWithGST","interestWithGST: "+interestWithGST);
+                        binding.tvDusburseAmount.setText("₹ "+String.format("%.2f", disburse_amnt));
+                        binding.tvProcessingFee.setText("₹ "+jsonObject.getString("process_charge"));
+                        binding.tvGST.setText("₹ "+String.format("%.2f", interestWithGST));
+                        binding.tvRepayment.setText("₹ "+""+(amount+Integer.parseInt(jsonObject.getString("process_charge"))));
+                        binding.tvAdjustedRepayment.setText("₹ "+""+(amount+Integer.parseInt(jsonObject.getString("process_charge"))));
+                        binding.tvFinalAdjustedRepayment.setText("₹ "+""+(amount+Integer.parseInt(jsonObject.getString("process_charge"))));
+                    }else{
+                        //Toast.makeText(getActivity(), "bye", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(getActivity(), false);
+                Toast.makeText(getActivity(), "Getting some troubles", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> body = new HashMap<>();
+                body.put("amount", amount);
+                body.put("tenure", tenure);
+                return body;
+            }
+        };
+        Volley.newRequestQueue(getActivity()).add(sr);
     }
 
     private void showPopUp() {
@@ -241,14 +302,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 ((MainActivity) getActivity()).openDrawer();
                 break;
             case R.id.cvCheck:
-                startActivity(new Intent(getActivity(),DetailsListActivity.class));
-                getActivity().overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                startActivity(new Intent(getActivity(), DetailsListActivity.class));
+                getActivity().overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 break;
             case R.id.etChooseAmount:
-                if(isActive){
+                if (isActive) {
                     binding.spinnerAmount.performClick();
                     binding.spinnerAmount.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     Toast.makeText(getActivity(), "Please wait until your account is activate", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -263,11 +324,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void checkRequest(View view) {
-        if(binding.etChooseAmount.getText().toString().isEmpty()){
+        if (binding.etChooseAmount.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Please select borrow amount", Toast.LENGTH_SHORT).show();
-        }else if(binding.etChooseTime.getText().toString().isEmpty()){
+        } else if (binding.etChooseTime.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Please select tanure of loan", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             loanRequest(view);
         }
     }

@@ -97,5 +97,12 @@ public class Urls {
      */
     public static final String GET_BANK_DETAILS = BASEURL + "getBankDetails";
 
+    /**
+     * @Post : POST
+     * @Name : getProcessDetails
+     * @Parameter : amount,tenure
+     */
+    public static final String GET_PROCESS_DETAILS = BASEURL + "getProcessDetails";
+
 }
 

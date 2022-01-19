@@ -364,11 +364,12 @@
                                     android:textSize="15sp" />
 
                                 <TextView
+                                    android:id="@+id/tvDusburseAmount"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="end"
-                                    android:text="₹ 480"
+                                    tools:text="₹ 480"
                                     android:textColor="@color/black"
                                     android:textSize="15sp" />
 
@@ -390,11 +391,12 @@
                                     android:textSize="15sp" />
 
                                 <TextView
+                                    android:id="@+id/tvProcessingFee"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="end"
-                                    android:text="₹ 17.0"
+                                    tools:text="₹ 17.0"
                                     android:textColor="@color/black"
                                     android:textSize="15sp" />
 
@@ -416,11 +418,12 @@
                                     android:textSize="15sp" />
 
                                 <TextView
+                                    android:id="@+id/tvGST"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="end"
-                                    android:text="₹ 3.0"
+                                    tools:text="₹ 3.0"
                                     android:textColor="@color/black"
                                     android:textSize="15sp" />
 
@@ -452,11 +455,12 @@
                                     android:textSize="15sp" />
 
                                 <TextView
+                                    android:id="@+id/tvRepayment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="end"
-                                    android:text="₹ 530"
+                                    tools:text="₹ 530"
                                     android:textColor="@color/black"
                                     android:textSize="15sp" />
 
@@ -510,11 +514,12 @@
                                     android:textSize="15sp" />
 
                                 <TextView
+                                    android:id="@+id/tvAdjustedRepayment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="end"
-                                    android:text="₹ 530"
+                                    tools:text="₹ 530"
                                     android:textColor="@color/black"
                                     android:textSize="15sp" />
 
@@ -552,11 +557,12 @@
                                     android:textSize="15sp" />
 
                                 <TextView
+                                    android:id="@+id/tvFinalAdjustedRepayment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="end"
-                                    android:text="₹ 530"
+                                    tools:text="₹ 530"
                                     android:textColor="@color/black"
                                     android:textSize="15sp" />
 
@@ -586,6 +592,8 @@
                                     android:textColor="@color/black"
                                     android:textSize="15sp" />
 
+                            </LinearLayout>
+
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -601,9 +609,6 @@
                                     />
 
 
-
-
-                            </LinearLayout>
 
                         </LinearLayout>
 
