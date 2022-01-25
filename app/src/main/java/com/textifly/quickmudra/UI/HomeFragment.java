@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         setAmountSpinner();
         setTimeSpinner();
         //if (YoDB.getPref().read(Constants.haveActivated, "").isEmpty()) {
-        //checkActive();
+        checkActive();
         //showPopUp();
         //}
 

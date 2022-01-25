@@ -35,5 +35,17 @@
         android:label="Home"
         tools:layout="@layout/fragment_refer"></fragment>
 
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.textifly.quickmudra.UI.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile"></fragment>
+
+    <fragment
+        android:id="@+id/navigation_activity"
+        android:name="com.textifly.quickmudra.UI.ActivityPage.ActivityFragment"
+        android:label="Activity"
+        tools:layout="@layout/fragment_activity"></fragment>
+
 
 </navigation>

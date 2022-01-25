@@ -3,18 +3,19 @@
     <item
         android:id="@+id/navigation_QCoin"
         android:icon="@drawable/money"
-        android:title="QCoin" />
+        android:title="QCoins" />
 
 
     <item
-        android:id="@+id/navigation_cash"
-        android:icon="@drawable/exchange"
-        android:title="Quick Cash" />
+        android:id="@+id/navigation_activity"
+        android:icon="@drawable/stretching"
+        android:title="Activity" />
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/stretching"
-        android:title="Activity" />
+        android:icon="@drawable/get_cash"
+        android:title="Get Cash" />
+
 
     <item
         android:id="@+id/navigation_refer"
