@@ -60,12 +60,16 @@
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/drawer_layout.xml" value="0.1935185185185185" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/fragment_activity.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/fragment_loan_request.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/fragment_open_loan.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/fragment_payment.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/fragment_profile.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/fragment_q_coin.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/fragment_refer.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/fragment_repaid_loan.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/home_popup.xml" value="0.20102564102564102" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/layout_progress_dialog.xml" value="0.15185185185185185" />
-        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/loan_details.xml" value="0.1865234375" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/loan_details.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/reg_popup.xml" value="0.1276872964169381" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/row_onboard.xml" value="0.16111111111111112" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/spinner_list.xml" value="0.20416666666666666" />

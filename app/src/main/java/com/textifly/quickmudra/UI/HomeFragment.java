@@ -206,7 +206,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         binding.tvGST.setText("₹ "+String.format("%.2f", interestWithGST));
                         binding.tvRepayment.setText("₹ "+""+(amount+Integer.parseInt(jsonObject.getString("process_charge"))));
                         binding.tvAdjustedRepayment.setText("₹ "+""+(amount+Integer.parseInt(jsonObject.getString("process_charge"))));
-                        binding.tvFinalAdjustedRepayment.setText("₹ "+""+(amount+Integer.parseInt(jsonObject.getString("process_charge"))));
+                        //binding.tvFinalAdjustedRepayment.setText("₹ "+""+(amount+Integer.parseInt(jsonObject.getString("process_charge"))));
                     }else{
                         //Toast.makeText(getActivity(), "bye", Toast.LENGTH_SHORT).show();
                     }

@@ -535,7 +535,7 @@
                                 android:textColor="@color/gray"
                                 android:textSize="14sp" />
 
-                            <View
+                           <!-- <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:layout_marginTop="5dp"
@@ -606,7 +606,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Your 2nd instalment will be waived off if you repay ₹530 on or before Feb 03,2022"
-                                    />
+                                    />-->
 
 
 
