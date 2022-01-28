@@ -5,11 +5,44 @@
     android:layout_height="match_parent"
     tools:context=".UI.ActivityPage.OpenLoan.OpenLoanFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rvOpenLoan"
-        android:layout_marginBottom="60dp"
-        android:layout_marginTop="4dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOpenLoan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="60dp" />
+
+        <LinearLayout
+            android:id="@+id/llNoDataFound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-45dp"
+                android:gravity="center"
+                android:text="No Records Found"
+                android:textColor="@color/baseColor"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

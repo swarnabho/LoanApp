@@ -334,14 +334,43 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void loanRequest(View view) {
-        String amount = binding.etChooseAmount.getText().toString();
-        String time = binding.etChooseTime.getText().toString();
+        CustomProgressDialog.showDialog(getActivity(),true);
+        /*String amount = binding.etChooseAmount.getText().toString();
+        String tenure = binding.etChooseTime.getText().toString();*/
 
-        Bundle srchbundle = new Bundle();
-        srchbundle.putString("amount", "amount");
-        srchbundle.putString("time", "time");
-        Navigation.findNavController(view).navigate(R.id.action_nav_home_to_payment, srchbundle);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.LOAN_REQUEST, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(getActivity(),false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.getString("Status").equalsIgnoreCase("0")){
+                        Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Bundle srchbundle = new Bundle();
+                Navigation.findNavController(view).navigate(R.id.action_nav_home_to_payment, srchbundle);
 
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(getActivity(),false);
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> body = new HashMap<>();
+                body.put("user_id", YoDB.getPref().read(Constants.ID,""));
+                body.put("amount",amount);
+                body.put("tenure",tenure);
+                return body;
+            }
+        };
+        Volley.newRequestQueue(getActivity()).add(sr);
         /*Intent intent = new Intent(getActivity(),PaymentFragment.class);
         intent.putExtra("amount",amount);
         intent.putExtra("time",time);

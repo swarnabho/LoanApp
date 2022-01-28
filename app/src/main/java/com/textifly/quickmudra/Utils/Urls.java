@@ -104,5 +104,33 @@ public class Urls {
      */
     public static final String GET_PROCESS_DETAILS = BASEURL + "getProcessDetails";
 
+    /**
+     * @Post : POST
+     * @Name : pendingRequest
+     * @Parameter : user_id
+     */
+    public static final String PENDING_REQUEST = BASEURL + "pendingRequest";
+
+    /**
+     * @Post : POST
+     * @Name : dueRequest
+     * @Parameter : user_id
+     */
+    public static final String DUE_REQUEST = BASEURL + "dueRequest";
+
+    /**
+     * @Post : POST
+     * @Name : loanRequest
+     * @Parameter : user_id,amount,tenure
+     */
+    public static final String LOAN_REQUEST = BASEURL + "loanRequest";
+
+    /**
+     * @Post : POST
+     * @Name : paidLoans
+     * @Parameter : user_id
+     */
+    public static final String PAID_LOANS = BASEURL + "paidLoans";
+
 }
 

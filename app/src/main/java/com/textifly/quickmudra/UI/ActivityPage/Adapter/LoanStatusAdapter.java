@@ -27,15 +27,35 @@ public class LoanStatusAdapter extends RecyclerView.Adapter<LoanStatusAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.loan_details,parent,false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.loan_details, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.amount.setText(modelList.get(position).getAmount());
-        holder.status.setText(modelList.get(position).getPaid_status());
-        holder.disbursedDt.setText(modelList.get(position).getDisbursed_date());
-        holder.paymentDt.setText(modelList.get(position).getPayment_date());
+        holder.amount.setText("₹ " + modelList.get(position).getAmount());
+        //holder.status.setText(modelList.get(position).getPaid_status());
+
+        if (modelList.get(position).getPaid_status().equalsIgnoreCase("paid")) {
+            holder.status.setText(modelList.get(position).getPaid_status());
+            holder.disbursedDt.setText("Disbursed : " + modelList.get(position).getDisbursed_date());
+            holder.paymentDt.setText("Paid : " + modelList.get(position).getPayment_date());
+            holder.llColor.setBackgroundColor(context.getResources().getColor(R.color.green));
+        } else if (modelList.get(position).getPaid_status().equalsIgnoreCase("due")) {
+            holder.status.setText("Due");
+            holder.disbursedDt.setText("Disbursed : " + modelList.get(position).getDisbursed_date());
+            holder.paymentDt.setText("Paid : " + modelList.get(position).getPayment_date());
+            holder.llColor.setBackgroundColor(context.getResources().getColor(R.color.goldenColor1));
+        } else if (modelList.get(position).getPaid_status().equalsIgnoreCase("overdue")) {
+            holder.status.setText("Overdue");
+            holder.disbursedDt.setText("Disbursed : " + modelList.get(position).getDisbursed_date());
+            holder.paymentDt.setText("Paid : " + modelList.get(position).getPayment_date());
+            holder.llColor.setBackgroundColor(context.getResources().getColor(R.color.red));
+        }else if (modelList.get(position).getPaid_status().equalsIgnoreCase("Pending")) {
+            holder.status.setText("Pending");
+            holder.disbursedDt.setText("Requested : " + modelList.get(position).getDisbursed_date());
+            holder.paymentDt.setVisibility(View.GONE);
+            holder.llColor.setBackgroundColor(context.getResources().getColor(R.color.yellow));
+        }
     }
 
     @Override
@@ -43,8 +63,8 @@ public class LoanStatusAdapter extends RecyclerView.Adapter<LoanStatusAdapter.Vi
         return modelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView amount,status,disbursedDt,paymentDt;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView amount, status, disbursedDt, paymentDt;
         LinearLayout llColor;
 
         public ViewHolder(@NonNull View itemView) {

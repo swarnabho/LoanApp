@@ -47,5 +47,11 @@
         android:label="Activity"
         tools:layout="@layout/fragment_activity"></fragment>
 
+    <fragment
+        android:id="@+id/navigation_QCoin"
+        android:name="com.textifly.quickmudra.UI.QCoinFragment"
+        android:label="Qcoins"
+        tools:layout="@layout/fragment_q_coin"></fragment>
+
 
 </navigation>

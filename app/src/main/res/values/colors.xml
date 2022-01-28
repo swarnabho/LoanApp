@@ -23,6 +23,7 @@
     <color name="light_transparent">#73000000</color>
     <color name="goldenColor">#f7dc5f</color>
     <color name="goldenColor1">#FF9800</color>
+    <color name="yellow">#FFF000</color>
 
 
     <color name="baseColor">#1b1092</color>
@@ -31,4 +32,5 @@
     <color name="deepBaseColor">#FF120C57</color>
     <color name="gray">#C8808080</color>
     <color name="gray1">#808080</color>
+    <color name="green">#00A300</color>
 </resources>

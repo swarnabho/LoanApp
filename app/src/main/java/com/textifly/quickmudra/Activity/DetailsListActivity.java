@@ -121,7 +121,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                         binding.percentPan.setText(pan_percentage+"%");
                     }
 
-                    if(user_personal_percentage.isEmpty()){
+                    if(user_personal_percentage.isEmpty() ||user_personal_percentage.equalsIgnoreCase("null")){
                         binding.percentPD.setText("0%");
                     } else{
                         binding.percentPD.setText(user_personal_percentage+"%");

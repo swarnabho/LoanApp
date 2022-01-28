@@ -57,10 +57,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Disbursed : 15-Sept-2021"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:padding="10dp"
                 android:layout_marginLeft="8dp"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:gravity="start"/>
 
@@ -69,9 +68,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Paid : 08-Dec-2021"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_marginLeft="8dp"
-                android:textStyle="bold"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:gravity="start"/>
