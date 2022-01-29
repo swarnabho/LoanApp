@@ -70,7 +70,7 @@ public class OpenLoanFragment extends Fragment {
                         Log.d("JSON ARRAY",jsonArray.toString());
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            String id = object.getString("id");
+                            String id = object.getString("loans_id");
                             String amount = object.getString("loan_amount");
                             String paid_status = object.getString("listfor");
                             String disbursed_date = object.getString("date");

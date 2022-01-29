@@ -75,7 +75,7 @@ public class RepaidLoanFragment extends Fragment {
                         Log.d("JSON ARRAY",jsonArray.toString());
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            String id = object.getString("id");
+                            String id = object.getString("loans_id");
                             String amount = object.getString("loan_amount");
                             String paid_status = object.getString("paid_status");
                             String disbursed_date = object.getString("date");
@@ -103,7 +103,7 @@ public class RepaidLoanFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> body = new HashMap<>();
-                body.put("user_id", "121"/*YoDB.getPref().read(Constants.ID, "")*/);
+                body.put("user_id", YoDB.getPref().read(Constants.ID, ""));
                 return body;
             }
         };

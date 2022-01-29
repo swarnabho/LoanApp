@@ -1,6 +1,7 @@
 package com.textifly.quickmudra.UI.ActivityPage.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.UI.ActivityPage.Model.LoanStatusModel;
+import com.textifly.quickmudra.UI.ActivityPage.ProductDetailsActivity;
 
 import java.util.List;
 
@@ -56,6 +58,16 @@ public class LoanStatusAdapter extends RecyclerView.Adapter<LoanStatusAdapter.Vi
             holder.paymentDt.setVisibility(View.GONE);
             holder.llColor.setBackgroundColor(context.getResources().getColor(R.color.yellow));
         }
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProductDetailsActivity.class);
+                intent.putExtra("loan_id",modelList.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

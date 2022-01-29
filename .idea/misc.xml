@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/bg.xml" value="0.2203125" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/bg_otp_item.xml" value="0.2" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/bg_style.xml" value="0.20555555555555555" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/border_back.xml" value="0.19444444444444445" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/btn_go.xml" value="0.2169230769230769" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/drawable/btn_nav_background.xml" value="0.13914473684210527" />
@@ -44,6 +45,7 @@
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_pan_card.xml" value="0.125" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_passport.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_personal_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_product_details.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_razor_pay.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_registration.xml" value="0.15185185185185185" />
         <entry key="..\:/Users/Abir/AndroidStudioProjects/QuickMudra/app/src/main/res/layout/activity_selfie.xml" value="0.12006578947368421" />

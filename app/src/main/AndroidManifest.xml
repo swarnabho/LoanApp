@@ -26,6 +26,9 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".UI.ActivityPage.ProductDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ForgotPWActivity"
             android:exported="false" />
         <activity
@@ -100,11 +103,13 @@
             android:name=".Activity.WhatsAppVerificationActivity"
             android:exported="true">
 
-            <!--<intent-filter>
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".Activity.MailVerificationActivity"
@@ -133,11 +138,14 @@
         <activity
             android:name=".Activity.DetailsListActivity"
             android:exported="true">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".Activity.ApplyActivity"

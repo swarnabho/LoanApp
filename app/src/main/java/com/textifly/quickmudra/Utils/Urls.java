@@ -121,7 +121,7 @@ public class Urls {
     /**
      * @Post : POST
      * @Name : loanRequest
-     * @Parameter : user_id,amount,tenure
+     * @Parameter : user_id,amount,tenure,total_fee,repayment_amount,processing_fee
      */
     public static final String LOAN_REQUEST = BASEURL + "loanRequest";
 
@@ -131,6 +131,13 @@ public class Urls {
      * @Parameter : user_id
      */
     public static final String PAID_LOANS = BASEURL + "paidLoans";
+
+    /**
+     * @Post : POST
+     * @Name : orderDetails
+     * @Parameter : loans_id
+     */
+    public static final String ORDER_DETAILS = BASEURL + "orderDetails";
 
 }
 

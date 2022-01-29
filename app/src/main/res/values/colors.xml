@@ -31,6 +31,7 @@
     <color name="red">#F44336</color>
     <color name="deepBaseColor">#FF120C57</color>
     <color name="gray">#C8808080</color>
+    <color name="gray2">#1E808080</color>
     <color name="gray1">#808080</color>
     <color name="green">#00A300</color>
 </resources>

@@ -49,6 +49,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private boolean backPress = false;
     private String amount = "", tenure = "";
     private final int GST = 18;
+    Double totalFee = 0.0;
+    Double process_charge = 0.0;
+    int repayment_amount = 0;
 
     List<String> amountList = new ArrayList<>();
     ArrayAdapter<String> amountAdapter;
@@ -196,9 +199,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         //Toast.makeText(getActivity(), "hi", Toast.LENGTH_SHORT).show();
                         int amount = Integer.parseInt(jsonObject.getString("amount"));
                         int interest = Integer.parseInt(jsonObject.getString("interest"));
-                        Double process_charge = Double.parseDouble(jsonObject.getString("process_charge"));
+                        process_charge = Double.parseDouble(jsonObject.getString("process_charge"));
 
                         Double interestWithGST = ((process_charge * GST) / 100);
+                        totalFee = process_charge + interestWithGST;
                         double disburse_amnt = amount - (process_charge + interestWithGST);
                         Log.d("interestWithGST","interestWithGST: "+interestWithGST);
                         binding.tvDusburseAmount.setText("₹ "+String.format("%.2f", disburse_amnt));
@@ -206,6 +210,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         binding.tvGST.setText("₹ "+String.format("%.2f", interestWithGST));
                         binding.tvRepayment.setText("₹ "+""+(amount+Integer.parseInt(jsonObject.getString("process_charge"))));
                         binding.tvAdjustedRepayment.setText("₹ "+""+(amount+Integer.parseInt(jsonObject.getString("process_charge"))));
+                        repayment_amount = (amount+Integer.parseInt(jsonObject.getString("process_charge")));
                         //binding.tvFinalAdjustedRepayment.setText("₹ "+""+(amount+Integer.parseInt(jsonObject.getString("process_charge"))));
                     }else{
                         //Toast.makeText(getActivity(), "bye", Toast.LENGTH_SHORT).show();
@@ -367,6 +372,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 body.put("user_id", YoDB.getPref().read(Constants.ID,""));
                 body.put("amount",amount);
                 body.put("tenure",tenure);
+                body.put("processing_fee", String.valueOf(process_charge));
+                body.put("repayment_amount",String.valueOf(repayment_amount));
+                body.put("total_fee",String.format("%.2f", totalFee));
                 return body;
             }
         };
