@@ -139,5 +139,13 @@ public class Urls {
      */
     public static final String ORDER_DETAILS = BASEURL + "orderDetails";
 
+
+    /**
+     * @Post : POST
+     * @Name : profileUpdate
+     * @Parameter : user_id,fname,permanent_address,mobile,email,profile_photo
+     */
+    public static final String PROFILE_UPDATE = BASEURL + "profileUpdate";
+
 }
 

@@ -1,5 +1,6 @@
 package com.textifly.quickmudra;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -18,11 +19,20 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.textifly.quickmudra.Activity.LoginActivity;
 import com.textifly.quickmudra.Adapter.DrawerAdapter;
 import com.textifly.quickmudra.Helper.ManageLoginData;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.DrawerModel;
+import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.CustomPreference;
+import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityMainBinding;
 
 import org.json.JSONException;
@@ -55,6 +65,46 @@ public class MainActivity extends AppCompatActivity {
         setDefaultView();
         setDrawerMenu();
         //setVersion();
+        loadUserDetails();
+    }
+
+    private void loadUserDetails() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.USER_DETAILS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject object = new JSONObject(response);
+                    CustomPreference cp = new CustomPreference(MainActivity.this);
+                    if(object.getString("user_personal_percentage").isEmpty() ||
+                            object.getString("other_details_percentage").isEmpty() ||
+                            object.getString("kyc_percentage").isEmpty() ||
+                            object.getString("pan_percentage").isEmpty() ||
+                            object.getString("doc_percentage").isEmpty() ||
+                            object.getString("alternate_contact_verify").isEmpty() ||
+                            object.getString("mail_verify").isEmpty()){
+                        cp.write(Constants.isFullyDocumented,"","false");
+                    }else{
+                        cp.write(Constants.isFullyDocumented,"","true");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("userid", YoDB.getPref().read(Constants.ID, ""));
+                return map;
+            }
+        };;
+        Volley.newRequestQueue(MainActivity.this).add(sr);
     }
 
     private void setDrawerMenu() {
