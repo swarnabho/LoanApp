@@ -32,6 +32,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         binding = ActivityProductDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.tvPayNow.setVisibility(View.GONE);
         loadProductDetails();
     }
 
@@ -44,9 +45,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
                 try {
                     JSONObject object = new JSONObject(response);
                     binding.tvTitle.setText(object.getString("loans_id"));
-                    binding.tvAmount.setText(object.getString("loan_amount"));
-                    binding.tvStatus.setText(object.getString("Pending"));
-                    //binding.tvPaidOn.setText(object.getString("Pending"));
+                    binding.tvAmount.setText("₹ "+object.getString("repayment_amount"));
+                    binding.tvStatus.setText(object.getString("loan_status"));
+                    binding.tvPaidOn.setText(object.getString("due_date"));
+                    binding.tvIntBefDueDt.setText(object.getString("processing_fee"));
+                    binding.tvTotalFee.setText("₹ "+object.getString("total_fee"));
+                    binding.tvTotalAmountPaid.setText("₹ "+object.getString("repayment_amount"));
+                    binding.tvDisbursedAmount.setText("₹ "+object.getString("loan_amount"));
+                    binding.tvIntAftrDueDt.setText("₹ "+object.getString("total_interest"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
