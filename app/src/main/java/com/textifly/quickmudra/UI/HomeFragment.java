@@ -323,7 +323,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 binding.spinnerTanure.setVisibility(View.VISIBLE);
                 break;
             case R.id.txtRequest:
-                checkRequest(view);
+                if(YoDB.getPref().read(Constants.isFullyDocumented,"").equals("false")){
+                    startActivity(new Intent(getActivity(),DetailsListActivity.class));
+                    getActivity().overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                    getActivity().finish();
+                }else{
+                    checkRequest(view);
+                }
                 break;
         }
     }

@@ -147,5 +147,20 @@ public class Urls {
      */
     public static final String PROFILE_UPDATE = BASEURL + "profileUpdate";
 
+
+    /**
+     * @Post : POST
+     * @Name : changePassword
+     * @Parameter : user_id,confirm_password
+     */
+    public static final String CHANGE_PASSWORD = BASEURL + "changePassword";
+
+    /**
+     * @Post : POST
+     * @Name : payment
+     * @Parameter : loans_id
+     */
+    public static final String PAYMENT = BASEURL + "payment";
+
 }
 

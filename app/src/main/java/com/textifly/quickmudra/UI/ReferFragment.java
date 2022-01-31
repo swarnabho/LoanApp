@@ -9,8 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.textifly.quickmudra.Activity.DetailsListActivity;
 import com.textifly.quickmudra.MainActivity;
+import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
+import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.databinding.FragmentReferBinding;
 
 public class ReferFragment extends Fragment implements View.OnClickListener{
@@ -21,7 +24,11 @@ public class ReferFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentReferBinding.inflate(inflater,container,false);
-
+        if(YoDB.getPref().read(Constants.isFullyDocumented,"").equals("false")){
+            startActivity(new Intent(getActivity(), DetailsListActivity.class));
+            getActivity().overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+            getActivity().finish();
+        }
         BtnClick();
         return binding.getRoot();
     }
@@ -29,6 +36,7 @@ public class ReferFragment extends Fragment implements View.OnClickListener{
     private void BtnClick() {
         binding.llMenu.setOnClickListener(this);
         binding.tvShare.setOnClickListener(this);
+        binding.tvReferalCode.setText(YoDB.getPref().read(Constants.REFERRAL_CODE,""));
     }
 
     @Override

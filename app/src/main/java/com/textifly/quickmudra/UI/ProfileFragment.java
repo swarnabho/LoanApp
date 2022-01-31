@@ -35,14 +35,22 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.textifly.quickmudra.Activity.DetailsListActivity;
 import com.textifly.quickmudra.Activity.LoginActivity;
+import com.textifly.quickmudra.Activity.SelfieActivity;
+import com.textifly.quickmudra.Activity.VideoActivity;
+import com.textifly.quickmudra.ApiManager.ApiClient;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.Helper.ManageLoginData;
 import com.textifly.quickmudra.MainActivity;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
+import com.textifly.quickmudra.Model.ResponseDataModel;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
+import com.textifly.quickmudra.Utils.CustomPreference;
 import com.textifly.quickmudra.Utils.Urls;
+import com.textifly.quickmudra.Utils.WebService;
 import com.textifly.quickmudra.databinding.FragmentProfileBinding;
 import com.textifly.quickmudra.databinding.PwChangeLayoutBinding;
 
@@ -58,6 +66,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+
 public class ProfileFragment extends Fragment implements View.OnClickListener{
     FragmentProfileBinding binding;
     private String getEditData = "";
@@ -69,6 +83,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(inflater,container,false);
+        if(YoDB.getPref().read(Constants.isFullyDocumented,"").equals("false")){
+            startActivity(new Intent(getActivity(), DetailsListActivity.class));
+            getActivity().overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+            getActivity().finish();
+        }
         BtnClick();
         loadProfile();
         return binding.getRoot();
@@ -82,6 +101,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         binding.changePw.setOnClickListener(this);
         binding.fl1.setOnClickListener(this);
         binding.llLogout.setOnClickListener(this);
+        binding.btnUpdate.setOnClickListener(this);
     }
 
     private void loadProfile() {
@@ -97,10 +117,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                         for(int i=0;i<jsonArray.length();i++){
                             JSONObject object = jsonArray.getJSONObject(i);
                             binding.tvReferalCode.setText(object.getString("refferal_code"));
+                            CustomPreference cp = new CustomPreference(getActivity());
+                            cp.write(Constants.REFERRAL_CODE,"",object.getString("refferal_code"));
                             binding.tvName.setText(object.getString("fname")/*+" "+object.getString("lname")*/);
-                            binding.tvAddress.setText(object.getString("address"));
+                            binding.tvAddress.setText(object.getString("permanent_address"));
                             binding.tvContact.setText(object.getString("mobile"));
                             binding.tvEmail.setText(object.getString("email"));
+                            Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+object.getString("image")).into(binding.ivProfile);
                         }
                     }else{
                         CustomProgressDialog.showDialog(getActivity(),false);
@@ -227,10 +250,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                 showPasswordChangeDialog();
                 break;
             case R.id.fl1:
-                Toast.makeText(getActivity(), "pressed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "pressed", Toast.LENGTH_SHORT).show();
                 if (checkAndRequestPermissions(getActivity())) {
                     chooseImage(getActivity());
                 }
+                break;
+            case R.id.btnUpdate:
+                updateProfile();
                 break;
             case R.id.llMenu:
                 ((MainActivity)getActivity()).openDrawer();
@@ -242,6 +268,44 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                 getActivity().finish();
                 break;
         }
+    }
+
+    private void updateProfile() {
+        Toast.makeText(getActivity(), "user_id: "+YoDB.getPref().read(Constants.ID,""), Toast.LENGTH_SHORT).show();
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
+        RequestBody user_name = RequestBody.create(MediaType.parse("text/plain"), binding.tvName.getText().toString());
+        RequestBody phone_no = RequestBody.create(MediaType.parse("text/plain"), binding.tvContact.getText().toString());
+        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), binding.tvEmail.getText().toString());
+        RequestBody address = RequestBody.create(MediaType.parse("text/plain"), binding.tvAddress.getText().toString());
+
+        Log.d("image",imgFile.getName());
+        RequestBody surveyBody = RequestBody.create(MediaType.parse("image/*"), imgFile);
+        MultipartBody.Part user_image = MultipartBody.Part.createFormData("profile_photo", imgFile.getName(), surveyBody);
+
+        WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
+        Call<ResponseDataModel> call = service.updateProfile(user_id,user_name,address,phone_no,email,user_image);
+        call.enqueue(new Callback<ResponseDataModel>() {
+            @Override
+            public void onResponse(Call<ResponseDataModel> call, retrofit2.Response<ResponseDataModel> response) {
+                /*CustomProgressDialog.showDialog(getActivity(), false);
+                Toast.makeText(getActivity(), "Saved Successfully", Toast.LENGTH_SHORT).show();
+                loadProfile();*/
+                ResponseDataModel model = response.body();
+                Log.d("RESPONSE", model.getStatus());
+                if (model.getStatus().equals("0")) {
+                    Toast.makeText(getActivity(), "Saved Successfully", Toast.LENGTH_SHORT).show();
+                    loadProfile();
+                }else{
+                    Toast.makeText(getActivity(), "Profile not updated", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataModel> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void showPasswordChangeDialog(){
@@ -258,7 +322,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                     Toast.makeText(getActivity(), "Enter new password", Toast.LENGTH_SHORT).show();
                     binding1.newPw.requestFocus();
                 }else{
-                    updatePassword();
+                    updatePassword(dialog,binding1.newPw.getText().toString());
                 }
             }
         });
@@ -271,12 +335,42 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         });
     }
 
-    private void updatePassword() {
+    private void updatePassword(Dialog dialog, String password) {
+        Toast.makeText(getActivity(), "password: "+password, Toast.LENGTH_SHORT).show();
         CustomProgressDialog.showDialog(getActivity(),true);
-        /*StringRequest sr = new StringRequest(Request.Method.POST,Urls.);
-        Volley.newRequestQueue(getActivity()).add(sr);*/
-        Toast.makeText(getActivity(), YoDB.getPref().read(Constants.isFullyDocumented,""), Toast.LENGTH_SHORT).show();
-        CustomProgressDialog.showDialog(getActivity(),false);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.CHANGE_PASSWORD, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(getActivity(),false);
+                try {
+                    JSONObject object = new JSONObject(response);
+                    if(object.getString("status").equals("0")){
+                        Toast.makeText(getActivity(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }else{
+                        Toast.makeText(getActivity(), "Password does not update", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(getActivity(),false);
+                Toast.makeText(getActivity(), "Getting some troubles", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> body = new HashMap<>();
+                body.put("user_id",YoDB.getPref().read(Constants.ID,""));
+                body.put("confirm_password",password);
+                return body;
+            }
+        };
+        Volley.newRequestQueue(getActivity()).add(sr);
     }
 
     private boolean checkAndRequestPermissions(Context context) {

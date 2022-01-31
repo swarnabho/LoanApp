@@ -25,8 +25,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.textifly.quickmudra.Activity.LoginActivity;
 import com.textifly.quickmudra.Adapter.DrawerAdapter;
+import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.Helper.ManageLoginData;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.Model.DrawerModel;
@@ -35,6 +37,7 @@ import com.textifly.quickmudra.Utils.CustomPreference;
 import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityMainBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -66,6 +69,47 @@ public class MainActivity extends AppCompatActivity {
         setDrawerMenu();
         //setVersion();
         loadUserDetails();
+        loadProfile();
+    }
+
+    private void loadProfile() {
+        CustomProgressDialog.showDialog(MainActivity.this,true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.PERSONAL_DETAILS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(MainActivity.this,false);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.getString("status").equals("0")){
+                        JSONArray jsonArray = jsonObject.getJSONArray("details");
+                        for(int i=0;i<jsonArray.length();i++){
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            CustomPreference cp = new CustomPreference(MainActivity.this);
+                            cp.write(Constants.REFERRAL_CODE,"",object.getString("refferal_code"));
+                            cp.write(Constants.QCOIN,"",object.getString("qcoins"));
+                        }
+                    }else{
+                        CustomProgressDialog.showDialog(MainActivity.this,false);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(MainActivity.this,false);
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> body = new HashMap<>();
+                body.put("user_id", YoDB.getPref().read(Constants.ID,""));
+                return body;
+            }
+        };
+        Volley.newRequestQueue(MainActivity.this).add(sr);
     }
 
     private void loadUserDetails() {

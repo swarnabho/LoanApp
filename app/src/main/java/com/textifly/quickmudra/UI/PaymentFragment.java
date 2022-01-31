@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.textifly.quickmudra.Activity.DetailsListActivity;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.MainActivity;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
@@ -41,7 +42,11 @@ public class PaymentFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentPaymentBinding.inflate(inflater, container, false);
-
+        if(YoDB.getPref().read(Constants.isFullyDocumented,"").equals("false")){
+            startActivity(new Intent(getActivity(), DetailsListActivity.class));
+            getActivity().overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+            getActivity().finish();
+        }
         initView();
         BtnClick();
 

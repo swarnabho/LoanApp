@@ -103,4 +103,15 @@ public interface WebService {
             @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part profile_video
     );
+
+    @Multipart
+    @POST("profileUpdate")
+    Call<ResponseDataModel> updateProfile(
+            @Part("user_id") RequestBody user_id,
+            @Part("fname") RequestBody name,
+            @Part("permanent_address") RequestBody address,
+            @Part("mobile") RequestBody mobile,
+            @Part("email") RequestBody email,
+            @Part MultipartBody.Part profile_pic
+    );
 }

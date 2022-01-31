@@ -65,7 +65,8 @@ public class SplashScreenActivity extends AppCompatActivity implements View.OnCl
                 }else{
                     //checkUser("kyc");
                     //intent = new Intent(SplashScreenActivity.this, DetailsListActivity.class);
-                    intent = new Intent(SplashScreenActivity.this, DetailsListActivity.class);
+                    //intent = new Intent(SplashScreenActivity.this, DetailsListActivity.class);
+                    intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                     overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                     startActivity(intent);
                 }

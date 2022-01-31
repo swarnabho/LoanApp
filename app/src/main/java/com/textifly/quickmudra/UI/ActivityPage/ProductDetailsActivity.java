@@ -3,8 +3,10 @@ package com.textifly.quickmudra.UI.ActivityPage;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -13,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
+import com.textifly.quickmudra.MainActivity;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityProductDetailsBinding;
@@ -31,9 +34,49 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         binding = ActivityProductDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         binding.tvPayNow.setVisibility(View.GONE);
         loadProductDetails();
+
+        binding.tvPayNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paymentLoan();
+            }
+        });
+    }
+
+    private void paymentLoan() {
+        CustomProgressDialog.showDialog(ProductDetailsActivity.this,true);
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.PAYMENT, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                CustomProgressDialog.showDialog(ProductDetailsActivity.this,false);
+                try {
+                    JSONObject object = new JSONObject(response);
+                    if(object.getString("Status").equals("0")){
+                        Toast.makeText(ProductDetailsActivity.this, object.getString("message"), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ProductDetailsActivity.this, MainActivity.class));
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CustomProgressDialog.showDialog(ProductDetailsActivity.this,false);
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> body = new HashMap<>();
+                body.put("loans_id",getIntent().getStringExtra("loan_id"));
+                return body;
+            }
+        };
+        Volley.newRequestQueue(ProductDetailsActivity.this).add(sr);
     }
 
     private void loadProductDetails() {
