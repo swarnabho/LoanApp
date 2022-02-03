@@ -70,7 +70,7 @@
                 android:background="@drawable/home_txt_bg"
                 android:gravity="center"
                 android:padding="15dp"
-                android:text="Refer a friend and earn flat ₹50"
+                android:text="Refer a friend and earn flat 50 QCoins"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -173,6 +173,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="5dp"
+                        android:visibility="gone"
                         android:weightSum="2">
 
                         <ImageView

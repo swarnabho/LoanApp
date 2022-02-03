@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case 1:
                         Log.e("Pos", "= 1");
-                        navController.navigate(R.id.navigation_home, bundle, navBuilder.build());//This will open
+                        navController.navigate(R.id.navigation_activity, bundle, navBuilder.build());//This will open
                         openDrawer();
                         break;
 
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                             DrawerAdapter.selected_postion = pos;*/
                         //drawerMenuAdapter.notifyItemChanged(DrawerAdapter.selected_postion);
 
-                        //navController.navigate(R.id.navigation_book, bundle, navBuilder.build());//This will open
+                        navController.navigate(R.id.navigation_QCoin, bundle, navBuilder.build());//This will open
                         openDrawer();
                         break;
 
@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                         openDrawer();
                         break;
 
-                    case 4:
+                    case 5:
                         Log.e("Pos", "= 4");
                         navController.navigate(R.id.navigation_refer, bundle, navBuilder.build() );//This will open
                         //startActivity(new Intent(MainActivity.this, LoginActivity.class));

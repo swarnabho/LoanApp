@@ -65,7 +65,7 @@ public class MailVerificationActivity extends AppCompatActivity implements View.
             }
         });
 
-        /*ActionCodeSettings actionCodeSettings =
+        ActionCodeSettings actionCodeSettings =
                 ActionCodeSettings.newBuilder()
                         // URL you want to redirect back to. The domain (www.example.com) for this
                         // URL must be whitelisted in the Firebase Console.
@@ -74,11 +74,11 @@ public class MailVerificationActivity extends AppCompatActivity implements View.
                         .setHandleCodeInApp(true)
                         .setAndroidPackageName(
                                 "com.textifly.quickmudra",
-                                true, *//* installIfNotAvailable *//*
-                                "12"    *//* minimumVersion *//*)
+                                true,  /*installIfNotAvailable*/
+                                "12"     /*minimumVersion*/ )
                         .build();
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
         auth.sendSignInLinkToEmail(email, actionCodeSettings)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -88,7 +88,7 @@ public class MailVerificationActivity extends AppCompatActivity implements View.
                             Toast.makeText(MailVerificationActivity.this, "Verification Successful", Toast.LENGTH_SHORT).show();
                         }
                     }
-                });*/
+                });
 
         }
 }

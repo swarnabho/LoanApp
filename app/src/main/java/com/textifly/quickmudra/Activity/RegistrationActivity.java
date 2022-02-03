@@ -10,7 +10,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -30,6 +33,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.textifly.quickmudra.CustomDialog.CustomProgressDialog;
 import com.textifly.quickmudra.Helper.ManageLoginData;
+import com.textifly.quickmudra.Model.ContactListModel;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Urls;
 import com.textifly.quickmudra.databinding.ActivityRegistrationBinding;
@@ -38,6 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -45,6 +50,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     ActivityRegistrationBinding binding;
     String name, email, phno, password, referral, IMEINumber;
     private static final int REQUEST_CODE = 101;
+
 
     TelephonyManager tm;
 
@@ -54,11 +60,18 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         BtnClick();
         getIemiNo();
+
         //initView();
 
     }
+
+    /*private void getContactList() {
+        checkPermission();
+    }*/
+
 
     //@SuppressLint("MissingPermission")
     private void getIemiNo() {
@@ -163,10 +176,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 Log.d("RESPONSE", response);
                 try {
                     JSONObject object = new JSONObject(response);
-                    Log.d("RESPONSE",object.toString());
+                    Log.d("RESPONSE", object.toString());
                     if (object.getString("status").equals("0")) {
                         Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                        Log.d("RES NAME",object.getString("fname"));
+                        Log.d("RES NAME", object.getString("fname"));
                         String id = object.getString("userid");
                         String name = object.getString("fname");
                         String mobile = object.getString("mobile");
@@ -174,11 +187,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
                         //saveInFirestore();
 
-                        ManageLoginData.addLoginData(id,name,email,mobile);
+                        ManageLoginData.addLoginData(id, name, email, mobile);
                         startActivity(new Intent(RegistrationActivity.this, ApplyActivity.class));
                         overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
 
-                    }else{
+                    } else {
                         Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
