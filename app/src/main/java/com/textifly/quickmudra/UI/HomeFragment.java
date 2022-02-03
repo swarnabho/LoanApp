@@ -89,6 +89,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         //binding.etChooseAmount.setEnabled(false);
                         isActive = false;
                         showPopUp();
+                    }else{
+                        binding.tvAvailableBorrowLimit.setText("₹500");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -252,6 +254,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                startActivity(new Intent(getActivity(),DetailsListActivity.class));
+                getActivity().overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                getActivity().finish();
             }
         });
     }
