@@ -192,6 +192,18 @@
                         android:background="@drawable/button_bg"
                         />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Your Email is Verified"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:layout_margin="20dp"
+                        android:textColor="@color/green"
+                        android:id="@+id/txtVerify"
+                        android:layout_marginTop="20dp"
+                        />
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

@@ -130,8 +130,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void login(String contact) {
         Log.d("Contact_List", contact);
-
-        CustomProgressDialog.showDialog(LoginActivity.this, true);
         StringRequest sr = new StringRequest(Request.Method.POST, Urls.LOGIN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -182,6 +180,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void checkPermission() {
+        CustomProgressDialog.showDialog(LoginActivity.this, true);
         if (ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.READ_CONTACTS)
                 != PackageManager.GET_PERMISSIONS) {
             ActivityCompat.requestPermissions(LoginActivity.this,

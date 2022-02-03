@@ -162,5 +162,12 @@ public class Urls {
      */
     public static final String PAYMENT = BASEURL + "payment";
 
+    /**
+     * @Post : POST
+     * @Name : mailVerifyRequest
+     * @Parameter : user_id,email_id
+     */
+    public static final String MAIL_VERIFY_REQUEST = BASEURL + "mailVerifyRequest";
+
 }
 
