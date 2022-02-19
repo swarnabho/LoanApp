@@ -64,10 +64,12 @@ public class MailVerificationActivity extends AppCompatActivity implements View.
                         //Toast.makeText(MailVerificationActivity.this, "hi", Toast.LENGTH_SHORT).show();
                         binding.btnContinue.setVisibility(View.VISIBLE);
                         binding.txtVerify.setVisibility(View.GONE);
+                        binding.percentPD.setText("0%");
                     }else if(object.getString("mail_verify").equals("1")){
                         //Toast.makeText(MailVerificationActivity.this, "hello", Toast.LENGTH_SHORT).show();
                         binding.btnContinue.setVisibility(View.GONE);
                         binding.txtVerify.setVisibility(View.VISIBLE);
+                        binding.percentPD.setText("100%");
                     }
 
                 } catch (JSONException e) {

@@ -93,6 +93,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                     String doc_percentage = object.getString("doc_percentage");
                     String alternate_contact_verify = object.getString("alternate_contact_verify");
                     String pan_percentage = object.getString("pan_percentage");
+                    String mail_verify_percentage = object.getString("mail_verify");
 
                     //Log.d("ID_RES",YoDB.getPref().read(Constants.ID,""));
                     Log.d("ID_RES",alternate_contact_verify);
@@ -138,6 +139,14 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                     } else{
                         binding.percentED.setText(other_details_percentage+"%");
                     }
+
+                    if(mail_verify_percentage.isEmpty()){
+                        binding.percentMV.setText("0%");
+                    } else{
+                        binding.percentMV.setText("100%");
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

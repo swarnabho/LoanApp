@@ -27,7 +27,7 @@
                 android:text="Hi User"
                 android:textStyle="bold"
                 android:textColor="@color/baseColor"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:layout_weight=".4"
                     android:text="Complete your profile information to start borrowing money"
                     android:textColor="@color/gray"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Submit Voter ID/Driving Licence/Passport/Aadhar"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textColor="@color/gray1"/>
 
                 </LinearLayout>
@@ -115,7 +115,7 @@
                                 android:id="@+id/percentKYC"
                                 android:gravity="center"
                                 android:textColor="@color/baseColor"
-                                android:textSize="16sp"
+                                android:textSize="14sp"
                                 android:text="0%"
                                 />
 
@@ -159,7 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Submit Your Pan Card"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textColor="@color/gray1"/>
 
                 </LinearLayout>
@@ -191,7 +191,7 @@
                                 android:id="@+id/percentPan"
                                 android:gravity="center"
                                 android:textColor="@color/baseColor"
-                                android:textSize="16sp"
+                                android:textSize="14sp"
                                 android:text="0%"
                                 />
 
@@ -237,7 +237,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="Fill your personal details"
-                            android:textSize="16sp"
+                            android:textSize="12sp"
                             android:textColor="@color/gray1"/>
 
                     </LinearLayout>
@@ -269,7 +269,7 @@
                                     android:id="@+id/percentPD"
                                     android:gravity="center"
                                     android:textColor="@color/baseColor"
-                                    android:textSize="16sp"
+                                    android:textSize="14sp"
                                     android:text="0%"
                                     />
 
@@ -315,7 +315,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Fill your employment and college details"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textColor="@color/gray1"/>
 
                 </LinearLayout>
@@ -347,7 +347,7 @@
                                 android:id="@+id/percentED"
                                 android:gravity="center"
                                 android:textColor="@color/baseColor"
-                                android:textSize="16sp"
+                                android:textSize="14sp"
                                 android:text="0%"
                                 />
 
@@ -388,7 +388,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:text="Upload Documents"
                         android:textColor="@color/gray1"/>
 
@@ -421,7 +421,7 @@
                                 android:id="@+id/percentDOC"
                                 android:gravity="center"
                                 android:textColor="@color/baseColor"
-                                android:textSize="16sp"
+                                android:textSize="14sp"
                                 android:text="0%"
                                 />
 
@@ -462,7 +462,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:text="Fill your alternative contact"
                         android:textColor="@color/gray1"/>
 
@@ -495,7 +495,7 @@
                                 android:id="@+id/percentCV"
                                 android:gravity="center"
                                 android:textColor="@color/baseColor"
-                                android:textSize="16sp"
+                                android:textSize="14sp"
                                 android:text="0%"
                                 />
 
@@ -537,7 +537,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Verify your mail"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textColor="@color/gray1"/>
 
                 </LinearLayout>
@@ -569,7 +569,7 @@
                                 android:id="@+id/percentMV"
                                 android:gravity="center"
                                 android:textColor="@color/baseColor"
-                                android:textSize="16sp"
+                                android:textSize="14sp"
                                 android:text="0%"
                                 />
 

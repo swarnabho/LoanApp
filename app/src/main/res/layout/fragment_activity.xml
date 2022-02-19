@@ -48,8 +48,8 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/baseColor"
             android:layout_below="@+id/llToolbar"
+            android:background="@color/baseColor"
             app:tabTextColor="@color/white" />
 
         <androidx.viewpager.widget.ViewPager
