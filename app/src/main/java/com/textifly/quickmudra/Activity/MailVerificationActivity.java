@@ -60,7 +60,7 @@ public class MailVerificationActivity extends AppCompatActivity implements View.
                 CustomProgressDialog.showDialog(MailVerificationActivity.this,false);
                 try {
                     JSONObject object = new JSONObject(response);
-                    if(object.getString("mail_verify").isEmpty()){
+                    if(object.getString("mail_verify").isEmpty() || object.getString("mail_verify").equals("0")){
                         //Toast.makeText(MailVerificationActivity.this, "hi", Toast.LENGTH_SHORT).show();
                         binding.btnContinue.setVisibility(View.VISIBLE);
                         binding.txtVerify.setVisibility(View.GONE);
@@ -118,6 +118,8 @@ public class MailVerificationActivity extends AppCompatActivity implements View.
                     JSONObject object = new JSONObject(response);
                     if (object.getString("status").equals("0")) {
                         Toast.makeText(MailVerificationActivity.this, "A verification link has been sent to " + email, Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MailVerificationActivity.this,DetailsListActivity.class));
+                        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

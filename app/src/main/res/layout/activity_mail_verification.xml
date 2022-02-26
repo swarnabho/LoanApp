@@ -198,6 +198,7 @@
                         android:text="Your Email is Verified"
                         android:gravity="center"
                         android:padding="10dp"
+                        android:visibility="gone"
                         android:layout_margin="20dp"
                         android:textColor="@color/green"
                         android:id="@+id/txtVerify"

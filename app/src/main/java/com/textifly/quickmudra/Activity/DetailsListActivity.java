@@ -140,7 +140,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                         binding.percentED.setText(other_details_percentage+"%");
                     }
 
-                    if(mail_verify_percentage.isEmpty()){
+                    if(mail_verify_percentage.isEmpty() || mail_verify_percentage.equals("0")){
                         binding.percentMV.setText("0%");
                     } else{
                         binding.percentMV.setText("100%");

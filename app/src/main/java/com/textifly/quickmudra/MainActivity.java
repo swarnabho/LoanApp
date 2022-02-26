@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                             object.getString("pan_percentage").isEmpty() ||
                             object.getString("doc_percentage").isEmpty() ||
                             object.getString("alternate_contact_verify").isEmpty() ||
-                            object.getString("mail_verify").isEmpty()){
+                            object.getString("mail_verify").isEmpty() || object.getString("mail_verify").equals("0")){
                         cp.write(Constants.isFullyDocumented,"","false");
                     }else{
                         cp.write(Constants.isFullyDocumented,"","true");
