@@ -62,6 +62,7 @@ public class OtpValidationActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         phno = getIntent().getStringExtra("phno");
+        Log.d("OTP PHONE",phno);
 
         mAuth = FirebaseAuth.getInstance();
         binding.tvText.setText("Please type the verification code sent to " + phno);
@@ -123,7 +124,7 @@ public class OtpValidationActivity extends AppCompatActivity {
     private void initiateOtp() {
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phno)       // Phone number to verify
+                        .setPhoneNumber("+91 "+phno)       // Phone number to verify
                         .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this)                 // Activity (for callback binding)
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -256,7 +257,7 @@ public class OtpValidationActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> body = new HashMap<>();
-                body.put("alternate_contact",phno);
+                body.put("alternate_contact","+91 "+phno);
                 body.put("user_id",YoDB.getPref().read(Constants.ID,""));
 
                 return body;

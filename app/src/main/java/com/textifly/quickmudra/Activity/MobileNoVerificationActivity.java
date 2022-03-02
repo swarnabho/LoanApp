@@ -76,7 +76,7 @@ public class MobileNoVerificationActivity extends AppCompatActivity implements V
         switch (view.getId()){
             case R.id.btnContinue:
                 if(length == 10){
-                    phno = "+"+binding.ccp.getSelectedCountryCode()+" "+binding.etMobileNumber.getText().toString();
+                    phno = /*"+"+binding.ccp.getSelectedCountryCode()+" "+*/binding.etMobileNumber.getText().toString();
                     checkMobileNumber();
                     //otpCheck();
                 }else{

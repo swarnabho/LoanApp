@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -93,6 +94,7 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void checkMobileNo(String ph) {
+        Log.d("PHONE",ph);
         StringRequest sr = new StringRequest(Request.Method.POST, Urls.MOBILE_CHECK, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -102,10 +104,12 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
                         //forgotPW(ph);
                         Toast.makeText(ForgotPWActivity.this, "Ph no.: " + ph, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ForgotPWActivity.this, OtpValidationActivity.class);
-                        intent.putExtra("phno", "+91" + ph);
+                        intent.putExtra("phno", ph);
                         intent.putExtra("from", "forgotPW");
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                    }else{
+                        Toast.makeText(ForgotPWActivity.this, "Mobile no not registered", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -114,12 +118,14 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("VolleyError",error.toString());
+                Toast.makeText(ForgotPWActivity.this, "Getting some troubles", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                Log.d("Phone_body",ph);
                 Map<String, String> body = new HashMap<>();
                 body.put("mobile", "+91 " + ph);
                 return body;
@@ -129,10 +135,12 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void forgotPW(String ph) {
+        Log.d("FRG_PHONE",ph);
         CustomProgressDialog.showDialog(ForgotPWActivity.this, true);
         StringRequest sr = new StringRequest(Request.Method.POST, Urls.FORGET_PW, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.d("FORGOT_RES",response);
                 CustomProgressDialog.showDialog(ForgotPWActivity.this, false);
                 try {
                     JSONObject object = new JSONObject(response);
@@ -155,7 +163,7 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> body = new HashMap<>();
-                body.put("mobile", "+91 " + ph);
+                body.put("mobile", "+91 "+ph);
                 body.put("password", binding.tilNewPassword.getEditText().getText().toString());
                 return body;
             }

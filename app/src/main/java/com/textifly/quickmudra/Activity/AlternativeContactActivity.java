@@ -73,7 +73,7 @@ public class AlternativeContactActivity extends AppCompatActivity implements Vie
         switch (view.getId()) {
             case R.id.btnContinue:
                 if(length == 10){
-                    phno = "+"+binding.ccp.getSelectedCountryCode()+" "+binding.etMobileNumber.getText().toString();
+                    phno = /*"+"+binding.ccp.getSelectedCountryCode()+" "+*/binding.etMobileNumber.getText().toString();
                     checkMobileNumber();
                     //otpCheck();
                 }else{
