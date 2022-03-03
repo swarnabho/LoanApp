@@ -10,12 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.textifly.quickmudra.Activity.DetailsListActivity;
+import com.textifly.quickmudra.MainActivity;
 import com.textifly.quickmudra.ManageSharedPreferenceData.YoDB;
 import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.Utils.Constants;
 import com.textifly.quickmudra.databinding.FragmentQCoinBinding;
 
-public class QCoinFragment extends Fragment {
+public class QCoinFragment extends Fragment implements View.OnClickListener{
     FragmentQCoinBinding binding;
 
     @Override
@@ -33,6 +34,17 @@ public class QCoinFragment extends Fragment {
         }else{
             binding.tvTotalCoin.setText("Total Coins: "+YoDB.getPref().read(Constants.QCOIN,""));
         }
+
+        binding.llMenu.setOnClickListener(this);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.llMenu:
+                ((MainActivity)getActivity()).openDrawer();
+                break;
+        }
     }
 }

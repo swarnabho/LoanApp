@@ -148,6 +148,7 @@ public class ForgotPWActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(ForgotPWActivity.this, object.getString("message"), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ForgotPWActivity.this, LoginActivity.class));
                         overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
+                        finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

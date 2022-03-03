@@ -30,10 +30,10 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".UI.ActivityPage.ProductDetailsActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Activity.ForgotPWActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".UI.RazorPayActivity"
             android:exported="true" />

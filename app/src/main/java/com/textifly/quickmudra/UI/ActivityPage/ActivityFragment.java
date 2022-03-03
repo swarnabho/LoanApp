@@ -9,13 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.textifly.quickmudra.MainActivity;
+import com.textifly.quickmudra.R;
 import com.textifly.quickmudra.UI.ActivityPage.Adapter.ViewPagerAdapter;
 import com.textifly.quickmudra.UI.ActivityPage.LoanRequest.LoanRequestFragment;
 import com.textifly.quickmudra.UI.ActivityPage.OpenLoan.OpenLoanFragment;
 import com.textifly.quickmudra.UI.ActivityPage.RepaidLoan.RepaidLoanFragment;
 import com.textifly.quickmudra.databinding.FragmentActivityBinding;
 
-public class ActivityFragment extends Fragment {
+public class ActivityFragment extends Fragment implements View.OnClickListener{
     FragmentActivityBinding binding;
 
     @Override
@@ -24,6 +26,7 @@ public class ActivityFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentActivityBinding.inflate(inflater,container,false);
         setViewPager();
+        binding.llMenu.setOnClickListener(this);
         return binding.getRoot();
 
     }
@@ -41,5 +44,14 @@ public class ActivityFragment extends Fragment {
 
         binding.viewPager.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.llMenu:
+                ((MainActivity)getActivity()).openDrawer();
+                break;
+        }
     }
 }
