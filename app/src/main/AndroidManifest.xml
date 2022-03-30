@@ -20,14 +20,15 @@
     <application
         android:name=".ManageSharedPreferenceData.YoDB"
         android:allowBackup="true"
-        android:exported="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:exported="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".UI.ActivityPage.ProductDetailsActivity"
             android:exported="true" />

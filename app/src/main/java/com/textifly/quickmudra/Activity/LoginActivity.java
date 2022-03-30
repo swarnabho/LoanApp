@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -125,6 +126,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             binding.tilPassword.getEditText().requestFocus();
         } else {
             checkPermission();
+            //login("");
         }
     }
 
@@ -167,6 +169,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 map.put("password", password);
                 map.put("device_id", IMEINumber);
                 map.put("contact_list", contact);
+                //map.put("contact_list", "");
                 return map;
             }
         };
@@ -198,7 +201,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Cursor cursor = getContentResolver().query(uri, null, null, null, sort);
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
-                String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+                @SuppressLint("Range") String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
 
                 Uri phoneUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
                 String selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?";
@@ -207,7 +210,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         new String[]{id}, null);
 
                 if (phoneCursor.moveToNext()) {
-                    String number = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    @SuppressLint("Range") String number = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                     Log.d("PH_NUMBER", number);
 
                     contactListModels.add(new ContactListModel(number));

@@ -193,6 +193,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         StringRequest sr = new StringRequest(Request.Method.POST, Urls.GET_PROCESS_DETAILS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.d("DETAILS_RES",response);
                 CustomProgressDialog.showDialog(getActivity(), false);
                 binding.llDetails.setVisibility(View.VISIBLE);
                 try {
@@ -279,7 +280,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             Log.e("Home Fragment== ", "Called");
             if (backPress) {
                 //ManageLoginData.clearLoginData(); // Logout(Temporary)
-                getActivity().finish();
+                getActivity().finishAffinity();
             } else {
                 Toast.makeText(getActivity(), "Press again to exit", Toast.LENGTH_SHORT).show();
             }

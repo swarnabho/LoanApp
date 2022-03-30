@@ -217,7 +217,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 map.put("imei_no", IMEINumber);
                 return map;
             }
-        };
+        };//email,mobile,fname,confirm_password,promo_code,imei_no
 
         Volley.newRequestQueue(getApplicationContext()).add(sr);
     }
