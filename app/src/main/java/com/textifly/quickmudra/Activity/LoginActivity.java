@@ -125,8 +125,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
             binding.tilPassword.getEditText().requestFocus();
         } else {
-            checkPermission();
-            //login("");
+            //checkPermission();
+            login("");
         }
     }
 
@@ -168,8 +168,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 map.put("mobile", mobile);
                 map.put("password", password);
                 map.put("device_id", IMEINumber);
-                map.put("contact_list", contact);
-                //map.put("contact_list", "");
+                //map.put("contact_list", contact);
+                map.put("contact_list", "");
                 return map;
             }
         };

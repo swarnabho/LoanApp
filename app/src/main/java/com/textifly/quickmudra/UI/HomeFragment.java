@@ -82,6 +82,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.USER_CHECK, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.d("USER_RES",response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("status");
