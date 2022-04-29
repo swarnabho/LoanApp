@@ -5,8 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +44,7 @@ import java.util.Map;
 
 public class DetailsListActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityDetailsListBinding binding;
+    String tvKyc,tvPan,tvPersonalDetails,tvEmploymentDetails,tvDocuments,tvAlternetNo,tvMailVerify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +52,13 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
         binding = ActivityDetailsListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        tvKyc = binding.tvKyc.getText().toString();
+        tvPan = binding.tvPan.getText().toString();
+        tvPersonalDetails = binding.tvPersonalDetails.getText().toString();
+        tvEmploymentDetails = binding.tvEmploymentDetails.getText().toString();
+        tvDocuments = binding.tvDocuments.getText().toString();
+        tvAlternetNo = binding.tvAlternetNo.getText().toString();
+        tvMailVerify = binding.tvMailVerify.getText().toString();
         binding.tvUsername.setText("Hi " + YoDB.getPref().read(Constants.NAME, ""));
 
         BtnClick();
@@ -54,7 +69,259 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
 
         showPopUp();
         //}
+        getDocumentStatus();
         loadPercentage();
+    }
+
+    private void getDocumentStatus() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Urls.GET_DOCUMENT_STATUS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("STATUS_RES",response);
+                try {
+                    JSONObject object = new JSONObject(response);
+                    String kycstatus = object.getString("kycstatus");
+                    String other_details_status = object.getString("other_details_status");
+                    String pan_status = object.getString("pan_status");
+                    String personal_status = object.getString("personal_status");
+
+                    // For KYC
+                    if(kycstatus.equalsIgnoreCase("pending")){
+                        SpannableString spnKyc = new SpannableString(tvKyc + " \tRequest Pending");
+                        spnKyc.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.goldenColor1)),
+                                tvKyc.length() + 1, // start
+                                spnKyc.length(), // end
+                                spnKyc.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnKyc.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvKyc.length() + 1, // start
+                                spnKyc.length(), // end
+                                spnKyc.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnKyc.setSpan(new AbsoluteSizeSpan(15, true), tvKyc.length() + 1, spnKyc.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvKyc.setText(spnKyc);
+
+                    }else if(kycstatus.equalsIgnoreCase("approved")){
+                        SpannableString spnKyc = new SpannableString(tvKyc + " \tApproved");
+                        spnKyc.setSpan(new ForegroundColorSpan(Color.GREEN),
+                                tvKyc.length() + 1, // start
+                                spnKyc.length(), // end
+                                spnKyc.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnKyc.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvKyc.length() + 1, // start
+                                spnKyc.length(), // end
+                                spnKyc.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnKyc.setSpan(new AbsoluteSizeSpan(15, true), tvKyc.length() + 1, spnKyc.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvKyc.setText(spnKyc);
+
+                    }else if(kycstatus.equalsIgnoreCase("reject")){
+                        SpannableString spnKyc = new SpannableString(tvKyc + " Rejected\n\tPlease re-submit the KYC document");
+                        spnKyc.setSpan(new ForegroundColorSpan(Color.GREEN),
+                                tvKyc.length() + 2, // start
+                                spnKyc.length(), // end
+                                spnKyc.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnKyc.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvKyc.length() + 1, // start
+                                spnKyc.length(), // end
+                                spnKyc.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnKyc.setSpan(new AbsoluteSizeSpan(15, true), tvKyc.length() + 1, spnKyc.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvKyc.setText(spnKyc);
+
+                    }
+
+                    // For PAN
+                    if(pan_status.equalsIgnoreCase("pending")){
+                        SpannableString spnPan = new SpannableString(tvPan + " \tRequest Pending");
+                        spnPan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.goldenColor1)),
+                                tvPan.length() + 1, // start
+                                spnPan.length(), // end
+                                spnPan.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnPan.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvPan.length() + 1, // start
+                                spnPan.length(), // end
+                                spnPan.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnPan.setSpan(new AbsoluteSizeSpan(15, true), tvPan.length() + 1, spnPan.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvPan.setText(spnPan);
+
+                    }else if(pan_status.equalsIgnoreCase("approved")){
+                        SpannableString spnPan = new SpannableString(tvPan + " \tApproved");
+                        spnPan.setSpan(new ForegroundColorSpan(Color.GREEN),
+                                tvPan.length() + 1, // start
+                                spnPan.length(), // end
+                                spnPan.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnPan.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvPan.length() + 1, // start
+                                spnPan.length(), // end
+                                spnPan.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnPan.setSpan(new AbsoluteSizeSpan(15, true), tvPan.length() + 1, spnPan.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvPan.setText(spnPan);
+
+                    }else if(pan_status.equalsIgnoreCase("reject")){
+                        SpannableString spnPan = new SpannableString(tvPan + " Rejected\nPlease re-submit the PAN details");
+                        spnPan.setSpan(new ForegroundColorSpan(Color.GREEN),
+                                tvPan.length() + 1, // start
+                                spnPan.length(), // end
+                                spnPan.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnPan.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvPan.length() + 1, // start
+                                spnPan.length(), // end
+                                spnPan.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnPan.setSpan(new AbsoluteSizeSpan(15, true), tvPan.length() + 1, spnPan.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvPan.setText(spnPan);
+
+                    }
+
+
+                    // For PERSONAL DETAILS
+                    if(personal_status.equalsIgnoreCase("pending")){
+                        SpannableString spnPersonalDetails = new SpannableString(tvPersonalDetails + " \tRequest Pending");
+                        spnPersonalDetails.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.goldenColor1)),
+                                tvPersonalDetails.length() + 1, // start
+                                spnPersonalDetails.length(), // end
+                                spnPersonalDetails.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnPersonalDetails.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvPersonalDetails.length() + 1, // start
+                                spnPersonalDetails.length(), // end
+                                spnPersonalDetails.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnPersonalDetails.setSpan(new AbsoluteSizeSpan(15, true), tvPersonalDetails.length() + 1, spnPersonalDetails.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvPersonalDetails.setText(spnPersonalDetails);
+
+                    }else if(personal_status.equalsIgnoreCase("approved")){
+                        SpannableString spnPersonalDetails = new SpannableString(tvPersonalDetails + " \tApproved");
+                        spnPersonalDetails.setSpan(new ForegroundColorSpan(Color.GREEN),
+                                tvPersonalDetails.length() + 1, // start
+                                spnPersonalDetails.length(), // end
+                                spnPersonalDetails.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnPersonalDetails.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvPersonalDetails.length() + 1, // start
+                                spnPersonalDetails.length(), // end
+                                spnPersonalDetails.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnPersonalDetails.setSpan(new AbsoluteSizeSpan(15, true), tvPersonalDetails.length() + 1, spnPersonalDetails.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvPersonalDetails.setText(spnPersonalDetails);
+
+                    }else if(personal_status.equalsIgnoreCase("reject")){
+                        SpannableString spnPersonalDetails = new SpannableString(tvPersonalDetails + " Rejected\nPlease re-submit the Personal details");
+                        spnPersonalDetails.setSpan(new ForegroundColorSpan(Color.GREEN),
+                                tvPersonalDetails.length() + 1, // start
+                                spnPersonalDetails.length(), // end
+                                spnPersonalDetails.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnPersonalDetails.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvPersonalDetails.length() + 1, // start
+                                spnPersonalDetails.length(), // end
+                                spnPersonalDetails.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnPersonalDetails.setSpan(new AbsoluteSizeSpan(15, true), tvPersonalDetails.length() + 1, spnPersonalDetails.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvPersonalDetails.setText(spnPersonalDetails);
+
+                    }
+
+                    // For Employment Details and College Details
+                    if(other_details_status.equalsIgnoreCase("pending")){
+                        SpannableString spnEmpColDetails = new SpannableString(tvEmploymentDetails + " \tRequest Pending");
+                        spnEmpColDetails.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.goldenColor1)),
+                                tvEmploymentDetails.length() + 1, // start
+                                spnEmpColDetails.length(), // end
+                                spnEmpColDetails.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnEmpColDetails.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvEmploymentDetails.length() + 1, // start
+                                spnEmpColDetails.length(), // end
+                                spnEmpColDetails.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnEmpColDetails.setSpan(new AbsoluteSizeSpan(15, true), tvEmploymentDetails.length() + 1, spnEmpColDetails.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvEmploymentDetails.setText(spnEmpColDetails);
+
+                    }else if(other_details_status.equalsIgnoreCase("approved")){
+                        SpannableString spnEmpColDetails = new SpannableString(tvEmploymentDetails + " \tApproved");
+                        spnEmpColDetails.setSpan(new ForegroundColorSpan(Color.GREEN),
+                                tvEmploymentDetails.length() + 1, // start
+                                spnEmpColDetails.length(), // end
+                                spnEmpColDetails.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnEmpColDetails.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvEmploymentDetails.length() + 1, // start
+                                spnEmpColDetails.length(), // end
+                                spnEmpColDetails.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnEmpColDetails.setSpan(new AbsoluteSizeSpan(15, true), tvEmploymentDetails.length() + 1, spnEmpColDetails.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvEmploymentDetails.setText(spnEmpColDetails);
+
+                    }else if(other_details_status.equalsIgnoreCase("reject")){
+                        SpannableString spnEmpColDetails = new SpannableString(tvEmploymentDetails + " Rejected\nPlease re-submit the Employment details and College details");
+                        spnEmpColDetails.setSpan(new ForegroundColorSpan(Color.GREEN),
+                                tvEmploymentDetails.length() + 1, // start
+                                spnEmpColDetails.length(), // end
+                                spnEmpColDetails.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnEmpColDetails.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvEmploymentDetails.length() + 1, // start
+                                spnEmpColDetails.length(), // end
+                                spnEmpColDetails.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnEmpColDetails.setSpan(new AbsoluteSizeSpan(15, true), tvEmploymentDetails.length() + 1, spnEmpColDetails.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvEmploymentDetails.setText(spnEmpColDetails);
+
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> body = new HashMap<>();
+                body.put("user_id",YoDB.getPref().read(Constants.ID,""));
+                return body;
+            }
+        };
+        Volley.newRequestQueue(DetailsListActivity.this).add(sr);
     }
 
     private void showPopUp() {

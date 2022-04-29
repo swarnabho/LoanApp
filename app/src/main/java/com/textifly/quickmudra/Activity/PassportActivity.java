@@ -214,13 +214,14 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         Log.d("AadharFront", passportFile.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
+        RequestBody passportNo = RequestBody.create(MediaType.parse("text/plain"),binding.tilPassportNo.getEditText().getText().toString());
         RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"100");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), passportFile);
         MultipartBody.Part passport = MultipartBody.Part.createFormData("passport", passportFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updatePassport(user_id,percentage, passport);
+        Call<ResponseDataModel> call = service.updatePassport(user_id,passportNo,percentage, passport);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override
@@ -252,7 +253,10 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.btnSubmit:
-                if (passportFile == null) {
+                if(binding.etPassportNo.getText().toString().isEmpty()){
+                    Toast.makeText(PassportActivity.this, "Please enter passport number", Toast.LENGTH_SHORT).show();
+                    binding.etPassportNo.requestFocus();
+                } else if (passportFile == null) {
                     Toast.makeText(PassportActivity.this, "Please enter passport image", Toast.LENGTH_SHORT).show();
                 } else {
                     CustomProgressDialog.showDialog(PassportActivity.this, true);

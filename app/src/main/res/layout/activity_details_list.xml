@@ -80,10 +80,11 @@
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/tvKyc"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Submit Voter ID/Driving Licence/Passport/Aadhar"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:textColor="@color/gray1"/>
 
                 </LinearLayout>
@@ -156,10 +157,11 @@
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/tvPan"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Submit Your Pan Card"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:textColor="@color/gray1"/>
 
                 </LinearLayout>
@@ -234,10 +236,11 @@
                             android:textStyle="bold"/>
 
                         <TextView
+                            android:id="@+id/tvPersonalDetails"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="Fill your personal details"
-                            android:textSize="12sp"
+                            android:textSize="11sp"
                             android:textColor="@color/gray1"/>
 
                     </LinearLayout>
@@ -312,10 +315,11 @@
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/tvEmploymentDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Fill your employment and college details"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:textColor="@color/gray1"/>
 
                 </LinearLayout>
@@ -386,9 +390,10 @@
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/tvDocuments"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:text="Upload Documents"
                         android:textColor="@color/gray1"/>
 
@@ -460,9 +465,10 @@
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/tvAlternetNo"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:text="Fill your alternative contact"
                         android:textColor="@color/gray1"/>
 
@@ -534,10 +540,11 @@
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/tvMailVerify"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Verify your mail"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:textColor="@color/gray1"/>
 
                 </LinearLayout>

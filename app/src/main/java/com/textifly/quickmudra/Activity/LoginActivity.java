@@ -131,6 +131,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login(String contact) {
+        CustomProgressDialog.showDialog(LoginActivity.this, true);
         Log.d("Contact_List", contact);
         StringRequest sr = new StringRequest(Request.Method.POST, Urls.LOGIN, new Response.Listener<String>() {
             @Override

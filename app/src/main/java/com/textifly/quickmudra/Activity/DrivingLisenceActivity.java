@@ -84,7 +84,10 @@ public class DrivingLisenceActivity extends AppCompatActivity implements View.On
                 }
                 break;
             case R.id.btnSubmit:
-                if (lisenceFile == null) {
+                if(binding.etDrivingLicenceNo.getText().toString().isEmpty()){
+                    Toast.makeText(DrivingLisenceActivity.this, "Please enter driving licence number", Toast.LENGTH_SHORT).show();
+                    binding.etDrivingLicenceNo.requestFocus();
+                }else if (lisenceFile == null) {
                     Toast.makeText(DrivingLisenceActivity.this, "Please enter driving lisence image", Toast.LENGTH_SHORT).show();
                 } else {
                     CustomProgressDialog.showDialog(DrivingLisenceActivity.this, true);
@@ -237,13 +240,14 @@ public class DrivingLisenceActivity extends AppCompatActivity implements View.On
         Log.d("AadharFront", lisenceFile.getName());
 
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID,""));
+        RequestBody licenceNo = RequestBody.create(MediaType.parse("text/plain"), binding.tilDrivingLicenceNo.getEditText().getText().toString());
         RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"100");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), lisenceFile);
         MultipartBody.Part driving = MultipartBody.Part.createFormData("driving_license", lisenceFile.getName(), bodyVoterFront);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateDriving(user_id,percentage, driving);
+        Call<ResponseDataModel> call = service.updateDriving(user_id,licenceNo,percentage, driving);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override

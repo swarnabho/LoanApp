@@ -15,6 +15,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateVoter(
             @Part("user_id") RequestBody user_id,
+            @Part("id_no") RequestBody voterId,
             @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part voter_front,
             @Part MultipartBody.Part voter_back
@@ -44,6 +45,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updatePassport(
             @Part("user_id") RequestBody user_id,
+            @Part("id_no") RequestBody passportNo,
             @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part passport
             );
@@ -52,6 +54,7 @@ public interface WebService {
     @POST("details_update")
     Call<ResponseDataModel> updateDriving(
             @Part("user_id") RequestBody user_id,
+            @Part("id_no") RequestBody licencetNo,
             @Part("other_percentage") RequestBody other_percentage,
             @Part MultipartBody.Part driving
     );

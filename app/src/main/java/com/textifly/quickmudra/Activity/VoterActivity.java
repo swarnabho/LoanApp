@@ -64,10 +64,10 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
-        if(getIntent().hasExtra("frontImg")){
+        if (getIntent().hasExtra("frontImg")) {
             binding.percentPD.setText("100%");
-            Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+getIntent().getStringExtra("frontImg")).into(binding.ivVoterFont);
-            Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+getIntent().getStringExtra("backImg")).into(binding.ivVoterBack);
+            Glide.with(binding.getRoot()).load(Urls.IMAGE_URL + getIntent().getStringExtra("frontImg")).into(binding.ivVoterFont);
+            Glide.with(binding.getRoot()).load(Urls.IMAGE_URL + getIntent().getStringExtra("backImg")).into(binding.ivVoterBack);
         }
     }
 
@@ -266,7 +266,10 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.btnSubmit:
-                if (VoterFront == null) {
+                if (binding.etVoterNo.getText().toString().isEmpty()) {
+                    Toast.makeText(VoterActivity.this, "Please enter voter id number", Toast.LENGTH_SHORT).show();
+                    binding.etVoterNo.requestFocus();
+                } else if (VoterFront == null) {
                     Toast.makeText(VoterActivity.this, "Please enter voter id front image", Toast.LENGTH_SHORT).show();
                 } else if (VoterBack == null) {
                     Toast.makeText(VoterActivity.this, "Please enter voter id back image", Toast.LENGTH_SHORT).show();
@@ -279,11 +282,12 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void uploadVoterId() {
-        Log.d("VoterFront",VoterFront.getName());
-        Log.d("VoterBack",VoterBack.getName());
+        Log.d("VoterFront", VoterFront.getName());
+        Log.d("VoterBack", VoterBack.getName());
 
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"),YoDB.getPref().read(Constants.ID,""));
-        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"),"100");
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), YoDB.getPref().read(Constants.ID, ""));
+        RequestBody voterId = RequestBody.create(MediaType.parse("text/plain"), binding.tilVoterId.getEditText().getText().toString());
+        RequestBody percentage = RequestBody.create(MediaType.parse("text/plain"), "100");
 
         RequestBody bodyVoterFront = RequestBody.create(MediaType.parse("image/*"), VoterFront);
         MultipartBody.Part multi_VoterFront = MultipartBody.Part.createFormData("voter_front", VoterFront.getName(), bodyVoterFront);
@@ -292,19 +296,19 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
         MultipartBody.Part multi_VoterBack = MultipartBody.Part.createFormData("voter_back", VoterBack.getName(), bodyVoterBack);
 
         WebService service = ApiClient.getRetrofitInstance().create(WebService.class);
-        Call<ResponseDataModel> call = service.updateVoter(user_id,percentage,multi_VoterFront, multi_VoterBack);
+        Call<ResponseDataModel> call = service.updateVoter(user_id, voterId, percentage, multi_VoterFront, multi_VoterBack);
 
         call.enqueue(new Callback<ResponseDataModel>() {
             @Override
             public void onResponse(Call<ResponseDataModel> call, Response<ResponseDataModel> response) {
                 CustomProgressDialog.showDialog(VoterActivity.this, false);
                 ResponseDataModel model = response.body();
-                Log.d("RESPONSE",model.getStatus());
-                if(model.getStatus().equals("0")){
+                Log.d("RESPONSE", model.getStatus());
+                if (model.getStatus().equals("0")) {
                     Toast.makeText(VoterActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
                     //startActivity(new Intent(VoterActivity.this,PanCardActivity.class));
-                    startActivity(new Intent(VoterActivity.this,DetailsListActivity.class));
-                    overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+                    startActivity(new Intent(VoterActivity.this, DetailsListActivity.class));
+                    overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
                 }
             }
 
@@ -317,7 +321,7 @@ public class VoterActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(VoterActivity.this,DetailsListActivity.class));
-        overridePendingTransition(R.anim.fade_in_animation,R.anim.fade_out_animation);
+        startActivity(new Intent(VoterActivity.this, DetailsListActivity.class));
+        overridePendingTransition(R.anim.fade_in_animation, R.anim.fade_out_animation);
     }
 }

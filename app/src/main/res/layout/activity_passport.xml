@@ -242,11 +242,36 @@
                             android:id="@+id/llPassport"
                             android:orientation="vertical">
 
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tilPassportNo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:background="@drawable/edit_text_background"
+                                android:textColorHint="@color/black4"
+                                app:errorEnabled="false"
+                                android:layout_margin="15dp"
+                                app:hintTextColor="@color/black4">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Passport Number"
+                                    android:background="@drawable/edit_text_background"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="text"
+                                    android:id="@+id/etPassportNo"
+                                    android:maxLines="1"
+                                    android:maxLength="12"
+                                    android:textColor="@color/black"
+                                    android:textCursorDrawable="@null"
+                                    android:textSize="15sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
-                                android:layout_marginTop="20dp"
                                 android:text="Front Photo"
                                 android:textColor="@color/black"
                                 android:textSize="20dp"

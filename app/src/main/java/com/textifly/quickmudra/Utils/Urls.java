@@ -169,5 +169,12 @@ public class Urls {
      */
     public static final String MAIL_VERIFY_REQUEST = BASEURL + "mailVerifyRequest";
 
+    /**
+     * @Post : POST
+     * @Name : getdocumentsstatus
+     * @Parameter : user_id
+     */
+    public static final String GET_DOCUMENT_STATUS = BASEURL + "getdocumentsstatus";
+
 }
 

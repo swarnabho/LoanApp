@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("status");
-                    if (status.equals("1")) {
+                    if (status.equals("0")) {  //previously it was 1
                         //binding.etChooseAmount.setEnabled(false);
                         isActive = false;
                         showPopUp();
