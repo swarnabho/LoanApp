@@ -159,7 +159,7 @@
                                 android:hint="PAN Number"
                                 android:background="@drawable/edit_text_background"
                                 android:imeOptions="actionNext"
-                                android:inputType="textCapWords"
+                                android:inputType="textCapSentences"
                                 android:textAllCaps="true"
                                 android:maxLines="1"
                                 android:textColor="@color/black"
@@ -206,6 +206,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="Back Photo"
+                                android:visibility="gone"
                                 android:textColor="@color/black"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
@@ -214,6 +215,7 @@
                                 android:id="@+id/ivPanBack"
                                 android:layout_width="wrap_content"
                                 android:layout_height="200dp"
+                                android:visibility="gone"
                                 android:src="@drawable/panback" />
                         </LinearLayout>
 

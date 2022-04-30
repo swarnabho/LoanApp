@@ -17,6 +17,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -70,6 +71,7 @@ public class PanCardActivity extends AppCompatActivity implements View.OnClickLi
 
         initView();
         BtnClick();
+        binding.tilPanNo.getEditText().setFilters(new InputFilter[]{new InputFilter.AllCaps()});
     }
 
     private void initView() {
@@ -91,7 +93,7 @@ public class PanCardActivity extends AppCompatActivity implements View.OnClickLi
                         binding.percentPD.setText("100%");
                         binding.tilPanNo.getEditText().setText(id_no);
                         Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+frontImg).into(binding.ivPanFront);
-                        Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+backImg).into(binding.ivPanBack);
+                        //Glide.with(binding.getRoot()).load(Urls.IMAGE_URL+backImg).into(binding.ivPanBack);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -140,11 +142,14 @@ public class PanCardActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.btnSubmit:
-                if (PanFront == null) {
+                if(binding.tilPanNo.getEditText().toString().isEmpty()){
+                    Toast.makeText(PanCardActivity.this, "Please enter pan number", Toast.LENGTH_SHORT).show();
+                    binding.tilPanNo.getEditText().requestFocus();
+                }else if (PanFront == null) {
                     Toast.makeText(PanCardActivity.this, "Please enter voter id front image", Toast.LENGTH_SHORT).show();
-                } else if (PanBack == null) {
+                } /*else if (PanBack == null) {
                     Toast.makeText(PanCardActivity.this, "Please enter voter id back image", Toast.LENGTH_SHORT).show();
-                } else {
+                }*/ else {
                     CustomProgressDialog.showDialog(PanCardActivity.this, true);
                     uploadVoterId();
                 }

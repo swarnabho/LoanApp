@@ -18,6 +18,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -61,6 +62,7 @@ public class AadharActivity extends AppCompatActivity implements View.OnClickLis
 
         initView();
         BtnClick();
+        //binding.etAadhaNo.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
     }
 
     private void initView() {
