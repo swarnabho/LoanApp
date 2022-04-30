@@ -84,6 +84,193 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
                     String other_details_status = object.getString("other_details_status");
                     String pan_status = object.getString("pan_status");
                     String personal_status = object.getString("personal_status");
+                    String addressproof_status = object.getString("addressproof_status");
+                    String marksheet_status = object.getString("marksheet_status");
+                    String signature_status = object.getString("signature_status");
+                    String college_status = object.getString("college_status");
+                    String profilephoto_status = object.getString("profilephoto_status");
+                    String profilevideo_status = object.getString("profilevideo_status");
+                    String mailverify_status = object.getString("mailverify_status");
+                    String alternate_number_status = object.getString("alternate_number_status");
+
+
+                    //Mail Verify
+                    if(mailverify_status.equalsIgnoreCase("pending")){
+                        SpannableString spnMail = new SpannableString(tvMailVerify + " \tRequest Pending");
+                        spnMail.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.goldenColor1)),
+                                tvMailVerify.length() + 1, // start
+                                spnMail.length(), // end
+                                spnMail.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnMail.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvMailVerify.length() + 1, // start
+                                spnMail.length(), // end
+                                spnMail.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnMail.setSpan(new AbsoluteSizeSpan(15, true), tvMailVerify.length() + 1, spnMail.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvMailVerify.setText(spnMail);
+
+                    }else if(mailverify_status.equalsIgnoreCase("approved")){
+                        SpannableString spnMail = new SpannableString(tvMailVerify + " \tApproved");
+                        spnMail.setSpan(new ForegroundColorSpan(Color.GREEN),
+                                tvMailVerify.length() + 1, // start
+                                spnMail.length(), // end
+                                spnMail.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnMail.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvMailVerify.length() + 1, // start
+                                spnMail.length(), // end
+                                spnMail.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnMail.setSpan(new AbsoluteSizeSpan(15, true), tvMailVerify.length() + 1, spnMail.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvMailVerify.setText(spnMail);
+
+                    }else if(mailverify_status.equalsIgnoreCase("reject")){
+                        SpannableString spnMail = new SpannableString(tvMailVerify + " Rejected\n\tPlease re-submit the KYC document");
+                        spnMail.setSpan(new ForegroundColorSpan(Color.RED),
+                                tvMailVerify.length() + 2, // start
+                                spnMail.length(), // end
+                                spnMail.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnMail.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvMailVerify.length() + 1, // start
+                                spnMail.length(), // end
+                                spnMail.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnMail.setSpan(new AbsoluteSizeSpan(15, true), tvMailVerify.length() + 1, spnMail.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvMailVerify.setText(spnMail);
+
+                    }
+
+                    //Alternate Number
+                    if(alternate_number_status.equalsIgnoreCase("pending")){
+                        SpannableString spnAltNo = new SpannableString(tvAlternetNo + " \tRequest Pending");
+                        spnAltNo.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.goldenColor1)),
+                                tvAlternetNo.length() + 1, // start
+                                spnAltNo.length(), // end
+                                spnAltNo.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnAltNo.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvAlternetNo.length() + 1, // start
+                                spnAltNo.length(), // end
+                                spnAltNo.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnAltNo.setSpan(new AbsoluteSizeSpan(15, true), tvAlternetNo.length() + 1, spnAltNo.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvAlternetNo.setText(spnAltNo);
+
+                    }else if(alternate_number_status.equalsIgnoreCase("approved")){
+                        SpannableString spnAltNo = new SpannableString(tvAlternetNo + " \tApproved");
+                        spnAltNo.setSpan(new ForegroundColorSpan(Color.GREEN),
+                                tvAlternetNo.length() + 1, // start
+                                spnAltNo.length(), // end
+                                spnAltNo.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnAltNo.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvAlternetNo.length() + 1, // start
+                                spnAltNo.length(), // end
+                                spnAltNo.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnAltNo.setSpan(new AbsoluteSizeSpan(15, true), tvAlternetNo.length() + 1, spnAltNo.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvAlternetNo.setText(spnAltNo);
+
+                    }else if(alternate_number_status.equalsIgnoreCase("reject")){
+                        SpannableString spnAltNo = new SpannableString(tvAlternetNo + " Rejected\n\tPlease re-submit the KYC document");
+                        spnAltNo.setSpan(new ForegroundColorSpan(Color.RED),
+                                tvAlternetNo.length() + 2, // start
+                                spnAltNo.length(), // end
+                                spnAltNo.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnAltNo.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvAlternetNo.length() + 1, // start
+                                spnAltNo.length(), // end
+                                spnAltNo.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnAltNo.setSpan(new AbsoluteSizeSpan(15, true), tvAlternetNo.length() + 1, spnAltNo.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvAlternetNo.setText(spnAltNo);
+
+                    }
+
+                    //Documents & Selfie
+                    if(addressproof_status.equalsIgnoreCase("pending") ||
+                            marksheet_status.equalsIgnoreCase("pending") ||
+                            signature_status.equalsIgnoreCase("pending") ||
+                            college_status.equalsIgnoreCase("pending") ||
+                            profilephoto_status.equalsIgnoreCase("pending") ||
+                            profilevideo_status.equalsIgnoreCase("pending") ){
+
+                        SpannableString spnDoc = new SpannableString(tvDocuments + " \tRequest Pending");
+                        spnDoc.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.goldenColor1)),
+                                tvDocuments.length() + 1, // start
+                                spnDoc.length(), // end
+                                spnDoc.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnDoc.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvDocuments.length() + 1, // start
+                                spnDoc.length(), // end
+                                spnDoc.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnDoc.setSpan(new AbsoluteSizeSpan(15, true), tvDocuments.length() + 1, spnDoc.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvDocuments.setText(spnDoc);
+                    }else if(addressproof_status.equalsIgnoreCase("approved") &&
+                            marksheet_status.equalsIgnoreCase("approved") &&
+                            signature_status.equalsIgnoreCase("approved") &&
+                            college_status.equalsIgnoreCase("approved") &&
+                            profilephoto_status.equalsIgnoreCase("approved") &&
+                            profilevideo_status.equalsIgnoreCase("approved") ){
+
+                        SpannableString spnDoc = new SpannableString(tvDocuments + " \tApproved");
+                        spnDoc.setSpan(new ForegroundColorSpan(Color.GREEN),
+                                tvDocuments.length() + 1, // start
+                                spnDoc.length(), // end
+                                spnDoc.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnDoc.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvDocuments.length() + 1, // start
+                                spnDoc.length(), // end
+                                spnDoc.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnDoc.setSpan(new AbsoluteSizeSpan(15, true), tvDocuments.length() + 1, spnDoc.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvDocuments.setText(spnDoc);
+                    }else if(addressproof_status.equalsIgnoreCase("reject") ||
+                            marksheet_status.equalsIgnoreCase("reject") ||
+                            signature_status.equalsIgnoreCase("reject") ||
+                            college_status.equalsIgnoreCase("reject") ||
+                            profilephoto_status.equalsIgnoreCase("reject") ||
+                            profilevideo_status.equalsIgnoreCase("reject") ){
+
+                        SpannableString spnDoc = new SpannableString(tvDocuments + "  Rejected\n\tPlease re-submit the documents");
+                        spnDoc.setSpan(new ForegroundColorSpan(Color.RED),
+                                tvDocuments.length() + 1, // start
+                                spnDoc.length(), // end
+                                spnDoc.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        spnDoc.setSpan(
+                                new StyleSpan(Typeface.BOLD),
+                                tvDocuments.length() + 1, // start
+                                spnDoc.length(), // end
+                                spnDoc.SPAN_EXCLUSIVE_INCLUSIVE
+                        );
+                        spnDoc.setSpan(new AbsoluteSizeSpan(15, true), tvDocuments.length() + 1, spnDoc.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        binding.tvDocuments.setText(spnDoc);
+                    }
+
 
                     // For KYC
                     if(kycstatus.equalsIgnoreCase("pending")){
@@ -122,7 +309,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
 
                     }else if(kycstatus.equalsIgnoreCase("reject")){
                         SpannableString spnKyc = new SpannableString(tvKyc + " Rejected\n\tPlease re-submit the KYC document");
-                        spnKyc.setSpan(new ForegroundColorSpan(Color.GREEN),
+                        spnKyc.setSpan(new ForegroundColorSpan(Color.RED),
                                 tvKyc.length() + 2, // start
                                 spnKyc.length(), // end
                                 spnKyc.SPAN_EXCLUSIVE_INCLUSIVE);
@@ -176,7 +363,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
 
                     }else if(pan_status.equalsIgnoreCase("reject")){
                         SpannableString spnPan = new SpannableString(tvPan + " Rejected\nPlease re-submit the PAN details");
-                        spnPan.setSpan(new ForegroundColorSpan(Color.GREEN),
+                        spnPan.setSpan(new ForegroundColorSpan(Color.RED),
                                 tvPan.length() + 1, // start
                                 spnPan.length(), // end
                                 spnPan.SPAN_EXCLUSIVE_INCLUSIVE);
@@ -231,7 +418,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
 
                     }else if(personal_status.equalsIgnoreCase("reject")){
                         SpannableString spnPersonalDetails = new SpannableString(tvPersonalDetails + " Rejected\nPlease re-submit the Personal details");
-                        spnPersonalDetails.setSpan(new ForegroundColorSpan(Color.GREEN),
+                        spnPersonalDetails.setSpan(new ForegroundColorSpan(Color.RED),
                                 tvPersonalDetails.length() + 1, // start
                                 spnPersonalDetails.length(), // end
                                 spnPersonalDetails.SPAN_EXCLUSIVE_INCLUSIVE);
@@ -285,7 +472,7 @@ public class DetailsListActivity extends AppCompatActivity implements View.OnCli
 
                     }else if(other_details_status.equalsIgnoreCase("reject")){
                         SpannableString spnEmpColDetails = new SpannableString(tvEmploymentDetails + " Rejected\nPlease re-submit the Employment details and College details");
-                        spnEmpColDetails.setSpan(new ForegroundColorSpan(Color.GREEN),
+                        spnEmpColDetails.setSpan(new ForegroundColorSpan(Color.RED),
                                 tvEmploymentDetails.length() + 1, // start
                                 spnEmpColDetails.length(), // end
                                 spnEmpColDetails.SPAN_EXCLUSIVE_INCLUSIVE);
